@@ -3,28 +3,120 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EcoAgriApp — Sanidad vegetal</title>
+<title>Economía Agrícola — Herramientas</title>
 <link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
 <style>
+  * { box-sizing: border-box; }
   html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
-    background: #F4F1EC;
+    min-height: 100%;
+    background: #FAFAF9;
+    font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    color: #262624;
   }
-  iframe {
+  .lienzo {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 20px;
+  }
+  .col {
     width: 100%;
-    height: 100%;
-    border: 0;
-    display: block;
+    max-width: 460px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #9A9A94;
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -.01em;
+    margin: 0 0 40px;
+  }
+  .lista {
+    border-top: 1px solid #E5E4E0;
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 4px;
+    border-bottom: 1px solid #E5E4E0;
+    text-decoration: none;
+    color: inherit;
+    transition: opacity .15s ease;
+  }
+  .item:hover { opacity: .6; }
+  .item-izq { display: flex; gap: 12px; }
+  .punto {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex: none;
+    margin-top: 6px;
+  }
+  .item h2 {
+    font-size: 15.5px;
+    font-weight: 500;
+    margin: 0 0 4px;
+  }
+  .item p {
+    font-size: 12.5px;
+    color: #8A8A84;
+    margin: 0;
+    line-height: 1.5;
+  }
+  .flecha {
+    flex: none;
+    color: #B7B6B0;
+    font-size: 15px;
+  }
+  .pie {
+    margin-top: 32px;
+    font-size: 11.5px;
+    color: #ACABA5;
   }
 </style>
 </head>
 <body>
-<iframe
-  src="https://script.google.com/macros/s/AKfycbxV0BlsXNE5u6eW7Q46RZhh5S2BrrOMyuQ1WMhV5C2-Iat-WHHauQnnfEm-tsbVWs5OsQ/exec"
-  title="EcoAgriApp"
-  allow="clipboard-write"
-></iframe>
+  <div class="lienzo">
+    <div class="col">
+      <p class="eyebrow">Economía Agrícola</p>
+      <h1>Herramientas</h1>
+
+      <div class="lista">
+        <a class="item" href="agriapp/">
+          <span class="item-izq">
+            <span class="punto" style="background:#4F7D3A"></span>
+            <span>
+              <h2>EcoAgriApp</h2>
+              <p>Aplicaciones fitosanitarias, inventario, planeación y costos.</p>
+            </span>
+          </span>
+          <span class="flecha">→</span>
+        </a>
+
+        <a class="item" href="normativa/">
+          <span class="item-izq">
+            <span class="punto" style="background:#2F6D9E"></span>
+            <span>
+              <h2>Gestión Normativa</h2>
+              <p>Registro sanitario ICA por finca: documentos y vencimientos.</p>
+            </span>
+          </span>
+          <span class="flecha">→</span>
+        </a>
+      </div>
+
+      <p class="pie">pasanteagronomia.ecoagri@gmail.com</p>
+    </div>
+  </div>
 </body>
 </html>
