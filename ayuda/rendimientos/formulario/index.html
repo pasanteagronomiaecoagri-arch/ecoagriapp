@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registrar jornada — Rendimientos — Ayuda</title>
+<meta name="description" content="El formulario para registrar lo que hizo un operario en un día.">
+<link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/hub.css">
+<!-- Generado por ecoagri-core/generador. No editar a mano. -->
+</head>
+<body>
+<header class="barra"><div class="barra-fila">
+  <a class="barra-marca" href="../../../">Eco<span>Agri</span> · Herramientas</a>
+  <nav aria-label="Principal">
+    <a href="../../../">Herramientas</a>
+    <a href="../../../ayuda/" aria-current="page">Ayuda</a>
+    <a href="../../../versiones/">Versiones</a>
+  </nav>
+</div></header>
+<main class="lienzo">
+<p class="migas"><a href="../../">Ayuda</a> › <a href="../">Rendimientos</a> › Registrar jornada</p>
+<div class="encabezado"><p class="rotulo">Rendimientos</p><h1>Registrar jornada</h1><p>El formulario para registrar lo que hizo un operario en un día.</p></div>
+<div class="acciones" style="margin-top:16px"><a class="boton principal" href="../../../rendimientos/">Abrir la herramienta</a><a class="boton" href="../../#rendimientos/formulario">Ver en el árbol</a></div>
+<nav class="indice" aria-label="En esta página"><p class="rotulo">En esta página</p><ol><li><a href="#que-hace">Qué hace el formulario</a></li><li><a href="#bloque-de-trabajo">Bloque de trabajo: horario, categoría y actividad</a></li><li><a href="#ubicacion-finca-lote-y-camas">Ubicación: finca, lote y camas</a></li><li><a href="#ultima-cama-y-fraccion">Última cama completa y fracción alcanzada</a></li><li><a href="#cantidad-calidad-y-paquetes">Cantidad, calidades y paquetes</a></li><li><a href="#actividad-secundaria">Actividad secundaria</a></li><li><a href="#como-se-guarda-la-jornada">Cómo se guarda la jornada</a></li></ol></nav>
+<section class="seccion" id="que-hace"><h2><a href="#que-hace">Qué hace el formulario</a></h2><div class="cuerpo"><p>Registra la <b>jornada de un operario en un día</b>: se elige la fecha y el operario, se van agregando bloques de trabajo (cada uno con su horario, su actividad y su ubicación) y al final se guarda el día completo. La lista "Jornada del día" muestra los bloques agregados y el total de horas.</p>
+  <p>Un día sólo admite un operario: para cambiarlo hay que quitar todos los bloques o guardar el día.</p></div></section>
+<section class="seccion" id="bloque-de-trabajo"><h2><a href="#bloque-de-trabajo">Bloque de trabajo: horario, categoría y actividad</a></h2><div class="cuerpo"><p>Cada bloque tiene hora de inicio y hora de fin (de ahí salen las horas del bloque), una <b>categoría</b> y una <b>actividad</b> dentro de esa categoría. Según la actividad elegida, el formulario muestra o esconde las preguntas de ubicación, producto y cantidad (ver <i>Catálogo y reglas</i>).</p></div></section>
+<section class="seccion" id="ubicacion-finca-lote-y-camas"><h2><a href="#ubicacion-finca-lote-y-camas">Ubicación: finca, lote y camas</a></h2><div class="cuerpo"><p>Según la actividad, se pide sólo la finca, la finca y uno o varios lotes completos, o la finca, el lote y las camas puntuales; algunas actividades no piden ubicación. En fincas que no tienen lotes registrados (como un área de poscosecha) no se exige elegir lote.</p>
+  <p>Las camas son opcionales: se puede registrar la labor a nivel de lote sin precisar en qué camas fue. Se elige una cama inicial y una final, o se marca "las camas no fueron seguidas" y se escriben los números separados por espacio o coma; para varias seguidas se admite un rango corto como "11-13".</p></div></section>
+<section class="seccion" id="ultima-cama-y-fraccion"><h2><a href="#ultima-cama-y-fraccion">Última cama completa y fracción alcanzada</a></h2><div class="cuerpo"><p>Si la última cama quedó completa se deja marcada la casilla. Si no, se indica qué parte se alcanzó a hacer: 1/4, mitad (1/2) o 3/4, y esa fracción queda guardada junto al bloque.</p></div></section>
+<section class="seccion" id="cantidad-calidad-y-paquetes"><h2><a href="#cantidad-calidad-y-paquetes">Cantidad, calidades y paquetes</a></h2><div class="cuerpo"><p>Cuando la actividad pide cantidad, se escribe en la unidad que tenga definida (kg, tallos, cajas, litros, etc.). Si el producto tiene calidades, la cantidad se pide <b>desglosada por calidad</b> y el formulario muestra el total.</p>
+  <p>Para cosecha en tallos se puede <b>registrar por paquete</b>: se elige el tamaño del paquete (x10 o x50), se ingresa el número de paquetes y se guarda como número de tallos (paquetes × tamaño).</p></div></section>
+<section class="seccion" id="actividad-secundaria"><h2><a href="#actividad-secundaria">Actividad secundaria</a></h2><div class="cuerpo"><p>Para el caso poco común de dos labores simultáneas en el mismo bloque de horas, se puede añadir una actividad secundaria, con su propia categoría, actividad y cantidad. Se quita con "Quitar actividad secundaria".</p></div></section>
+<section class="seccion" id="como-se-guarda-la-jornada"><h2><a href="#como-se-guarda-la-jornada">Cómo se guarda la jornada</a></h2><div class="cuerpo"><p>Al guardar, se escribe una fila de cabecera en <b>Registros</b> (fecha, operario, número de bloques y total de horas) y una fila por bloque en <b>Actividades</b>, enlazadas por un identificador de registro.</p>
+  <ul>
+    <li><b>Mismo operario y día:</b> si ya existía un registro, no se duplica la cabecera; se suman los bloques y las horas al que había. Sirve cuando el formulario se llena en dos momentos del mismo día.</li>
+    <li><b>Sin cruces de horario:</b> los bloques nuevos no pueden traslaparse entre sí ni con los ya guardados de ese operario y día. Si hay cruce, se rechaza toda la jornada nueva y no se guarda nada.</li>
+    <li><b>Camas salteadas, varios lotes y calidades:</b> se reparten en una fila por tramo, lote o calidad. Las horas quedan completas en cada fila, pero la cantidad se reparte de forma proporcional para no duplicar tallos al sumar por cama.</li>
+  </ul></div></section>
+<div class="navegar"><span></span><a class="boton" href="../../rendimientos/visualizador/">Visualizador de rendimientos →</a></div>
+  <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>
+</main>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consultar aplicaciones — EcoAgriApp — Ayuda</title>
+<meta name="description" content="El histórico completo de aplicaciones, con filtros y calendario semanal.">
+<link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/hub.css">
+<!-- Generado por ecoagri-core/generador. No editar a mano. -->
+</head>
+<body>
+<header class="barra"><div class="barra-fila">
+  <a class="barra-marca" href="../../../">Eco<span>Agri</span> · Herramientas</a>
+  <nav aria-label="Principal">
+    <a href="../../../">Herramientas</a>
+    <a href="../../../ayuda/" aria-current="page">Ayuda</a>
+    <a href="../../../versiones/">Versiones</a>
+  </nav>
+</div></header>
+<main class="lienzo">
+<p class="migas"><a href="../../">Ayuda</a> › <a href="../">EcoAgriApp</a> › Consultar aplicaciones</p>
+<div class="encabezado"><p class="rotulo">EcoAgriApp</p><h1>Consultar aplicaciones</h1><p>El histórico completo de aplicaciones, con filtros y calendario semanal.</p></div>
+<div class="acciones" style="margin-top:16px"><a class="boton principal" href="../../../agriapp/visualizador/">Abrir la herramienta</a><a class="boton" href="../../#agriapp/visualizador">Ver en el árbol</a></div>
+<nav class="indice" aria-label="En esta página"><p class="rotulo">En esta página</p><ol><li><a href="#que-hace">Qué hace y cómo funciona</a></li><li><a href="#codigo-de-grupo-de-accion-rac">Código de grupo de acción (RAC)</a></li><li><a href="#cantidad-estimada-de-ingrediente-activo">Cantidad estimada de ingrediente activo</a></li><li><a href="#calendario-por-semana-y-lote">Calendario por semana y lote</a></li><li><a href="#filtros">Filtros</a></li></ol></nav>
+<section class="seccion" id="que-hace"><h2><a href="#que-hace">Qué hace y cómo funciona</a></h2><div class="cuerpo"><p>Es el histórico completo de aplicaciones. Cruza las tres tablas de eventos (EVENTOS_APLICACION, EVENTOS_LOTES, EVENTOS_PRODUCTOS) con los catálogos de FINCAS, PRODUCTOS e Ingredientes_Activos, y arma una lista de eventos con todo resuelto: nombres en vez de ids, moléculas con sus propiedades, y los lotes y productos de cada aplicación.</p>
+  <p>Toda la información se trae una sola vez al abrir la vista (y queda en caché en el servidor hasta 6 horas, o hasta que alguien registre algo nuevo) y el filtrado ocurre en el navegador, sin volver a consultar la hoja en cada cambio de filtro.</p></div></section>
+<section class="seccion" id="codigo-de-grupo-de-accion-rac"><h2><a href="#codigo-de-grupo-de-accion-rac">Código de grupo de acción (RAC)</a></h2><div class="cuerpo"><p>Cada ingrediente activo tiene un número de grupo (columna Grupo de Ingredientes_Activos), pero ese número por sí solo es ambiguo: el grupo 2 de un herbicida no tiene nada que ver con el grupo 2 de un fungicida. Por eso el código que se muestra siempre lleva una letra delante, según el tipo de la molécula (columna Q): <b>I</b> para insecticidas/acaricidas/nematicidas (sistema IRAC), <b>F</b> para fungicidas/bactericidas (FRAC), <b>H</b> para herbicidas (HRAC). "H2", "I4A" o "F11" son ejemplos de ese código completo, con el subgrupo en letra cuando lo trae la hoja.</p>
+  <p>Sólo se cuentan como ingredientes activos, para efectos de conteos y del esquema de resistencia, las moléculas cuyo tipo sea Insecticida, Herbicida o Fungicida. Fertilizantes, bioestimulantes y coadyuvantes no entran en ese conteo, aunque tengan ficha en Ingredientes_Activos, porque no pertenecen a ningún sistema de clasificación de resistencia.</p></div></section>
+<section class="seccion" id="cantidad-estimada-de-ingrediente-activo"><h2><a href="#cantidad-estimada-de-ingrediente-activo">Cantidad estimada de ingrediente activo</a></h2><div class="cuerpo"><p>Cuando la ficha de una molécula trae su concentración, se estima cuánto ingrediente activo puso esa aplicación: la dosis registrada del producto se multiplica por la concentración, convirtiendo antes las dos a la misma base (volumen o masa). Es una estimación aritmética a partir de lo que se registró, no una medición ni un análisis de laboratorio.</p></div></section>
+<section class="seccion" id="calendario-por-semana-y-lote"><h2><a href="#calendario-por-semana-y-lote">Calendario por semana y lote</a></h2><div class="cuerpo"><p>Agrupa las aplicaciones de cada lote por semana ISO (la semana empieza el lunes, y la semana 1 del año es la que contiene el primer jueves) y muestra los códigos de grupo RAC de cada aplicación en esa celda. Sirve para ver de un vistazo si un lote está rotando el modo de acción o si está repitiendo el mismo grupo aplicación tras aplicación.</p></div></section>
+<section class="seccion" id="filtros"><h2><a href="#filtros">Filtros</a></h2><div class="cuerpo"><p>Por finca, lote, producto, ingrediente activo, tipo, grupo RAC, un cuadro de texto libre (busca en nombre de producto, molécula, lote y observación) y un rango de fechas. Todos los filtros se combinan entre sí (intersección, no unión): un resultado tiene que cumplir todos los que estén activos.</p></div></section>
+<div class="navegar"><a class="boton" href="../../agriapp/formulario/">← Registrar aplicación</a><a class="boton" href="../../agriapp/rotacion/">Rotación →</a></div>
+  <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>
+</main>
+</body>
+</html>

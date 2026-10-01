@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Costos de aplicación — EcoAgriApp — Ayuda</title>
+<meta name="description" content="Estimación del gasto fitosanitario, por producto o por finca/lote.">
+<link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/hub.css">
+<!-- Generado por ecoagri-core/generador. No editar a mano. -->
+</head>
+<body>
+<header class="barra"><div class="barra-fila">
+  <a class="barra-marca" href="../../../">Eco<span>Agri</span> · Herramientas</a>
+  <nav aria-label="Principal">
+    <a href="../../../">Herramientas</a>
+    <a href="../../../ayuda/" aria-current="page">Ayuda</a>
+    <a href="../../../versiones/">Versiones</a>
+  </nav>
+</div></header>
+<main class="lienzo">
+<p class="migas"><a href="../../">Ayuda</a> › <a href="../">EcoAgriApp</a> › Costos de aplicación</p>
+<div class="encabezado"><p class="rotulo">EcoAgriApp</p><h1>Costos de aplicación</h1><p>Estimación del gasto fitosanitario, por producto o por finca/lote.</p></div>
+<div class="acciones" style="margin-top:16px"><a class="boton principal" href="../../../agriapp/costos/">Abrir la herramienta</a><a class="boton" href="../../#agriapp/costos">Ver en el árbol</a></div>
+<nav class="indice" aria-label="En esta página"><p class="rotulo">En esta página</p><ol><li><a href="#que-hace">Qué hace y cómo funciona</a></li><li><a href="#cadena-de-calculo-evento-por-evento">Cadena de cálculo, evento por evento</a></li><li><a href="#analisis-avanzado">Análisis avanzado</a></li></ol></nav>
+<section class="seccion" id="que-hace"><h2><a href="#que-hace">Qué hace y cómo funciona</a></h2><div class="cuerpo"><p>Es una <b>estimación</b>, no contabilidad: depende de que el área, la dosis y los precios estén bien registrados. Sirve para ver en qué se va el presupuesto fitosanitario, no para cuadrar con facturas.</p></div></section>
+<section class="seccion" id="cadena-de-calculo-evento-por-evento"><h2><a href="#cadena-de-calculo-evento-por-evento">Cadena de cálculo, evento por evento</a></h2><div class="cuerpo"><ol>
+    <li><b>Forma de aplicación del evento.</b> Se lee de su columna Forma_Aplicacion; si el evento es de antes de que esa columna existiera, se busca la palabra "drench" en la observación (así quedaban marcados antes) y, si no aparece ninguna pista, el evento se trata como "convencional genérico" —no hay forma de saber si fue lanza o aguilón, así que no se adivina.</li>
+    <li><b>Agua.</b> El mismo cálculo de tres niveles que usa Planeación (grupo real completo → tasa real del grupo → promedio de respaldo), aplicado sobre los lotes que de verdad intervino ese evento histórico.</li>
+    <li><b>Cantidad de producto usada.</b> La dosis registrada en EVENTOS_PRODUCTOS por el factor de su unidad (por caneca, por hectárea o por litro), igual que en Planeación.</li>
+    <li><b>Precio.</b> PRODUCTOS trae hasta cinco proveedores, cada uno con su precio y su presentación comercial (por ejemplo, "1 LB" o "Litro"). Cada presentación se convierte a precio por mililitro o por gramo, y se usa el proveedor más barato entre los que miden lo mismo que la dosis (no se puede costear un producto dosificado en gramos contra un precio por mililitro sin conocer su densidad, así que esa combinación se descarta en vez de inventar una equivalencia). Un precio por unidad fuera de un rango razonable (entre 5 y 2.000 pesos por mL o por g) se descarta también: casi siempre indica una presentación mal escrita en la hoja.</li>
+    <li><b>Costo</b> = cantidad usada × precio por unidad del proveedor elegido.</li>
+  </ol>
+  <p>La insignia de color junto al nombre de cada producto indica de dónde sale el precio usado: verde cuando hay varios proveedores que se pudieron comparar (el detalle completo aparece al pasar el mouse), rojo cuando sólo hay uno.</p>
+  <p>Al hacer clic en cualquier importe de la tabla se abre el desglose de esa celda: una fila por cada aplicación que aportó a ese número, con el evento, la finca y los lotes, la forma de aplicación (con su insignia de dos letras), cuánta agua se usó, la dosis, cuánto producto se gastó y a qué precio. La suma de esas filas siempre coincide exactamente con el importe de la celda.</p></div></section>
+<section class="seccion" id="analisis-avanzado"><h2><a href="#analisis-avanzado">Análisis avanzado</a></h2><div class="cuerpo"><p>Es un cálculo aparte, no una vista distinta del mismo número: en vez de agrupar por producto, agrupa por finca o por lote, y permite marcar lotes de varias fincas a la vez (la tabla principal, en cambio, filtra dentro de una sola finca elegida). También admite filtrar por cultivo, a partir de una tabla de FINCAS que asocia el prefijo del código de lote con un cultivo (por ejemplo, los lotes que empiezan en "R" son de ruscus): al marcar uno o más cultivos, la lista de fincas/lotes de abajo se achica para mostrar únicamente los que pertenecen a esos cultivos (una finca que se quede sin ningún lote visible se oculta entera); sin ningún cultivo marcado, se ven todos. Marcar un cultivo sólo cambia qué se ve en la lista, no selecciona nada por sí solo ni desmarca lo que ya se había elegido.</p>
+  <p>Cuando un evento involucra varios lotes, su costo se reparte entre ellos en proporción al área de cada uno —es coherente con que la dosis se calculó pareja sobre toda la mezcla, no una estimación aparte—. El costo por finca, en cambio, no se reparte: un evento siempre pertenece a una sola finca. Con esos totales se calcula el costo por hectárea y por metro cuadrado de cada finca o lote.</p>
+  <p>El gráfico (barras, pastel o líneas por período) no se limita al costo total: el selector "Medir" también permite verlo por costo por hectárea, costo por m², hectáreas aplicadas o cantidad de aplicaciones. En barras y pastel, el "top 12" que se grafica cambia según esa métrica (las 12 fincas/lotes con más de lo que se esté midiendo, no siempre las más costosas). En el gráfico, cada lote se identifica con el id de su finca (columna A de FINCAS) delante del id del lote, porque el mismo código de lote existe en más de una finca.</p>
+  <p>Igual que en la tabla principal, al hacer clic en el costo de una finca o de un lote (o en su barra o porción en el gráfico de barras o pastel) se abre su desglose: una fila por cada aplicación que aportó a ese total, con la fecha, el área, la forma de aplicación, el agua usada y el costo de esa aplicación — colapsada por defecto. Al pulsarla se despliega, debajo, una línea por cada producto de esa aplicación con su nombre, dosis, cantidad usada, precio (con el mismo asterisco de la tabla principal para saber de qué proveedor sale) y cuánto aportó ese producto al costo. Cuando el desglose es de un lote y el evento repartió el costo entre varios lotes, la cantidad y el costo de cada producto también quedan repartidos en la misma proporción que el costo total de ese lote.</p>
+  <p>El período (Desde/Hasta) y la agrupación temporal empiezan copiados del panel de filtros principal, pero se pueden cambiar aparte dentro del análisis avanzado sin afectar ni tener que recalcular la tabla principal — son dos cálculos independientes que sólo comparten el punto de partida.</p></div></section>
+<div class="navegar"><a class="boton" href="../../agriapp/inventario/">← Inventario</a><a class="boton" href="../../agriapp/reportes/">Reportes de asistencia técnica →</a></div>
+  <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>
+</main>
+</body>
+</html>

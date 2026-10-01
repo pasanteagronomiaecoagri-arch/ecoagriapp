@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ayuda — Eco Agri</title>
+<meta name="description" content="Ayuda de EcoAgriApp, Gestión Normativa (ICA) y Rendimientos.">
+<link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/hub.css">
+<!-- Generado por ecoagri-core/generador. No editar a mano. -->
+</head>
+<body>
+<header class="barra"><div class="barra-fila">
+  <a class="barra-marca" href="../">Eco<span>Agri</span> · Herramientas</a>
+  <nav aria-label="Principal">
+    <a href="../">Herramientas</a>
+    <a href="../ayuda/" aria-current="page">Ayuda</a>
+    <a href="../versiones/">Versiones</a>
+  </nav>
+</div></header>
+<main class="lienzo">
+<div class="encabezado">
+  <p class="rotulo">Eco Agri · Ayuda</p>
+  <h1>Cómo funciona cada herramienta</h1>
+  <p>Elija una aplicación y vaya abriendo ramas hasta llegar a la función que le interesa: cada una enlaza a su descripción detallada.</p>
+</div>
+<div class="controles">
+  <input class="buscar" id="buscar" type="search" placeholder="Buscar una función (p. ej. semáforo, renovación, camas)…" aria-label="Buscar en la ayuda" autocomplete="off">
+  <button type="button" class="boton" id="expandir">Expandir todo</button>
+  <button type="button" class="boton" id="contraer">Contraer todo</button>
+</div>
+<p class="conteo" id="conteo" role="status" aria-live="polite"></p>
+<ul class="arbol" id="arbol">
+<li class="nodo app" style="--c:#4F7D3A">
+  <button type="button" class="nodo-btn" id="n-agriapp" data-ruta="agriapp" aria-expanded="false" aria-controls="c-agriapp">
+    <span class="punto" aria-hidden="true"></span>
+    <span class="textos"><span class="tit">EcoAgriApp</span><span class="res">Sanidad vegetal: aplicaciones fitosanitarias, rotación de modos de acción, inventario, planeación y costos.</span></span>
+    <span class="num">8 herramientas · 29 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-agriapp" hidden>
+    <div class="acciones"><a class="boton principal" href="../agriapp/">Abrir EcoAgriApp</a><a class="boton" href="agriapp/">Qué es y cómo se organiza</a></div>
+    <ul>
+<li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-agriapp-hub" data-ruta="agriapp/hub" aria-expanded="false" aria-controls="c-agriapp-hub">
+    <span class="textos"><span class="tit">Inicio</span><span class="res">El punto de partida: estado de los datos y acceso a las demás herramientas.</span></span>
+    <span class="num">1 función</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-agriapp-hub" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Ver de un vistazo si los datos están actualizados o si hay avisos críticos pendientes.</li><li>Entrar a cualquiera de las otras ocho pantallas.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../agriapp/">Abrir la herramienta</a><a class="boton" href="agriapp/hub/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="agriapp/hub/#que-hace"><b>Qué hace el Inicio</b><span class="res">El punto de partida: estado de los datos y acceso a las demás herramientas.</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-agriapp-formulario" data-ruta="agriapp/formulario" aria-expanded="false" aria-controls="c-agriapp-formulario">
+    <span class="textos"><span class="tit">Registrar aplicación</span><span class="res">Dejar constancia de una aplicación ya realizada en campo.</span></span>
+    <span class="num">5 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-agriapp-formulario" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Registrar fecha, finca, lotes, forma de aplicación, mezcla de productos y observaciones.</li><li>Ver el aviso si la dosis no coincide con la formulación del producto.</li><li>Guardar con su código de registro si no tiene correo de editor.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../agriapp/formulario/">Abrir la herramienta</a><a class="boton" href="agriapp/formulario/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="agriapp/formulario/#que-hace"><b>Qué hace y cómo funciona</b><span class="res">Dejar constancia de una aplicación ya realizada en campo.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/formulario/#forma-de-aplicacion"><b>Forma de aplicación</b><span class="res">Hay cinco: Lanza, Aguilón, Drench (Poma Roja), Drench (Venturi) e Inyección.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/formulario/#area-aplicada"><b>Área aplicada</b><span class="res">Se calcula sumando el área registrada (columna N de FINCAS) de todos los lotes marcados, y se guarda en hectáreas junto con el evento.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/formulario/#aviso-de-dosis-contra-formulacion"><b>Aviso de dosis contra formulación</b><span class="res">No impide guardar, sólo advierte. Compara la formulación del producto elegido (columna H de PRODUCTOS: WP, EC, SL, GR...) contra una tabla de FINCAS que dice si esa…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/formulario/#quien-puede-registrar"><b>Quién puede registrar</b><span class="res">Consultar el histórico es público; guardar no.</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-agriapp-visualizador" data-ruta="agriapp/visualizador" aria-expanded="false" aria-controls="c-agriapp-visualizador">
+    <span class="textos"><span class="tit">Consultar aplicaciones</span><span class="res">El histórico completo de aplicaciones, con filtros y calendario semanal.</span></span>
+    <span class="num">5 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-agriapp-visualizador" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Filtrar por finca, lote, producto, ingrediente activo, tipo, grupo RAC, texto libre o rango de fechas.</li><li>Ver el calendario por semana y lote con los códigos de grupo de cada aplicación.</li><li>Consultar la cantidad estimada de ingrediente activo aplicado.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../agriapp/visualizador/">Abrir la herramienta</a><a class="boton" href="agriapp/visualizador/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="agriapp/visualizador/#que-hace"><b>Qué hace y cómo funciona</b><span class="res">El histórico completo de aplicaciones, con filtros y calendario semanal.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/visualizador/#codigo-de-grupo-de-accion-rac"><b>Código de grupo de acción (RAC)</b><span class="res">Cada ingrediente activo tiene un número de grupo (columna Grupo de Ingredientes_Activos), pero ese número por sí solo es ambiguo: el grupo 2 de un herbicida no tiene…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/visualizador/#cantidad-estimada-de-ingrediente-activo"><b>Cantidad estimada de ingrediente activo</b><span class="res">Cuando la ficha de una molécula trae su concentración, se estima cuánto ingrediente activo puso esa aplicación: la dosis registrada del producto se multiplica por la…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/visualizador/#calendario-por-semana-y-lote"><b>Calendario por semana y lote</b><span class="res">Agrupa las aplicaciones de cada lote por semana ISO (la semana empieza el lunes, y la semana 1 del año es la que contiene el primer jueves) y muestra los códigos de…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/visualizador/#filtros"><b>Filtros</b><span class="res">Por finca, lote, producto, ingrediente activo, tipo, grupo RAC, un cuadro de texto libre (busca en nombre de producto, molécula, lote y observación) y un rango de fechas.</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-agriapp-rotacion" data-ruta="agriapp/rotacion" aria-expanded="false" aria-controls="c-agriapp-rotacion">
+    <span class="textos"><span class="tit">Rotación</span><span class="res">Qué modo de acción recibió cada lote, semana a semana, y qué aplicar a continuación.</span></span>
+    <span class="num">3 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-agriapp-rotacion" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Elegir lotes de una o varias fincas a la vez y consultar su rotación de grupos.</li><li>Encender el semáforo para ver el riesgo de repetir un mismo grupo demasiado seguido.</li><li>Pedir una sugerencia de qué aplicar a continuación, lote por lote.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../agriapp/rotacion/">Abrir la herramienta</a><a class="boton" href="agriapp/rotacion/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="agriapp/rotacion/#que-hace"><b>Qué hace y cómo funciona</b><span class="res">Qué modo de acción recibió cada lote, semana a semana, y qué aplicar a continuación.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/rotacion/#semaforo"><b>Semáforo</b><span class="res">Apagado por defecto; al encenderlo no vuelve a consultar la hoja, sólo revisa los datos que ya trajo la última consulta.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/rotacion/#sugerir-aplicacion"><b>Sugerir aplicación</b><span class="res">Da una recomendación de qué aplicar a continuación, lote por lote (uno de los lotes marcados en el filtro, no un resultado combinado).</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-agriapp-planeacion" data-ruta="agriapp/planeacion" aria-expanded="false" aria-controls="c-agriapp-planeacion">
+    <span class="textos"><span class="tit">Planear aplicación</span><span class="res">Calculadora de vista previa: cuánta agua y producto preparar antes de salir a campo.</span></span>
+    <span class="num">5 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-agriapp-planeacion" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Marcar lotes y productos y ver al instante cuánta agua y cuánto de cada producto hace falta.</li><li>Ver el orden recomendado para mezclar los productos en el tanque.</li><li>Recibir un aviso si dos productos de la mezcla comparten grupo de acción.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../agriapp/planeacion/">Abrir la herramienta</a><a class="boton" href="agriapp/planeacion/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="agriapp/planeacion/#que-hace"><b>Qué hace y cómo funciona</b><span class="res">Calculadora de vista previa: cuánta agua y producto preparar antes de salir a campo.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/planeacion/#cuanta-agua-hace-falta"><b>Cuánta agua hace falta</b><span class="res">El área es la suma de los lotes marcados.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/planeacion/#orden-de-mezcla-en-el-tanque"><b>Orden de mezcla en el tanque</b><span class="res">Cada producto tiene una categoría (su Tipo, o si no aparece en la tabla, su formulación) que se busca en una tabla de prioridad de FINCAS.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/planeacion/#cantidad-de-cada-producto"><b>Cantidad de cada producto</b><span class="res">La dosis recomendada de PRODUCTOS se multiplica por el factor que corresponda a la unidad en que está anotada: por hectárea (dosis × hectáreas totales), por caneca…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/planeacion/#aviso-de-resistencia"><b>Aviso de resistencia</b><span class="res">Si dos productos de la mezcla comparten el mismo código de grupo de acción (el mismo &quot;H2&quot;, por ejemplo), aparece un aviso: combinarlos no aporta control adicional…</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-agriapp-inventario" data-ruta="agriapp/inventario" aria-expanded="false" aria-controls="c-agriapp-inventario">
+    <span class="textos"><span class="tit">Inventario</span><span class="res">El último conteo de existencias en bodega, y cómo levantar uno nuevo.</span></span>
+    <span class="num">4 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-agriapp-inventario" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Consultar el conteo vigente, con búsqueda y descarga en PDF.</li><li>Levantar un conteo nuevo, con autoguardado de borrador por si se interrumpe.</li><li>Registrar el código de barras de un producto escaneándolo con la cámara.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../agriapp/inventario/">Abrir la herramienta</a><a class="boton" href="agriapp/inventario/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="agriapp/inventario/#que-hace"><b>Qué hace y cómo funciona</b><span class="res">El último conteo de existencias en bodega, y cómo levantar uno nuevo.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/inventario/#productos-fuera-de-catalogo"><b>Productos contados y productos fuera de catálogo</b><span class="res">Cada producto contado se busca por su nombre (no por id) en el catálogo de PRODUCTOS, para traerle su tipo y sus ingredientes activos con el mismo código de grupo que…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/inventario/#historial-de-conteos"><b>Historial de conteos en PDF</b><span class="res">Antes de reemplazar el conteo vigente, se exporta su estado actual a PDF (el mismo formato de &quot;Descargar PDF&quot;) y se sube a la carpeta de Drive &quot;Historial de Inventarios&quot;.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/inventario/#codigo-de-barras"><b>Código de barras</b><span class="res">Al escribir un producto que ya existe en el catálogo, si todavía no tiene un código de barras registrado (columna &quot;Código&quot; de PRODUCTOS) aparece un botón &quot;Escanear&quot;…</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-agriapp-costos" data-ruta="agriapp/costos" aria-expanded="false" aria-controls="c-agriapp-costos">
+    <span class="textos"><span class="tit">Costos de aplicación</span><span class="res">Estimación del gasto fitosanitario, por producto o por finca/lote.</span></span>
+    <span class="num">3 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-agriapp-costos" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Ver el costo estimado por producto, con el desglose de cada aplicación que lo compone.</li><li>Abrir el análisis avanzado: costo por finca o por lote, con varias fincas a la vez.</li><li>Elegir qué medir en el gráfico (costo, costo por hectárea, por m², hectáreas o aplicaciones) y exportar a CSV.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../agriapp/costos/">Abrir la herramienta</a><a class="boton" href="agriapp/costos/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="agriapp/costos/#que-hace"><b>Qué hace y cómo funciona</b><span class="res">Estimación del gasto fitosanitario, por producto o por finca/lote.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/costos/#cadena-de-calculo-evento-por-evento"><b>Cadena de cálculo, evento por evento</b><span class="res">La insignia de color junto al nombre de cada producto indica de dónde sale el precio usado: verde cuando hay varios proveedores que se pudieron comparar (el detalle…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/costos/#analisis-avanzado"><b>Análisis avanzado</b><span class="res">Es un cálculo aparte, no una vista distinta del mismo número: en vez de agrupar por producto, agrupa por finca o por lote, y permite marcar lotes de varias fincas a…</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-agriapp-reportes" data-ruta="agriapp/reportes" aria-expanded="false" aria-controls="c-agriapp-reportes">
+    <span class="textos"><span class="tit">Reportes de asistencia técnica</span><span class="res">El PDF de asistencia técnica de una finca, listo para firmar.</span></span>
+    <span class="num">3 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-agriapp-reportes" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Elegir finca y rango de fechas, con un conteo previo de cuántas aplicaciones incluirá.</li><li>Generar el PDF con una página por semana, en el mismo formato del programa en papel.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../agriapp/reportes/">Abrir la herramienta</a><a class="boton" href="agriapp/reportes/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="agriapp/reportes/#que-hace"><b>Qué hace y cómo funciona</b><span class="res">El PDF de asistencia técnica de una finca, listo para firmar.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/reportes/#paginas-por-semana"><b>Páginas por semana y bloques de aplicación</b><span class="res">Cada aplicación se imprime como un bloque con una fila por producto de la mezcla, en el mismo orden en que se guardaron en EVENTOS_PRODUCTOS.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="agriapp/reportes/#origen-de-los-datos"><b>De dónde salen los datos</b><span class="res">Los datos vienen de las mismas hojas que el visualizador (EVENTOS_APLICACION, EVENTOS_LOTES, EVENTOS_PRODUCTOS y PRODUCTOS), filtrados por la finca y el rango de…</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li>
+    </ul>
+  </div>
+</li><li class="nodo app" style="--c:#2F6D9E">
+  <button type="button" class="nodo-btn" id="n-normativa" data-ruta="normativa" aria-expanded="false" aria-controls="c-normativa">
+    <span class="punto" aria-hidden="true"></span>
+    <span class="textos"><span class="tit">Gestión Normativa (ICA)</span><span class="res">Cumplimiento de la Resolución ICA 2191/2024: documentos por finca y grupo, estados y avisos de vencimiento.</span></span>
+    <span class="num">8 herramientas · 38 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-normativa" hidden>
+    <div class="acciones"><a class="boton principal" href="../normativa/">Abrir Gestión Normativa (ICA)</a><a class="boton" href="normativa/">Qué es y cómo se organiza</a></div>
+    <ul>
+<li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-normativa-inicio" data-ruta="normativa/inicio" aria-expanded="false" aria-controls="c-normativa-inicio">
+    <span class="textos"><span class="tit">Inicio</span><span class="res">Estado normativo de todas las fincas y acceso a cada ficha.</span></span>
+    <span class="num">4 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-normativa-inicio" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Ver cuántos documentos están vencidos o por vencer.</li><li>Entrar a la ficha de una finca o de un grupo.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../normativa/">Abrir la herramienta</a><a class="boton" href="normativa/inicio/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="normativa/inicio/#que-hace"><b>Qué hace el Inicio</b><span class="res">Estado normativo de todas las fincas y acceso a cada ficha.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/inicio/#indicadores-y-alertas"><b>Indicadores y alertas pendientes</b><span class="res">Una franja de indicadores cuenta los documentos vencidos y por vencer , y debajo se listan las alertas agrupadas por urgencia.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/inicio/#acceso-por-finca"><b>Acceso por finca y por grupo</b><span class="res">Las fincas se listan agrupadas por grupo empresarial.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/inicio/#responsable-y-version"><b>Responsable y versión</b><span class="res">El pie del inicio muestra quién elabora el sistema (nombre y correo de contacto) y la versión instalada.</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-normativa-sesion" data-ruta="normativa/sesion" aria-expanded="false" aria-controls="c-normativa-sesion">
+    <span class="textos"><span class="tit">Acceso y sesión</span><span class="res">Quién puede escribir datos: usuario y contraseña, sesión de 6 horas.</span></span>
+    <span class="num">3 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-normativa-sesion" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Iniciar y cerrar sesión.</li><li>Crear usuarios nuevos.</li></ul>
+    <div class="acciones"><a class="boton" href="normativa/sesion/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="normativa/sesion/#que-hace"><b>Cómo funciona el acceso</b><span class="res">Quién puede escribir datos: usuario y contraseña, sesión de 6 horas.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/sesion/#iniciar-sesion"><b>Iniciar y cerrar sesión</b><span class="res">Se entra con usuario y contraseña. El usuario no distingue mayúsculas; la contraseña sí.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/sesion/#crear-usuarios"><b>Crear usuarios</b><span class="res">Es un equipo pequeño y de confianza, por eso no hay un rol de administrador: cualquier usuario con sesión puede crear otro (usuario, contraseña y nombre).</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-normativa-finca" data-ruta="normativa/finca" aria-expanded="false" aria-controls="c-normativa-finca">
+    <span class="textos"><span class="tit">Ficha de finca</span><span class="res">El expediente ICA de un lugar de producción: datos del predio, documentos y verificaciones.</span></span>
+    <span class="num">6 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-normativa-finca" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Editar los datos del predio.</li><li>Ver el estado de cada documento exigido.</li><li>Registrar la capacitación mensual y la verificación de infraestructura.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../normativa/">Abrir la herramienta</a><a class="boton" href="normativa/finca/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="normativa/finca/#que-hace"><b>Qué hace la ficha de finca</b><span class="res">El expediente ICA de un lugar de producción: datos del predio, documentos y verificaciones.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/finca/#datos-del-predio"><b>Datos del predio</b><span class="res">Se pueden editar: nombre del lugar de producción, área sembrada (ha), especies cultivadas, ubicación (vereda/municipio/departamento), coordenadas, capacidad, tipo de…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/finca/#documentos-del-lugar-de-produccion"><b>Documentos del lugar de producción (Art. 5 y 11)</b><span class="res">Cada finca lleva estos documentos, uno por línea con su estado:</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/finca/#registros-periodicos"><b>Informe trimestral, monitoreo y conteo de trips</b><span class="res">Son documentos que se repiten en el tiempo: cada entrega es un registro nuevo y se conserva todo el histórico.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/finca/#capacitacion-del-personal"><b>Capacitación del personal (Art. 11.1.11)</b><span class="res">Registro mensual de la capacitación fitosanitaria: se presenta como una cuadrícula de los 12 meses del año en curso , con un soporte (archivo) por mes.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/finca/#infraestructura"><b>Infraestructura (Art. 5.3)</b><span class="res">Es una lista de verificación de 12 ítems de la visita técnica del ICA: área de cultivo señalizada, manejo de residuos vegetales, almacenamiento de insumos, área bajo…</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-normativa-grupo" data-ruta="normativa/grupo" aria-expanded="false" aria-controls="c-normativa-grupo">
+    <span class="textos"><span class="tit">Ficha de grupo empresarial</span><span class="res">Datos generales, asistente técnico y documentos que heredan todas las fincas del grupo.</span></span>
+    <span class="num">5 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-normativa-grupo" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Editar los datos generales y del asistente técnico.</li><li>Activar el Registro de Importador.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../normativa/">Abrir la herramienta</a><a class="boton" href="normativa/grupo/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="normativa/grupo/#que-hace"><b>Qué hace la ficha de grupo</b><span class="res">Datos generales, asistente técnico y documentos que heredan todas las fincas del grupo.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/grupo/#datos-generales"><b>Datos generales (Art. 4)</b><span class="res">Se editan: razón social, NIT, dirección, teléfono y correo, y los datos del asistente técnico (nombre, profesión, tarjeta profesional y fecha de la tarjeta).</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/grupo/#documentos-del-grupo"><b>Documentos del grupo</b><span class="res">Art. 4 — Inscripción en SimplifICA. Es un único registro sin archivo: sólo se deja constancia con la fecha de expedición (la de hoy si no se indica otra).</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/grupo/#registro-de-importador"><b>Registro de Importador: &quot;No aplica&quot; y activación</b><span class="res">Si el grupo no importa, el Registro de Importador aparece como No aplica y no genera alertas.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/grupo/#fincas-del-grupo"><b>Fincas del grupo</b><span class="res">Lista las fincas que pertenecen al grupo, cada una con acceso directo a su ficha.</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-normativa-documentos" data-ruta="normativa/documentos" aria-expanded="false" aria-controls="c-normativa-documentos">
+    <span class="textos"><span class="tit">Documentos y archivos</span><span class="res">Cómo se suben, reemplazan, corrigen y eliminan los documentos.</span></span>
+    <span class="num">8 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-normativa-documentos" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Subir arrastrando el archivo.</li><li>Reemplazar sin perder el anterior.</li><li>Iniciar una renovación del Art. 9.</li></ul>
+    <div class="acciones"><a class="boton" href="normativa/documentos/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="normativa/documentos/#que-hace"><b>Qué hace esta parte</b><span class="res">Cómo se suben, reemplazan, corrigen y eliminan los documentos.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/documentos/#subir-documento"><b>Subir un documento</b><span class="res">Se elige el archivo o se arrastra y suelta sobre la zona indicada.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/documentos/#reemplazar-documento"><b>Reemplazar un documento</b><span class="res">Sube la versión nueva en el mismo lugar: el registro pasa a la versión siguiente y el archivo anterior no se borra, se mueve a una subcarpeta Reemplazados dentro de…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/documentos/#editar-fechas"><b>Editar fechas</b><span class="res">Permite corregir la fecha de expedición y la de vencimiento de un documento ya subido, sin volver a subir el archivo.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/documentos/#eliminar-documento"><b>Eliminar un documento</b><span class="res">Nunca se borra de verdad: si tenía archivo, se mueve a Reemplazados .</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/documentos/#registro-sin-archivo-o-con-enlace"><b>Registros sin archivo y con enlace</b><span class="res">Dos tipos no piden archivo. La inscripción en SimplifICA sólo deja constancia con una fecha.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/documentos/#iniciar-renovacion"><b>Iniciar una renovación (Art. 9)</b><span class="res">El Registro del Lugar de Producción y el Registro de Sanidad Vegetal del asistente técnico muestran un botón Iniciar renovación cuando están por vencer o vencidos.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/documentos/#confirmaciones-de-acciones"><b>Confirmación de las acciones</b><span class="res">Cada vez que una acción de escritura sale bien (subir, reemplazar, eliminar, editar fechas, guardar un enlace, activar o renovar un registro) aparece un aviso breve…</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-normativa-estados" data-ruta="normativa/estados" aria-expanded="false" aria-controls="c-normativa-estados">
+    <span class="textos"><span class="tit">Estados y alertas</span><span class="res">Cómo se decide si un documento está vigente, por vencer o vencido.</span></span>
+    <span class="num">5 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-normativa-estados" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Entender los cinco estados.</li><li>Ver cómo cambia el cálculo según el tipo de documento.</li></ul>
+    <div class="acciones"><a class="boton" href="normativa/estados/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="normativa/estados/#que-hace"><b>Qué hace esta parte</b><span class="res">Cómo se decide si un documento está vigente, por vencer o vencido.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/estados/#los-cinco-estados"><b>Los cinco estados</b><span class="res">Pendiente — todavía no hay un documento válido.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/estados/#documentos-que-reemplazan"><b>Documentos que se reemplazan</b><span class="res">Hay a lo sumo un documento vigente por finca o grupo; los anteriores son historial.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/estados/#documentos-periodicos"><b>Documentos que se acumulan</b><span class="res">Informe trimestral, monitoreo y trips no tienen un vencimiento fijo: cada entrega es un registro nuevo y el estado se calcula contra el próximo corte esperado desde…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/estados/#capacitacion-mensual"><b>Capacitación mensual por mes calendario</b><span class="res">Aquí no importa el día en que se subió el archivo.</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-normativa-avisos" data-ruta="normativa/avisos" aria-expanded="false" aria-controls="c-normativa-avisos">
+    <span class="textos"><span class="tit">Avisos automáticos</span><span class="res">Correo diario y eventos en Google Calendar antes de cada vencimiento.</span></span>
+    <span class="num">4 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-normativa-avisos" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Saber cuándo llega el correo-resumen.</li><li>Saber con cuánta anticipación avisa Calendar.</li></ul>
+    <div class="acciones"><a class="boton" href="normativa/avisos/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="normativa/avisos/#que-hace"><b>Qué hace esta parte</b><span class="res">Correo diario y eventos en Google Calendar antes de cada vencimiento.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/avisos/#correo-resumen-diario"><b>Correo-resumen diario</b><span class="res">Cada día, alrededor de las 7 de la mañana, se envía un correo a los destinatarios configurados.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/avisos/#avisos-en-google-calendar"><b>Avisos en Google Calendar</b><span class="res">Para cada obligación pendiente se crea un evento de día completo en el calendario principal del dueño del proyecto, con la anticipación que corresponda a cada tipo de…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/avisos/#escalamiento-diario-de-trips"><b>Escalamiento diario del conteo de trips</b><span class="res">El conteo semanal de trips tiene un tratamiento especial: además del aviso previo, mientras esté vencido se crea un evento nuevo cada día.</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-normativa-drive" data-ruta="normativa/drive" aria-expanded="false" aria-controls="c-normativa-drive">
+    <span class="textos"><span class="tit">Organización en Drive</span><span class="res">Dónde quedan los archivos y cómo se nombran.</span></span>
+    <span class="num">3 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-normativa-drive" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Ubicar un documento directamente en Drive.</li></ul>
+    <div class="acciones"><a class="boton" href="normativa/drive/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="normativa/drive/#que-hace"><b>Qué hace esta parte</b><span class="res">Dónde quedan los archivos y cómo se nombran.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/drive/#estructura-de-carpetas"><b>Estructura de carpetas</b><span class="res">Dentro de la carpeta raíz del proyecto, la ruta es: Grupo / (Compartido - grupo | Por finca / Finca) / (Permanente | Vence) .</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/drive/#nombres-estandarizados"><b>Nombres de archivo estandarizados</b><span class="res">El nombre se arma como FINCA o GRUPO + numeral normativo + código del tipo + sufijo , conservando la extensión original.</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li>
+    </ul>
+  </div>
+</li><li class="nodo app" style="--c:#C9A227">
+  <button type="button" class="nodo-btn" id="n-rendimientos" data-ruta="rendimientos" aria-expanded="false" aria-controls="c-rendimientos">
+    <span class="punto" aria-hidden="true"></span>
+    <span class="textos"><span class="tit">Rendimientos</span><span class="res">Labores de campo: registro diario por operario y análisis de horas y cosecha.</span></span>
+    <span class="num">3 herramientas · 16 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-rendimientos" hidden>
+    <div class="acciones"><a class="boton principal" href="../rendimientos/">Abrir Rendimientos</a><a class="boton" href="rendimientos/">Qué es y cómo se organiza</a></div>
+    <ul>
+<li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-rendimientos-formulario" data-ruta="rendimientos/formulario" aria-expanded="false" aria-controls="c-rendimientos-formulario">
+    <span class="textos"><span class="tit">Registrar jornada</span><span class="res">El formulario para registrar lo que hizo un operario en un día.</span></span>
+    <span class="num">7 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-rendimientos-formulario" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Agregar bloques de trabajo con horario, actividad, ubicación y cantidad.</li><li>Guardar el día completo.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../rendimientos/">Abrir la herramienta</a><a class="boton" href="rendimientos/formulario/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="rendimientos/formulario/#que-hace"><b>Qué hace el formulario</b><span class="res">El formulario para registrar lo que hizo un operario en un día.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/formulario/#bloque-de-trabajo"><b>Bloque de trabajo: horario, categoría y actividad</b><span class="res">Cada bloque tiene hora de inicio y hora de fin (de ahí salen las horas del bloque), una categoría y una actividad dentro de esa categoría.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/formulario/#ubicacion-finca-lote-y-camas"><b>Ubicación: finca, lote y camas</b><span class="res">Según la actividad, se pide sólo la finca, la finca y uno o varios lotes completos, o la finca, el lote y las camas puntuales; algunas actividades no piden ubicación.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/formulario/#ultima-cama-y-fraccion"><b>Última cama completa y fracción alcanzada</b><span class="res">Si la última cama quedó completa se deja marcada la casilla.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/formulario/#cantidad-calidad-y-paquetes"><b>Cantidad, calidades y paquetes</b><span class="res">Cuando la actividad pide cantidad, se escribe en la unidad que tenga definida (kg, tallos, cajas, litros, etc.).</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/formulario/#actividad-secundaria"><b>Actividad secundaria</b><span class="res">Para el caso poco común de dos labores simultáneas en el mismo bloque de horas, se puede añadir una actividad secundaria, con su propia categoría, actividad y cantidad.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/formulario/#como-se-guarda-la-jornada"><b>Cómo se guarda la jornada</b><span class="res">Al guardar, se escribe una fila de cabecera en Registros (fecha, operario, número de bloques y total de horas) y una fila por bloque en Actividades , enlazadas por un…</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-rendimientos-visualizador" data-ruta="rendimientos/visualizador" aria-expanded="false" aria-controls="c-rendimientos-visualizador">
+    <span class="textos"><span class="tit">Visualizador de rendimientos</span><span class="res">Gráficas y rankings de horas, tallos y operarios.</span></span>
+    <span class="num">5 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-rendimientos-visualizador" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Filtrar por fechas, finca, lote, operario, cultivo o calidad.</li><li>Ver el ranking de operarios.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../rendimientos/">Abrir la herramienta</a><a class="boton" href="rendimientos/visualizador/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="rendimientos/visualizador/#que-hace"><b>Qué hace el visualizador</b><span class="res">Gráficas y rankings de horas, tallos y operarios.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/visualizador/#resumen-general"><b>Resumen general</b><span class="res">Dos gráficas fijas al abrir el visualizador: días registrados por mes y horas por actividad .</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/visualizador/#explorador-interactivo"><b>Explorador interactivo</b><span class="res">Se elige el período con &quot;Desde&quot; y &quot;Hasta&quot;, o con los atajos de últimos 30, 60 o 90 días y todo el período, y se puede limpiar con &quot;Limpiar fechas&quot;.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/visualizador/#cosecha-en-tallos"><b>Cosecha en tallos</b><span class="res">Una sección aparte para la cosecha, con sus propios filtros: finca, cultivo, lote, operario y calidad (con &quot;Limpiar filtros de cosecha&quot;).</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/visualizador/#ranking-de-operarios"><b>Ranking de operarios</b><span class="res">Ordena a los operarios por tallos cosechados, con el desglose por calidad.</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-rendimientos-validaciones" data-ruta="rendimientos/validaciones" aria-expanded="false" aria-controls="c-rendimientos-validaciones">
+    <span class="textos"><span class="tit">Catálogo y reglas</span><span class="res">La hoja que define qué pregunta el formulario en cada actividad.</span></span>
+    <span class="num">4 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-rendimientos-validaciones" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Cambiar reglas de ubicación, cantidad y calidad sin tocar el código.</li></ul>
+    <div class="acciones"><a class="boton" href="rendimientos/validaciones/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="rendimientos/validaciones/#que-hace"><b>Qué es el catálogo de reglas</b><span class="res">La hoja que define qué pregunta el formulario en cada actividad.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/validaciones/#ubicacion-de-la-actividad"><b>Dónde ocurre la actividad (nivel de ubicación)</b><span class="res">La columna nivel_ubicacion de una actividad acepta: cama (finca, lote y camas puntuales), lote (finca y uno o varios lotes completos), finca (sólo la finca) o vacía…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/validaciones/#cantidad-de-la-actividad"><b>Si se mide una cantidad y en qué unidad</b><span class="res">La columna unidad_cantidad responde una sola pregunta: ¿se mide una cantidad?</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/validaciones/#producto-y-calidad"><b>Producto y desglose por calidad</b><span class="res">Cuando la actividad pide cantidad pero no ubicación (por ejemplo la poscosecha), la columna preguntar_producto con &quot;Sí&quot; hace que el formulario pregunte primero de qué…</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li>
+    </ul>
+  </div>
+</li>
+</ul>
+<p class="sin-resultados" id="sin-resultados" hidden>Ninguna función coincide con la búsqueda.</p>
+<noscript><style>.nodo-cuerpo[hidden]{display:block}</style></noscript>
+  <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>
+</main>
+<script src="../assets/arbol.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EcoAgriApp — Ayuda</title>
+<meta name="description" content="Sanidad vegetal: aplicaciones fitosanitarias, rotación de modos de acción, inventario, planeación y costos.">
+<link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/hub.css">
+<!-- Generado por ecoagri-core/generador. No editar a mano. -->
+</head>
+<body>
+<header class="barra"><div class="barra-fila">
+  <a class="barra-marca" href="../../">Eco<span>Agri</span> · Herramientas</a>
+  <nav aria-label="Principal">
+    <a href="../../">Herramientas</a>
+    <a href="../../ayuda/" aria-current="page">Ayuda</a>
+    <a href="../../versiones/">Versiones</a>
+  </nav>
+</div></header>
+<main class="lienzo">
+<p class="migas"><a href="../">Ayuda</a> › EcoAgriApp</p>
+<div class="encabezado"><h1>EcoAgriApp</h1><p>Sanidad vegetal: aplicaciones fitosanitarias, rotación de modos de acción, inventario, planeación y costos.</p></div>
+<div class="acciones" style="margin-top:16px"><a class="boton principal" href="../../agriapp/">Abrir EcoAgriApp</a><a class="boton" href="../#agriapp">Ver en el árbol</a></div>
+<section class="seccion" id="que-es"><h2>Qué es EcoAgriApp</h2><div class="cuerpo"><p>EcoAgriApp centraliza el registro de sanidad vegetal de las fincas de Economía Agrícola en una sola base de datos: el libro de Google Sheets "Agroinsumos". Todo lo que hacen las ocho herramientas —consultar, ver la rotación de modos de acción, registrar, planear, llevar inventario, costear y generar reportes— lee y escribe sobre ese mismo libro, así que un dato entra una sola vez y se ve reflejado en todas partes.</p>
+  <p>El libro tiene, entre otras, estas hojas:</p>
+  <ul>
+    <li><b>FINCAS</b> — catálogo de fincas y lotes, sus áreas, y varias tablas auxiliares (prioridad de mezcla, canecas reales por grupo de lotes, promedios de respaldo, cultivos por prefijo de lote).</li>
+    <li><b>PRODUCTOS</b> — catálogo de productos comerciales: tipo, formulación, dosis recomendada, período de reingreso y hasta cinco precios de proveedor.</li>
+    <li><b>Ingredientes_Activos</b> — las moléculas de cada producto, con su grupo de acción (IRAC/FRAC/HRAC) y sus propiedades fisicoquímicas.</li>
+    <li><b>EVENTOS_APLICACION</b>, <b>EVENTOS_LOTES</b> y <b>EVENTOS_PRODUCTOS</b> — el historial de aplicaciones: cada aplicación es un evento, con los lotes que intervino y los productos que llevó, en tablas separadas para no repetir información.</li>
+    <li><b>Inventario</b> — el último conteo de existencias en bodega.</li>
+  </ul>
+  <p>Una idea se repite en varias herramientas y conviene tenerla clara desde el principio: un <b>lote no se identifica solo por su código</b> ("R1", "C2"...), porque el mismo código existe en más de una finca. Por eso el sistema siempre lo identifica como la pareja (finca, lote); dos lotes "R1" de fincas distintas son lotes distintos.</p></div></section>
+<section class="seccion"><h2>Herramientas y funciones</h2><ul class="lista-herramientas">
+<li><a href="hub/"><b>Inicio</b><span>El punto de partida: estado de los datos y acceso a las demás herramientas.</span></a></li>
+<li><a href="formulario/"><b>Registrar aplicación</b><span>Dejar constancia de una aplicación ya realizada en campo.</span></a></li>
+<li><a href="visualizador/"><b>Consultar aplicaciones</b><span>El histórico completo de aplicaciones, con filtros y calendario semanal.</span></a></li>
+<li><a href="rotacion/"><b>Rotación</b><span>Qué modo de acción recibió cada lote, semana a semana, y qué aplicar a continuación.</span></a></li>
+<li><a href="planeacion/"><b>Planear aplicación</b><span>Calculadora de vista previa: cuánta agua y producto preparar antes de salir a campo.</span></a></li>
+<li><a href="inventario/"><b>Inventario</b><span>El último conteo de existencias en bodega, y cómo levantar uno nuevo.</span></a></li>
+<li><a href="costos/"><b>Costos de aplicación</b><span>Estimación del gasto fitosanitario, por producto o por finca/lote.</span></a></li>
+<li><a href="reportes/"><b>Reportes de asistencia técnica</b><span>El PDF de asistencia técnica de una finca, listo para firmar.</span></a></li>
+</ul></section>
+  <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>
+</main>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catálogo y reglas — Rendimientos — Ayuda</title>
+<meta name="description" content="La hoja que define qué pregunta el formulario en cada actividad.">
+<link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/hub.css">
+<!-- Generado por ecoagri-core/generador. No editar a mano. -->
+</head>
+<body>
+<header class="barra"><div class="barra-fila">
+  <a class="barra-marca" href="../../../">Eco<span>Agri</span> · Herramientas</a>
+  <nav aria-label="Principal">
+    <a href="../../../">Herramientas</a>
+    <a href="../../../ayuda/" aria-current="page">Ayuda</a>
+    <a href="../../../versiones/">Versiones</a>
+  </nav>
+</div></header>
+<main class="lienzo">
+<p class="migas"><a href="../../">Ayuda</a> › <a href="../">Rendimientos</a> › Catálogo y reglas</p>
+<div class="encabezado"><p class="rotulo">Rendimientos</p><h1>Catálogo y reglas</h1><p>La hoja que define qué pregunta el formulario en cada actividad.</p></div>
+<div class="acciones" style="margin-top:16px"><a class="boton" href="../../#rendimientos/validaciones">Ver en el árbol</a></div>
+<nav class="indice" aria-label="En esta página"><p class="rotulo">En esta página</p><ol><li><a href="#que-hace">Qué es el catálogo de reglas</a></li><li><a href="#ubicacion-de-la-actividad">Dónde ocurre la actividad (nivel de ubicación)</a></li><li><a href="#cantidad-de-la-actividad">Si se mide una cantidad y en qué unidad</a></li><li><a href="#producto-y-calidad">Producto y desglose por calidad</a></li></ol></nav>
+<section class="seccion" id="que-hace"><h2><a href="#que-hace">Qué es el catálogo de reglas</a></h2><div class="cuerpo"><p>La hoja <b>VALIDACIONES</b> del libro no sólo lista operarios, fincas, lotes, productos y actividades: define <b>qué pregunta el formulario en cada actividad</b>. Cambiar una regla no requiere tocar el código; se edita en la hoja. Esta sección es para quien administra el catálogo.</p></div></section>
+<section class="seccion" id="ubicacion-de-la-actividad"><h2><a href="#ubicacion-de-la-actividad">Dónde ocurre la actividad (nivel de ubicación)</a></h2><div class="cuerpo"><p>La columna <b>nivel_ubicacion</b> de una actividad acepta: <b>cama</b> (finca, lote y camas puntuales), <b>lote</b> (finca y uno o varios lotes completos), <b>finca</b> (sólo la finca) o vacía (la actividad no ocurre en un lugar en particular y no se pregunta ubicación).</p></div></section>
+<section class="seccion" id="cantidad-de-la-actividad"><h2><a href="#cantidad-de-la-actividad">Si se mide una cantidad y en qué unidad</a></h2><div class="cuerpo"><p>La columna <b>unidad_cantidad</b> responde una sola pregunta: ¿se mide una cantidad? Vacía, no se pide. Con cualquier texto (kg, tallos, cajas, litros, plantas, bultos, etc.) sí se pide, y la etiqueta del campo usa ese texto, por ejemplo "Cantidad (kg)". Es independiente del nivel de ubicación: se pueden pedir las dos cosas a la vez. Una columna adicional marca si la cantidad es obligatoria.</p></div></section>
+<section class="seccion" id="producto-y-calidad"><h2><a href="#producto-y-calidad">Producto y desglose por calidad</a></h2><div class="cuerpo"><p>Cuando la actividad pide cantidad pero no ubicación (por ejemplo la poscosecha), la columna <b>preguntar_producto</b> con "Sí" hace que el formulario pregunte primero de qué producto se trata, para poder desglosar la cantidad por calidad. Si la ubicación es por cama, esta columna no se usa: el producto se toma de la cama elegida.</p>
+  <p>La columna <b>desglosar_calidad</b> decide si la cantidad se pide por calidad. Vacío o "Sí": se desglosa cuando el producto tiene calidades. "No": se pide un solo número; está pensada para actividades de poscosecha donde no importa de qué calidad era el tallo (clasificación, lavado, selección, paqueteado y similares).</p></div></section>
+<div class="navegar"><a class="boton" href="../../rendimientos/visualizador/">← Visualizador de rendimientos</a><span></span></div>
+  <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>
+</main>
+</body>
+</html>

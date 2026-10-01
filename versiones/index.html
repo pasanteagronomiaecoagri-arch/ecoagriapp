@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Versiones — Eco Agri</title>
+<meta name="description" content="Historial de cambios de EcoAgriApp, Gestión Normativa (ICA) y Rendimientos.">
+<link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/hub.css">
+<!-- Generado por ecoagri-core/generador. No editar a mano. -->
+</head>
+<body>
+<header class="barra"><div class="barra-fila">
+  <a class="barra-marca" href="../">Eco<span>Agri</span> · Herramientas</a>
+  <nav aria-label="Principal">
+    <a href="../">Herramientas</a>
+    <a href="../ayuda/">Ayuda</a>
+    <a href="../versiones/" aria-current="page">Versiones</a>
+  </nav>
+</div></header>
+<main class="lienzo">
+<div class="encabezado"><p class="rotulo">Eco Agri · Versiones</p><h1>Qué ha cambiado</h1><p>La versión de cada aplicación aparece en su barra superior. Aquí está el historial de cambios de las tres, de la más reciente a la más antigua.</p></div>
+<div class="filtros" role="group" aria-label="Filtrar por aplicación"><button type="button" class="chip" data-app="todas" aria-pressed="true">Todas</button><button type="button" class="chip" data-app="agriapp" aria-pressed="false">EcoAgriApp</button><button type="button" class="chip" data-app="normativa" aria-pressed="false">Gestión Normativa (ICA)</button><button type="button" class="chip" data-app="rendimientos" aria-pressed="false">Rendimientos</button></div>
+<section class="bloque-app" id="agriapp" data-app="agriapp">
+  <h2>EcoAgriApp <span class="insignia">Versión actual: alpha 7.0</span></h2>
+  <ul class="cambios">
+<li><span class="v">alpha 7.0</span><span class="r">Revisión en escritorio: el logo ya no se deforma, se quitó el buscador global de la barra, la fecha de los datos ahora va en dos líneas, las herramientas quedan en el mismo orden de prioridad en el menú y en Inicio, la flecha atrás/adelante del navegador ya funciona entre pantallas, las alertas de Inventario tienen diseño propio (ya no son las del navegador), el filtro de cultivo en el análisis avanzado de Costos ahora sí filtra qué fincas/lotes se muestran, y se corrigen fechas inexistentes (como el 31 de septiembre) en todos los calendarios de la app.</span></li>
+<li><span class="v">alpha 6.9</span><span class="r">Se quitó el aviso de &quot;Deshacer&quot; al quitar una fila en Inventario: ocupaba espacio en pantalla y no aportaba suficiente valor.</span></li>
+<li><span class="v">alpha 6.8</span><span class="r">Auditoría de uso en celular: evita recortar contenido sin forma de desplazarse (tablas), corrige un texto blanco sobre fondo casi blanco en modo oscuro, respeta el notch/Dynamic Island (safe-area), mantiene visible el campo activo cuando aparece el teclado, y usa altura dinámica de viewport en menús y modales.</span></li>
+<li><span class="v">alpha 6.7</span><span class="r">Ayuda contextual desde cada herramienta, buscador global (tecla &quot;/&quot;), modo oscuro, favoritos de filtros en Costos y Visualizador, comparar periodos en Costos, importar/exportar Inventario en CSV, corregir unidad de dosis en Planeación, y exportar Rotación a PDF.</span></li>
+<li><span class="v">alpha 6.6</span><span class="r">Navegación para celular/tablet (menú plegable), mapa del sitio y contacto directo en Ayuda, pantallas propias de carga/error/404, y el conteo de inventario que se reemplaza ahora se archiva en PDF en Drive en vez de perderse.</span></li>
+<li><span class="v">alpha 6.5</span><span class="r">Revisión completa de navegabilidad y UX en los seis módulos: buscador y deshacer en Inventario, acceso rápido y CSV en Costos, columnas fijas y semáforo persistente en Rotación, y el fix crítico de bloqueo de escritura (LockService) para evitar ID de evento duplicados en Formulario.</span></li>
+<li><span class="v">alpha 6.4</span><span class="r">La cantidad del inventario admite punto y coma al escribir, y el PDF exportado muestra los números en negrilla, fáciles de leer.</span></li>
+<li><span class="v">alpha 6.3</span><span class="r">Escaneo de código de barras con la cámara en vivo, desde una ventana aparte.</span></li>
+<li><span class="v">alpha 6.2</span><span class="r">Escaneo de código de barras por foto (versión anterior a la cámara en vivo).</span></li>
+<li><span class="v">alpha 6.1</span><span class="r">Registro del código de barras de cada producto en el inventario.</span></li>
+<li><span class="v">alpha 5.6–6.0</span><span class="r">&quot;Sugerir aplicación&quot; en Rotación, respetando la rotación de modos de acción.</span></li>
+<li><span class="v">alpha 5.2–5.5</span><span class="r">Correcciones críticas de la matriz de Rotación y del semáforo de riesgo.</span></li>
+<li><span class="v">alpha 5.0–5.1</span><span class="r">Nueva herramienta: Rotación de modos de acción.</span></li>
+  </ul>
+</section>
+<section class="bloque-app" id="normativa" data-app="normativa">
+  <h2>Gestión Normativa (ICA) <span class="insignia">Versión actual: alpha 1.5</span></h2>
+  <ul class="cambios">
+<li><span class="v">alpha 1.5</span><span class="r">Fix eliminar documentos (duplicados de periodo), confirmaciones visuales de acciones.</span></li>
+<li><span class="v">alpha 1.4</span><span class="r">Integracion con Google Calendar (avisos de vencimiento por tipo + escalamiento diario para trampas de trips).</span></li>
+<li><span class="v">alpha 1.3.1</span><span class="r">Fix appendRow vacio en diagnosticoIntegridadDocumentos_.</span></li>
+<li><span class="v">alpha 1.3</span><span class="r">Fix bug de migracion, numeral normativo en nombres, orden cronologico, vencimiento capacitacion por mes calendario, fix suma de meses.</span></li>
+<li><span class="v">alpha 1.2</span><span class="r">Conteo de trips en trampas, monitoreo semanal sin vencimiento, nombres de archivo estandarizados.</span></li>
+<li><span class="v">alpha 1.1</span><span class="r">Monitoreo semanal como enlace directo a carpeta de Drive.</span></li>
+<li><span class="v">alpha 1.0</span><span class="r">Navegacion con atras/adelante, alertas de pendientes en inicio, renombra informe trimestral y permite adjuntar.</span></li>
+<li><span class="v">alpha 0.9</span><span class="r">Eliminar documentos, reemplazar en capacitacion mensual, detecta archivos borrados a mano en Drive.</span></li>
+<li><span class="v">alpha 0.8</span><span class="r">Corrige numero de version mostrado en la app.</span></li>
+<li><span class="v">alpha 0.7</span><span class="r">Separa mapa del predio del croquis (Art. 5.2.5).</span></li>
+<li><span class="v">alpha 0.6</span><span class="r">Fix perdida de datos area/capacidad/coordenadas (redeploy, el primer push no sincronizo).</span></li>
+<li><span class="v">alpha 0.6</span><span class="r">Fix perdida de datos en area/capacidad/coordenadas al guardar datos del predio.</span></li>
+<li><span class="v">alpha 0.5</span><span class="r">Checkbox infraestructura, mapa poscosecha, etiquetas landing, campos predio, mapa coordenadas.</span></li>
+<li><span class="v">alpha 0.4</span><span class="r">Drag&amp;drop, editar fechas, capacitacion mensual, sin-archivo trimestral/monitoreo, quita actualizacion simplifica, exportador no aplica.</span></li>
+<li><span class="v">alpha 0.3</span><span class="r">Login usuario/contrasena, fechas editables, quita candado Art.10.</span></li>
+<li><span class="v">alpha 0.2</span><span class="r">Fecha de expedicion real al subir/reemplazar documentos.</span></li>
+<li><span class="v">alpha 0.1</span><span class="r">Plantilla inicial vacia.</span></li>
+  </ul>
+</section>
+<section class="bloque-app" id="rendimientos" data-app="rendimientos">
+  <h2>Rendimientos <span class="insignia">Versión actual: alpha 0.49</span></h2>
+  <ul class="cambios">
+<li><span class="v">alpha 0.49<small>2026-10-01</small></span><span class="r">Paleta de graficas con mas contraste entre colores vecinos.</span></li>
+<li><span class="v">alpha 0.48<small>2026-09-30</small></span><span class="r">Cosecha - ranking de operarios compuesto con detalle dia a dia.</span></li>
+<li><span class="v">alpha 0.47<small>2026-09-21</small></span><span class="r">Fix - el filtro de lote de cosecha distingue lotes homonimos de distintas fincas.</span></li>
+<li><span class="v">alpha 0.46<small>2026-09-21</small></span><span class="r">Cosecha - filtro de cultivo encadenado con finca y lote.</span></li>
+<li><span class="v">alpha 0.45<small>2026-09-21</small></span><span class="r">Cosecha - selector &quot;ver por&quot; (calidad/operario/lote) + lote depende de finca.</span></li>
+<li><span class="v">alpha 0.44<small>2026-09-21</small></span><span class="r">Filtros del explorador solo por fecha + vista dedicada de cosecha en tallos.</span></li>
+<li><span class="v">alpha 0.43<small>2026-09-21</small></span><span class="r">Rework del visualizador de rendimientos.</span></li>
+<li><span class="v">alpha 0.40<small>2026-09-21</small></span><span class="r">Fix - camas salteadas ya no duplica horas ni infla el dia.</span></li>
+<li><span class="v">alpha 0.39<small>2026-09-21</small></span><span class="r">Camas salteadas o en desorden (lista libre en vez de rango desde/hasta).</span></li>
+<li><span class="v">alpha 0.38<small>2026-09-18</small></span><span class="r">Corrige el split de almuerzo, ahora solo para horarios exactos.</span></li>
+<li><span class="v">alpha 0.37<small>2026-09-18</small></span><span class="r">Parte bloques que cruzan el almuerzo (11:00-12:00) en dos.</span></li>
+<li><span class="v">alpha 0.36<small>2026-09-18</small></span><span class="r">Valida cruce de horario contra bloques ya guardados (mismo operario/fecha).</span></li>
+<li><span class="v">alpha 0.35<small>2026-09-18</small></span><span class="r">Cantidad_obligatoria opcional por actividad (p. ej. Empaque).</span></li>
+<li><span class="v">alpha 0.34<small>2026-09-18</small></span><span class="r">Cantidad de tallos siempre entera, y el relleno automatico salta el almuerzo.</span></li>
+<li><span class="v">alpha 0.33<small>2026-09-18</small></span><span class="r">Ocultar &quot;registrar por paquete&quot; si la actividad no pide cantidad, camas sin prefijo.</span></li>
+<li><span class="v">alpha 0.32<small>2026-09-18</small></span><span class="r">Control de metrica/grafica, pestana Por calidad, fusion de jornadas, y varios ajustes.</span></li>
+<li><span class="v">alpha 0.31<small>2026-09-17</small></span><span class="r">Arregla el visualizador, que no mostraba nada.</span></li>
+<li><span class="v">alpha 0.28<small>2026-09-15</small></span><span class="r">No exigir lote(s) cuando la finca no tiene ninguno.</span></li>
+<li><span class="v">alpha 0.27<small>2026-09-15</small></span><span class="r">Desglosar_calidad opcional para actividades de poscosecha.</span></li>
+<li><span class="v">alpha 0.26<small>2026-09-14</small></span><span class="r">Rango de camas (desde/hasta) opcional en modo cama.</span></li>
+<li><span class="v">alpha 0.25<small>2026-09-03</small></span><span class="r">Registrar cosecha por paquete (x10/x50) en modo cama.</span></li>
+<li><span class="v">alpha 3.24<small>2026-09-03</small></span><span class="r">Mapa botanico-&gt;comercial para encontrar calidades de un producto.</span></li>
+<li><span class="v">alpha 0.23<small>2026-09-03</small></span><span class="r">El producto (y por tanto la calidad) se detecta al elegir Lote, no hasta elegir Cama.</span></li>
+<li><span class="v">alpha 0.22<small>2026-09-03</small></span><span class="r">Cantidad/calidad tambien para nivel_ubicacion=lote, campos por calidad ahora enteros.</span></li>
+<li><span class="v">alpha 0.21<small>2026-09-03</small></span><span class="r">Comparacion tolerante entre producto_nombre y producto_cali, diagnostico de calidades.</span></li>
+<li><span class="v">alpha 0.20<small>2026-09-03</small></span><span class="r">Rediseno de configuracion de actividades en columnas independientes de un solo proposito.</span></li>
+<li><span class="v">alpha 0.18<small>2026-09-03</small></span><span class="r">Cantidad_por_producto para calidad sin ubicacion (Poscosecha).</span></li>
+<li><span class="v">alpha 0.17<small>2026-09-03</small></span><span class="r">Cantidad_por_cama + desglose de cosecha por calidad.</span></li>
+<li><span class="v">alpha 0.16<small>2026-09-03</small></span><span class="r">Filtros del visualizador jerarquizados y mutuamente dependientes.</span></li>
+<li><span class="v">alpha 0.15<small>2026-09-03</small></span><span class="r">Categoria de actividad (Cultivo/Poscosecha/Mantenimiento).</span></li>
+<li><span class="v">alpha 0.14<small>2026-09-03</small></span><span class="r">Visualizador de rendimientos con graficas interactivas (Google Charts).</span></li>
+<li><span class="v">alpha 0.13<small>2026-09-03</small></span><span class="r">Unidad_cantidad con valores explicitos cama/finca/lote, la ubicacion (incluida finca) depende solo de la actividad.</span></li>
+<li><span class="v">alpha 0.12<small>2026-09-03</small></span><span class="r">Consolida requiere_cantidad/actividad_por_lote/actividad_finca en una sola columna unidad_cantidad.</span></li>
+<li><span class="v">alpha 0.11<small>2026-09-03</small></span><span class="r">Unidad de medida por actividad y auditoria de columnas de VALIDACIONES.</span></li>
+<li><span class="v">alpha 0.10<small>2026-09-02</small></span><span class="r">Soporta actividades a nivel de finca (columna actividad_finca) sin pedir lote ni cama.</span></li>
+<li><span class="v">alpha 0.9<small>2026-09-02</small></span><span class="r">Labores a nivel de lote (columna actividad_por_lote en VALIDACIONES), permite marcar varios lotes sin pedir camas.</span></li>
+<li><span class="v">alpha 0.8<small>2026-09-02</small></span><span class="r">Detecta lugares sin lotes (ej. Poscosecha) por finca sin camas en VALIDACIONES, no por actividad; sin columna manual que configurar.</span></li>
+<li><span class="v">alpha 0.7<small>2026-09-02</small></span><span class="r">Un operario por dia (bloqueo tras agregar bloques), Poscosecha con finca pero sin lote/cama, checkbox de ultima cama incompleta con fraccion 1/4-1/2-3/4.</span></li>
+<li><span class="v">alpha 0.6<small>2026-09-02</small></span><span class="r">Poscosecha sin finca/lote/cama, visualizador vertical junto al formulario, total de horas del dia tambien en Actividades.</span></li>
+<li><span class="v">alpha 0.5<small>2026-09-02</small></span><span class="r">Buscador de operario con autocompletado (Tab/Enter), rango de camas desde/hasta, actividad secundaria opcional por bloque.</span></li>
+<li><span class="v">alpha 0.4<small>2026-09-02</small></span><span class="r">Reemplaza la jornada fija por bloques de horas con visualizador, separa Registros/Actividades en dos hojas.</span></li>
+<li><span class="v">alpha 0.3<small>2026-09-01</small></span><span class="r">Adopta paleta/tipografia de EcoAgriApp y reordena el formulario (operario, finca &gt; lote &gt; cama, actividad, jornada).</span></li>
+<li><span class="v">alpha 0.2<small>2026-09-01</small></span><span class="r">Formulario de registro de labores con catalogos desde VALIDACIONES.</span></li>
+  </ul>
+</section>
+  <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>
+</main>
+<script>
+(function () {
+  var chips = document.querySelectorAll('.chip'), bloques = document.querySelectorAll('.bloque-app');
+  function aplicar(app, actualizarUrl) {
+    chips.forEach(function (c) { c.setAttribute('aria-pressed', c.dataset.app === app ? 'true' : 'false'); });
+    bloques.forEach(function (b) { b.hidden = app !== 'todas' && b.dataset.app !== app; });
+    if (actualizarUrl) history.replaceState(null, '', app === 'todas' ? location.pathname : '?app=' + app);
+  }
+  chips.forEach(function (c) { c.addEventListener('click', function () { aplicar(c.dataset.app, true); }); });
+  var pedida = new URLSearchParams(location.search).get('app');
+  if (pedida && document.querySelector('.chip[data-app="' + pedida.replace(/[^a-z]/g, '') + '"]')) aplicar(pedida.replace(/[^a-z]/g, ''), false);
+})();
+</script>
+</body>
+</html>
