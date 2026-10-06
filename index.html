@@ -4,130 +4,59 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Economía Agrícola — Herramientas</title>
+<meta name="description" content="Herramientas de Economía Agrícola: EcoAgriApp, Gestión Normativa (ICA) y Rendimientos.">
 <link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
-<style>
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-    background: #FAFAF9;
-    font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
-    color: #262624;
-  }
-  .lienzo {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 48px 20px;
-  }
-  .col {
-    width: 100%;
-    max-width: 460px;
-  }
-  .eyebrow {
-    font-size: 11px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: #9A9A94;
-    margin: 0 0 10px;
-  }
-  h1 {
-    font-size: 22px;
-    font-weight: 500;
-    letter-spacing: -.01em;
-    margin: 0 0 40px;
-  }
-  .lista {
-    border-top: 1px solid #E5E4E0;
-  }
-  .item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 22px 4px;
-    border-bottom: 1px solid #E5E4E0;
-    text-decoration: none;
-    color: inherit;
-    transition: opacity .15s ease;
-  }
-  .item:hover { opacity: .6; }
-  .item-izq { display: flex; gap: 12px; }
-  .punto {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    flex: none;
-    margin-top: 6px;
-  }
-  .item h2 {
-    font-size: 15.5px;
-    font-weight: 500;
-    margin: 0 0 4px;
-  }
-  .item p {
-    font-size: 12.5px;
-    color: #8A8A84;
-    margin: 0;
-    line-height: 1.5;
-  }
-  .flecha {
-    flex: none;
-    color: #B7B6B0;
-    font-size: 15px;
-  }
-  .pie {
-    margin-top: 32px;
-    font-size: 11.5px;
-    color: #ACABA5;
-  }
-</style>
+<script>
+  try {
+    var temaGuardado = localStorage.getItem('ecoagriapp_tema');
+    if (temaGuardado === 'dark' || temaGuardado === 'light') document.documentElement.setAttribute('data-theme', temaGuardado);
+  } catch (error) { /* sin almacenamiento: sigue el tema del sistema */ }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/hub.css">
+<link rel="stylesheet" href="assets/inicio.css">
+<!-- Generado por ecoagri-core/generador (inicio.mjs). No editar a mano. -->
 </head>
-<body>
-  <div class="lienzo">
-    <div class="col">
-      <p class="eyebrow">Economía Agrícola</p>
-      <h1>Herramientas</h1>
+<body class="inicio">
+<button type="button" class="barra-tema-boton tema-flotante" id="barra-tema-boton" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema"><span class="barra-tema-icono" aria-hidden="true"></span></button>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="hoja" viewBox="0 0 24 34" overflow="visible">
+    <path d="M12 33 C1 26 0 11 12 1 C24 11 23 26 12 33 Z"/>
+    <path d="M12 31 L12 7" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.4"/>
+  </symbol>
+</svg>
+<div class="follaje izq" aria-hidden="true"><svg viewBox="0 0 240 480" aria-hidden="true" focusable="false"><path class="tallo" d="M28,470 C34,330 170,300 130,30"/><use href="#hoja" width="24" height="34" class="h1" transform="translate(33.4 431.0) rotate(-32.6) scale(2.17) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(40.0 408.8) rotate(72.5) scale(2.10) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(48.4 388.0) rotate(-35.6) scale(2.02) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h1" transform="translate(58.3 367.9) rotate(78.7) scale(1.94) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(69.2 348.0) rotate(-28.6) scale(1.86) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(80.6 327.8) rotate(78.3) scale(1.78) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h1" transform="translate(92.1 306.7) rotate(-28.2) scale(1.70) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(103.3 284.3) rotate(71.9) scale(1.62) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(113.5 260.0) rotate(-33.0) scale(1.55) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h1" transform="translate(122.5 233.4) rotate(77.3) scale(1.47) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(129.8 203.8) rotate(-40.7) scale(1.39) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(134.8 170.8) rotate(65.2) scale(1.31) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h1" transform="translate(137.2 133.8) rotate(-48.7) scale(1.23) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(136.5 92.4) rotate(53.8) scale(1.15) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(132.2 45.9) rotate(-55.2) scale(1.07) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(130.0 30.0) rotate(8) scale(1.1) translate(-12 -33)"/></svg></div>
+<div class="follaje der" aria-hidden="true"><svg viewBox="0 0 240 480" aria-hidden="true" focusable="false"><path class="tallo" d="M28,470 C34,330 170,300 130,30"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(33.4 431.0) rotate(-33.6) scale(2.17) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(40.5 407.2) rotate(73.9) scale(2.09) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h1" transform="translate(49.9 384.9) rotate(-36.0) scale(2.01) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(60.8 363.3) rotate(80.3) scale(1.92) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(72.7 341.8) rotate(-29.5) scale(1.84) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h1" transform="translate(85.1 319.8) rotate(78.9) scale(1.75) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(97.3 296.6) rotate(-30.4) scale(1.67) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(108.9 271.5) rotate(70.9) scale(1.58) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h1" transform="translate(119.3 244.0) rotate(-36.8) scale(1.50) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(127.8 213.3) rotate(58.8) scale(1.41) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(133.9 178.7) rotate(-45.6) scale(1.33) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h1" transform="translate(137.0 139.8) rotate(62.1) scale(1.24) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(136.7 95.7) rotate(-53.9) scale(1.16) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(132.2 45.9) rotate(50.8) scale(1.07) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(130.0 30.0) rotate(8) scale(1.1) translate(-12 -33)"/></svg></div>
+<div class="follaje sup-izq" aria-hidden="true"><svg viewBox="0 0 240 480" aria-hidden="true" focusable="false"><path class="tallo" d="M28,470 C34,330 170,300 130,30"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(33.4 431.0) rotate(-34.6) scale(2.17) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h1" transform="translate(46.1 393.1) rotate(78.3) scale(2.04) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(63.7 357.9) rotate(-17.2) scale(1.90) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(83.5 322.6) rotate(82.1) scale(1.76) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h1" transform="translate(103.3 284.3) rotate(-35.1) scale(1.62) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(120.4 240.3) rotate(68.5) scale(1.49) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(132.6 187.8) rotate(-49.3) scale(1.35) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h1" transform="translate(137.3 123.9) rotate(49.2) scale(1.21) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(132.2 45.9) rotate(-63.2) scale(1.07) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(130.0 30.0) rotate(8) scale(1.1) translate(-12 -33)"/></svg></div>
+<div class="follaje inf-der" aria-hidden="true"><svg viewBox="0 0 240 480" aria-hidden="true" focusable="false"><path class="tallo" d="M28,470 C34,330 170,300 130,30"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(33.4 431.0) rotate(-33.6) scale(2.17) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(46.1 393.1) rotate(77.3) scale(2.04) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h1" transform="translate(63.7 357.9) rotate(-32.2) scale(1.90) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(83.5 322.6) rotate(81.1) scale(1.76) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(103.3 284.3) rotate(-34.1) scale(1.62) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h1" transform="translate(120.4 240.3) rotate(67.5) scale(1.49) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h2" transform="translate(132.6 187.8) rotate(-48.3) scale(1.35) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(137.3 123.9) rotate(48.2) scale(1.21) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h1" transform="translate(132.2 45.9) rotate(-62.2) scale(1.07) translate(-12 -33)"/><use href="#hoja" width="24" height="34" class="h3" transform="translate(130.0 30.0) rotate(8) scale(1.1) translate(-12 -33)"/></svg></div>
 
-      <div class="lista">
-        <a class="item" href="agriapp/">
-          <span class="item-izq">
-            <span class="punto" style="background:#4F7D3A"></span>
-            <span>
-              <h2>EcoAgriApp</h2>
-              <p>Aplicaciones fitosanitarias, inventario, planeación y costos.</p>
-            </span>
-          </span>
-          <span class="flecha">→</span>
-        </a>
-
-        <a class="item" href="normativa/">
-          <span class="item-izq">
-            <span class="punto" style="background:#2F6D9E"></span>
-            <span>
-              <h2>Gestión Normativa</h2>
-              <p>Registro sanitario ICA por finca: documentos y vencimientos.</p>
-            </span>
-          </span>
-          <span class="flecha">→</span>
-        </a>
-
-        <a class="item" href="rendimientos/">
-          <span class="item-izq">
-            <span class="punto" style="background:#C9A227"></span>
-            <span>
-              <h2>Rendimientos</h2>
-              <p>Registro de labores de campo y visualizador de rendimientos.</p>
-            </span>
-          </span>
-          <span class="flecha">→</span>
-        </a>
-      </div>
-
-      <p class="pie"><a href="ayuda/" style="color:inherit">Ayuda</a> · <a href="versiones/" style="color:inherit">Versiones</a><br>pasanteagronomia.ecoagri@gmail.com</p>
-    </div>
-  </div>
+<main class="inicio-lienzo">
+  <p class="rotulo">Economía Agrícola</p>
+  <h1>Herramientas</h1>
+  <p class="inicio-sub">Elija con cuál trabajar. Las tres comparten el mismo diseño, el mismo acceso a la ayuda y el mismo historial de versiones.</p>
+  <nav class="lista-apps" id="lista" aria-label="Herramientas">
+    <a class="tarjeta-app" href="agriapp/" style="--c:#4F7D3A">
+      <span class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-9"/><path d="M12 12C12 7.5 8.5 5 4.5 5 4.5 9 7 12 12 12Z"/><path d="M12 14c0-3.5 2.8-6 6.5-6 0 3.5-2.5 6-6.5 6Z"/></svg></span>
+      <span class="textos"><h2>EcoAgriApp</h2><p>Aplicaciones fitosanitarias, rotación de modos de acción, inventario, planeación y costos.</p></span>
+      <span class="flecha" aria-hidden="true">→</span>
+    </a>
+    <a class="tarjeta-app" href="normativa/" style="--c:#2F6D9E">
+      <span class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M9.5 15l2 2 3.5-4"/></svg></span>
+      <span class="textos"><h2>Gestión Normativa (ICA)</h2><p>Registro sanitario ICA por finca: documentos, vencimientos y avisos.</p></span>
+      <span class="flecha" aria-hidden="true">→</span>
+    </a>
+    <a class="tarjeta-app" href="rendimientos/" style="--c:#C9A227">
+      <span class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20v-9"/><path d="M12 20V4"/><path d="M19 20v-6"/></svg></span>
+      <span class="textos"><h2>Rendimientos</h2><p>Labores de campo: registro diario por operario y análisis de horas y cosecha.</p></span>
+      <span class="flecha" aria-hidden="true">→</span>
+    </a>
+  </nav>
+  <p class="inicio-pie"><a href="ayuda/">Ayuda</a> · <a href="versiones/">Versiones</a><br>
+    Andrés Hincapié · <a href="mailto:pasanteagronomia.ecoagri@gmail.com">pasanteagronomia.ecoagri@gmail.com</a></p>
+</main>
+<script src="assets/tema.js"></script>
+<script src="assets/inicio.js"></script>
 </body>
 </html>

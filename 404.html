@@ -1,7 +1,57 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Página no encontrada</title>
-<style>body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#FAFAF9;color:#262624;font-family:-apple-system,'Helvetica Neue',Arial,sans-serif}
-p{color:#8A8A84;font-size:14px}a{color:#4F7D3A}</style></head>
-<body><div><h1 style="font-size:22px;font-weight:500">No encontramos esa página</h1>
-<p>El enlace no existe o cambió. <a href="/ecoagriapp/">Volver a las herramientas</a></p></div></body></html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página no encontrada — Eco Agri</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
+<script>
+  try {
+    var temaGuardado = localStorage.getItem('ecoagriapp_tema');
+    if (temaGuardado === 'dark' || temaGuardado === 'light') document.documentElement.setAttribute('data-theme', temaGuardado);
+  } catch (error) { /* sin almacenamiento: sigue el tema del sistema */ }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/ecoagriapp/assets/hub.css">
+<!-- Generado por ecoagri-core/generador. No editar a mano. -->
+<style>
+  body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 32px; text-align: center; }
+  .e404 { animation: e404-entrada .4s ease-out; }
+  .e404 svg { width: 150px; height: auto; margin-bottom: 8px; }
+  .e404 h1 { font-size: 28px; max-width: 24ch; margin: 6px auto 10px; }
+  .e404 p { color: var(--tinta-2); max-width: 46ch; margin: 0 auto 22px; }
+  .e404 .rotulo { margin: 0 0 6px; }
+  .tema-flotante { position: fixed; top: 12px; right: 12px; }
+  @keyframes e404-entrada { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce) { .e404 { animation: none; } }
+</style>
+</head>
+<body>
+<button type="button" class="barra-tema-boton tema-flotante" id="barra-tema-boton" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema"><span class="barra-tema-icono" aria-hidden="true"></span></button>
+<main class="e404">
+  <svg viewBox="0 0 120 90" aria-hidden="true">
+    <path d="M6 78 C 30 30, 60 88, 96 22" fill="none" stroke="var(--linea-fuerte)" stroke-width="2" stroke-dasharray="1 8" stroke-linecap="round"/>
+    <g transform="translate(90,10)">
+      <circle cx="12" cy="12" r="12" fill="var(--verde-suave)"/>
+      <path d="M12 19 L12 8" stroke="var(--verde)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M12 12 C7 12 5.5 7.5 6.5 3.5 C10.5 4.5 13 8 12 12 Z" fill="var(--verde-2)"/>
+      <path d="M12 10 C17 9 18.5 5 18 2 C14 3 11.5 6.5 12 10 Z" fill="var(--verde-3)"/>
+    </g>
+    <g transform="translate(0,58)">
+      <circle cx="12" cy="12" r="12" fill="var(--verde-suave)"/>
+      <path d="M12 19 L12 8" stroke="var(--verde)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M12 12 C7 12 5.5 7.5 6.5 3.5 C10.5 4.5 13 8 12 12 Z" fill="var(--verde-2)"/>
+      <path d="M12 10 C17 9 18.5 5 18 2 C14 3 11.5 6.5 12 10 Z" fill="var(--verde-3)"/>
+    </g>
+  </svg>
+  <p class="rotulo">Error 404</p>
+  <h1>Esta página se perdió entre los surcos</h1>
+  <p>El enlace no existe o cambió de lugar. Vuelva a las herramientas y entre desde ahí.</p>
+  <a class="boton principal" href="/ecoagriapp/">Volver a las herramientas</a>
+</main>
+<script src="/ecoagriapp/assets/tema.js"></script>
+</body>
+</html>

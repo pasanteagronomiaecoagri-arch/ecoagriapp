@@ -6,6 +6,12 @@
 <title>Inicio — Gestión Normativa (ICA) — Ayuda</title>
 <meta name="description" content="Estado normativo de todas las fincas y acceso a cada ficha.">
 <link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
+<script>
+  try {
+    var temaGuardado = localStorage.getItem('ecoagriapp_tema');
+    if (temaGuardado === 'dark' || temaGuardado === 'light') document.documentElement.setAttribute('data-theme', temaGuardado);
+  } catch (error) { /* sin almacenamiento: sigue el tema del sistema */ }
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -20,6 +26,7 @@
     <a href="../../../ayuda/" aria-current="page">Ayuda</a>
     <a href="../../../versiones/">Versiones</a>
   </nav>
+  <button type="button" class="barra-tema-boton" id="barra-tema-boton" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema"><span class="barra-tema-icono" aria-hidden="true"></span></button>
 </div></header>
 <main class="lienzo">
 <p class="migas"><a href="../../">Ayuda</a> › <a href="../">Gestión Normativa (ICA)</a> › Inicio</p>
@@ -35,5 +42,6 @@
 <div class="navegar"><span></span><a class="boton" href="../../normativa/sesion/">Acceso y sesión →</a></div>
   <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>
 </main>
+<script src="../../../assets/tema.js"></script>
 </body>
 </html>

@@ -6,6 +6,12 @@
 <title>Versiones — Eco Agri</title>
 <meta name="description" content="Historial de cambios de EcoAgriApp, Gestión Normativa (ICA) y Rendimientos.">
 <link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
+<script>
+  try {
+    var temaGuardado = localStorage.getItem('ecoagriapp_tema');
+    if (temaGuardado === 'dark' || temaGuardado === 'light') document.documentElement.setAttribute('data-theme', temaGuardado);
+  } catch (error) { /* sin almacenamiento: sigue el tema del sistema */ }
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -20,13 +26,15 @@
     <a href="../ayuda/">Ayuda</a>
     <a href="../versiones/" aria-current="page">Versiones</a>
   </nav>
+  <button type="button" class="barra-tema-boton" id="barra-tema-boton" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema"><span class="barra-tema-icono" aria-hidden="true"></span></button>
 </div></header>
 <main class="lienzo">
 <div class="encabezado"><p class="rotulo">Eco Agri · Versiones</p><h1>Qué ha cambiado</h1><p>La versión de cada aplicación aparece en su barra superior. Aquí está el historial de cambios de las tres, de la más reciente a la más antigua.</p></div>
 <div class="filtros" role="group" aria-label="Filtrar por aplicación"><button type="button" class="chip" data-app="todas" aria-pressed="true">Todas</button><button type="button" class="chip" data-app="agriapp" aria-pressed="false">EcoAgriApp</button><button type="button" class="chip" data-app="normativa" aria-pressed="false">Gestión Normativa (ICA)</button><button type="button" class="chip" data-app="rendimientos" aria-pressed="false">Rendimientos</button></div>
 <section class="bloque-app" id="agriapp" data-app="agriapp">
-  <h2>EcoAgriApp <span class="insignia">Versión actual: alpha 7.5</span></h2>
+  <h2>EcoAgriApp <span class="insignia">Versión actual: alpha 7.6</span></h2>
   <ul class="cambios">
+<li><span class="v">alpha 7.6</span><span class="r">Cuando falla la carga de los datos aparece una pantalla propia con el detalle técnico plegable y el botón &quot;Reintentar&quot; (antes era solo un aviso). Se agregaron los estilos comunes de avisos emergentes y del cargador en línea.</span></li>
 <li><span class="v">alpha 7.5</span><span class="r">El logo de la barra tiene las esquinas redondeadas (se nota sobre todo en modo oscuro), y se prepararon los colores de acento para texto que usan las otras aplicaciones en su nuevo modo oscuro.</span></li>
 <li><span class="v">alpha 7.4</span><span class="r">Campos de formulario y tablas estandarizados con Gestión Normativa y Rendimientos: mismos tamaños de letra, relleno y bordes en todos los campos (antes cada vista tenía el suyo), y las tablas de detalle usan la misma variante compacta.</span></li>
 <li><span class="v">alpha 7.3</span><span class="r">La ayuda y el historial de versiones (botón &quot;Ayuda&quot;, &quot;¿Cómo funciona esto?&quot; y el número de versión) se abren en la misma pestaña, no en una nueva. La barra superior queda solo con logo, versión y menú.</span></li>
@@ -48,8 +56,9 @@
   </ul>
 </section>
 <section class="bloque-app" id="normativa" data-app="normativa">
-  <h2>Gestión Normativa (ICA) <span class="insignia">Versión actual: alpha 1.12</span></h2>
+  <h2>Gestión Normativa (ICA) <span class="insignia">Versión actual: alpha 1.13</span></h2>
   <ul class="cambios">
+<li><span class="v">alpha 1.13</span><span class="r">Fallo de carga con reintento, pagina 404, avisos y ventanas comunes.</span></li>
 <li><span class="v">alpha 1.12</span><span class="r">Modo oscuro con interruptor en la barra.</span></li>
 <li><span class="v">alpha 1.11</span><span class="r">Conteo de trips: registro por ultima semana SimplifICA (1-52), estado por semana (vence el sabado de la semana siguiente).</span></li>
 <li><span class="v">alpha 1.10</span><span class="r">Campos de formulario con el estandar comun.</span></li>
@@ -78,8 +87,9 @@
   </ul>
 </section>
 <section class="bloque-app" id="rendimientos" data-app="rendimientos">
-  <h2>Rendimientos <span class="insignia">Versión actual: alpha 0.54</span></h2>
+  <h2>Rendimientos <span class="insignia">Versión actual: alpha 0.55</span></h2>
   <ul class="cambios">
+<li><span class="v">alpha 0.55<small>2026-10-06</small></span><span class="r">Cargador de catalogos, pantalla de fallo con Reintentar y cargador en linea del visualizador.</span></li>
 <li><span class="v">alpha 0.54<small>2026-10-06</small></span><span class="r">Modo oscuro (interruptor en la barra, tema del sistema por omision).</span></li>
 <li><span class="v">alpha 0.53<small>2026-10-06</small></span><span class="r">Campos y tablas con el estandar comun (tabla registros compacta).</span></li>
 <li><span class="v">alpha 0.52<small>2026-10-06</small></span><span class="r">Titulo central como en EcoAgriApp, ayuda en la misma pestana, componentes comunes y ancho 1240.</span></li>
@@ -145,5 +155,6 @@
   if (pedida && document.querySelector('.chip[data-app="' + pedida.replace(/[^a-z]/g, '') + '"]')) aplicar(pedida.replace(/[^a-z]/g, ''), false);
 })();
 </script>
+<script src="../assets/tema.js"></script>
 </body>
 </html>
