@@ -207,13 +207,15 @@ code { font-family: 'IBM Plex Mono', monospace; font-size: .92em; background: va
 @media (prefers-reduced-motion: reduce) { .carga-brote-hoja { animation: none; } }
 
 /* ---- Modo oscuro común del multiverso Eco Agri (fuente: ecoagri-core/estilos/tema.css) ----
-   Mismas superficies y tinta que EcoAgriApp (que es la referencia). A diferencia de EcoAgriApp, aquí TAMBIÉN se
-   invierten los fondos pastel ("-suave") y sus textos semánticos, y se aclaran los acentos usados como texto
-   (--texto-*): así ninguna combinación de pastel claro con tinta clara puede quedar ilegible.
-   Se copia solo a Gestión Normativa y Rendimientos. Tres bloques: preferencia del sistema (si no se eligió nada),
-   y el interruptor manual (data-theme) que gana en cualquiera de las dos direcciones.
+   Una sola definición para EcoAgriApp, Gestión Normativa, Rendimientos y el hub. Remapea superficies y tinta, INVIERTE los
+   fondos pastel ("-suave") y sus textos semánticos, y aclara los acentos usados como texto (--texto-*): así ninguna combinación
+   de pastel claro con tinta clara puede quedar ilegible. Los colores de significado fijo (irac/frac/hrac, semáforo, riesgo) no
+   se tocan: conservan su tono; solo cambian sus fondos suaves y sus textos.
+   Va dentro de @media screen: al imprimir, el papel es blanco pase lo que pase (nunca salen colores oscuros).
+   Tres bloques: preferencia del sistema (si no se eligió nada) y el interruptor manual (data-theme), que gana en cualquiera
+   de las dos direcciones. El estilo del botón interruptor está aparte (interruptor.css).
    No editar aquí dentro a mano: cambiar tema.css y correr sincronizar.mjs. */
-@media (prefers-color-scheme: dark) {
+@media screen and (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --tinta:        #E4E7E0;
     --tinta-2:      #ABB3A6;
@@ -226,39 +228,75 @@ code { font-family: 'IBM Plex Mono', monospace; font-size: .92em; background: va
     --alerta-suave: #3B2A22;
     --aviso-suave:  #38301C;
     --frac-suave:   #1F2E3A;
+    --irac-suave:   #3A3318;
+    --hrac-suave:   #27331F;
+    --otro-suave:   #2A2E27;
     --ok-texto:     #BFE0A8;
     --error-texto:  #F2BBA6;
     --aviso-texto:  #E8CE8C;
+    --irac-texto:   #E6CF7A;
     --texto-verde:  #8FC672;
     --texto-alerta: #EE9473;
     --texto-aviso:  #E2BE6A;
     --texto-frac:   #7FB2DB;
+    --mapa-1:       #27331F;
+    --mapa-2:       #35502A;
+    --mapa-3:       #4F7D3A;
+    --mapa-4:       #6F9E45;
+    --mapa-5:       #93B95A;
+    --mapa-t1:      var(--tinta);
+    --mapa-t2:      var(--tinta);
+    --mapa-t3:      var(--sobre-acento);
+    --mapa-t4:      #161A14;
+    --mapa-t5:      #161A14;
+    --verde-medio:  #35502A;
     color-scheme: dark;
   }
 }
-:root[data-theme="dark"] {
-  --tinta:        #E4E7E0;
-  --tinta-2:      #ABB3A6;
-  --tinta-3:      #8E9688;
-  --linea:        #2E332B;
-  --linea-fuerte: #3C4237;
-  --papel:        #161A14;
-  --superficie:   #1E231C;
-  --verde-suave:  #27331F;
-  --alerta-suave: #3B2A22;
-  --aviso-suave:  #38301C;
-  --frac-suave:   #1F2E3A;
-  --ok-texto:     #BFE0A8;
-  --error-texto:  #F2BBA6;
-  --aviso-texto:  #E8CE8C;
-  --texto-verde:  #8FC672;
-  --texto-alerta: #EE9473;
-  --texto-aviso:  #E2BE6A;
-  --texto-frac:   #7FB2DB;
-  color-scheme: dark;
+@media screen {
+  :root[data-theme="dark"] {
+    --tinta:        #E4E7E0;
+    --tinta-2:      #ABB3A6;
+    --tinta-3:      #8E9688;
+    --linea:        #2E332B;
+    --linea-fuerte: #3C4237;
+    --papel:        #161A14;
+    --superficie:   #1E231C;
+    --verde-suave:  #27331F;
+    --alerta-suave: #3B2A22;
+    --aviso-suave:  #38301C;
+    --frac-suave:   #1F2E3A;
+    --irac-suave:   #3A3318;
+    --hrac-suave:   #27331F;
+    --otro-suave:   #2A2E27;
+    --ok-texto:     #BFE0A8;
+    --error-texto:  #F2BBA6;
+    --aviso-texto:  #E8CE8C;
+    --irac-texto:   #E6CF7A;
+    --texto-verde:  #8FC672;
+    --texto-alerta: #EE9473;
+    --texto-aviso:  #E2BE6A;
+    --texto-frac:   #7FB2DB;
+    --mapa-1:       #27331F;
+    --mapa-2:       #35502A;
+    --mapa-3:       #4F7D3A;
+    --mapa-4:       #6F9E45;
+    --mapa-5:       #93B95A;
+    --mapa-t1:      var(--tinta);
+    --mapa-t2:      var(--tinta);
+    --mapa-t3:      var(--sobre-acento);
+    --mapa-t4:      #161A14;
+    --mapa-t5:      #161A14;
+    --verde-medio:  #35502A;
+    color-scheme: dark;
+  }
 }
+/* ---- fin modo oscuro común ---- */
 
-/* Interruptor de tema de la barra (un círculo que se convierte en luna). */
+/* ---- Interruptor de tema de la barra (fuente: ecoagri-core/estilos/interruptor.css) ----
+   Un círculo que se convierte en luna. Se copia a Gestión Normativa, Rendimientos y el hub; EcoAgriApp tiene el suyo propio
+   porque su barra incluye además el menú plegable del celular.
+   No editar aquí dentro a mano: cambiar interruptor.css y correr sincronizar.mjs. */
 .barra-tema-boton {
   display: flex;
   align-items: center;
@@ -289,4 +327,4 @@ code { font-family: 'IBM Plex Mono', monospace; font-size: .92em; background: va
 /* El interruptor se empuja a la derecha y el menú queda pegado a él (sin dos márgenes automáticos repartiéndose el espacio). */
 .barra-tema-boton + .barra-nav { margin-left: 0; }
 @media (prefers-reduced-motion: reduce) { .barra-tema-icono { transition: none; } }
-/* ---- fin modo oscuro común ---- */
+/* ---- fin interruptor ---- */
