@@ -13,7 +13,7 @@
 <!-- Generado por ecoagri-core/generador. No editar a mano. -->
 </head>
 <body>
-<header class="barra"><div class="barra-fila">
+<header class="barra"><div class="barra-fila ancho">
   <a class="barra-marca" href="../">Eco<span>Agri</span> · Herramientas</a>
   <nav aria-label="Principal">
     <a href="../">Herramientas</a>
@@ -21,18 +21,200 @@
     <a href="../versiones/">Versiones</a>
   </nav>
 </div></header>
-<main class="lienzo">
+<main class="lienzo ancho">
 <div class="encabezado">
   <p class="rotulo">Eco Agri · Ayuda</p>
   <h1>Cómo funciona cada herramienta</h1>
-  <p>Elija una aplicación y vaya abriendo ramas hasta llegar a la función que le interesa: cada una enlaza a su descripción detallada.</p>
+  <p>El mapa muestra cómo se organizan las tres aplicaciones. Toque una herramienta para desplegar sus funciones y llegue a la que le interesa: cada una enlaza a su descripción detallada.</p>
 </div>
 <div class="controles">
+  <div class="vistas" role="group" aria-label="Forma de ver la ayuda">
+    <button type="button" id="ver-mapa" aria-pressed="true">Mapa</button>
+    <button type="button" id="ver-lista" aria-pressed="false">Lista</button>
+  </div>
   <input class="buscar" id="buscar" type="search" placeholder="Buscar una función (p. ej. semáforo, renovación, camas)…" aria-label="Buscar en la ayuda" autocomplete="off">
   <button type="button" class="boton" id="expandir">Expandir todo</button>
   <button type="button" class="boton" id="contraer">Contraer todo</button>
 </div>
 <p class="conteo" id="conteo" role="status" aria-live="polite"></p>
+<div id="vista-mapa">
+<div class="mapa" id="mapa">
+  <div class="mapa-raiz"><a class="mapa-caja raiz" href="../">Eco Agri<small>Herramientas</small></a></div>
+  <div class="mapa-ramas">
+<div class="mapa-col" style="--c:#4F7D3A">
+  <a class="mapa-caja app" href="agriapp/">EcoAgriApp</a>
+  <div class="mapa-acc"><a href="../agriapp/">Abrir ↗</a><a href="agriapp/">Qué es</a></div>
+  <ul class="mapa-hijos">
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="agriapp/hub" aria-expanded="false" aria-controls="m-agriapp-hub"><span>Inicio</span><span class="n">1</span></button>
+  <div class="mapa-detalle" id="m-agriapp-hub" hidden>
+    <p class="mapa-res">El punto de partida: estado de los datos y acceso a las demás herramientas.</p>
+    <div class="mapa-acc"><a href="../agriapp/">Abrir ↗</a><a href="agriapp/hub/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/hub/#que-hace" title="El punto de partida: estado de los datos y acceso a las demás herramientas.">Qué hace el Inicio</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="agriapp/formulario" aria-expanded="false" aria-controls="m-agriapp-formulario"><span>Registrar aplicación</span><span class="n">5</span></button>
+  <div class="mapa-detalle" id="m-agriapp-formulario" hidden>
+    <p class="mapa-res">Dejar constancia de una aplicación ya realizada en campo.</p>
+    <div class="mapa-acc"><a href="../agriapp/formulario/">Abrir ↗</a><a href="agriapp/formulario/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/formulario/#que-hace" title="Dejar constancia de una aplicación ya realizada en campo.">Qué hace y cómo funciona</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/formulario/#forma-de-aplicacion" title="Hay cinco: Lanza, Aguilón, Drench (Poma Roja), Drench (Venturi) e Inyección.">Forma de aplicación</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/formulario/#area-aplicada" title="Se calcula sumando el área registrada (columna N de FINCAS) de todos los lotes marcados, y se guarda en hectáreas junto con el evento.">Área aplicada</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/formulario/#aviso-de-dosis-contra-formulacion" title="No impide guardar, sólo advierte. Compara la formulación del producto elegido (columna H de PRODUCTOS: WP, EC, SL, GR...) contra una tabla de FINCAS que dice si esa…">Aviso de dosis contra formulación</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/formulario/#quien-puede-registrar" title="Consultar el histórico es público; guardar no.">Quién puede registrar</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="agriapp/visualizador" aria-expanded="false" aria-controls="m-agriapp-visualizador"><span>Consultar aplicaciones</span><span class="n">5</span></button>
+  <div class="mapa-detalle" id="m-agriapp-visualizador" hidden>
+    <p class="mapa-res">El histórico completo de aplicaciones, con filtros y calendario semanal.</p>
+    <div class="mapa-acc"><a href="../agriapp/visualizador/">Abrir ↗</a><a href="agriapp/visualizador/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/visualizador/#que-hace" title="El histórico completo de aplicaciones, con filtros y calendario semanal.">Qué hace y cómo funciona</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/visualizador/#codigo-de-grupo-de-accion-rac" title="Cada ingrediente activo tiene un número de grupo (columna Grupo de Ingredientes_Activos), pero ese número por sí solo es ambiguo: el grupo 2 de un herbicida no tiene…">Código de grupo de acción (RAC)</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/visualizador/#cantidad-estimada-de-ingrediente-activo" title="Cuando la ficha de una molécula trae su concentración, se estima cuánto ingrediente activo puso esa aplicación: la dosis registrada del producto se multiplica por la…">Cantidad estimada de ingrediente activo</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/visualizador/#calendario-por-semana-y-lote" title="Agrupa las aplicaciones de cada lote por semana ISO (la semana empieza el lunes, y la semana 1 del año es la que contiene el primer jueves) y muestra los códigos de…">Calendario por semana y lote</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/visualizador/#filtros" title="Por finca, lote, producto, ingrediente activo, tipo, grupo RAC, un cuadro de texto libre (busca en nombre de producto, molécula, lote y observación) y un rango de fechas.">Filtros</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="agriapp/rotacion" aria-expanded="false" aria-controls="m-agriapp-rotacion"><span>Rotación</span><span class="n">3</span></button>
+  <div class="mapa-detalle" id="m-agriapp-rotacion" hidden>
+    <p class="mapa-res">Qué modo de acción recibió cada lote, semana a semana, y qué aplicar a continuación.</p>
+    <div class="mapa-acc"><a href="../agriapp/rotacion/">Abrir ↗</a><a href="agriapp/rotacion/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/rotacion/#que-hace" title="Qué modo de acción recibió cada lote, semana a semana, y qué aplicar a continuación.">Qué hace y cómo funciona</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/rotacion/#semaforo" title="Apagado por defecto; al encenderlo no vuelve a consultar la hoja, sólo revisa los datos que ya trajo la última consulta.">Semáforo</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/rotacion/#sugerir-aplicacion" title="Da una recomendación de qué aplicar a continuación, lote por lote (uno de los lotes marcados en el filtro, no un resultado combinado).">Sugerir aplicación</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="agriapp/planeacion" aria-expanded="false" aria-controls="m-agriapp-planeacion"><span>Planear aplicación</span><span class="n">5</span></button>
+  <div class="mapa-detalle" id="m-agriapp-planeacion" hidden>
+    <p class="mapa-res">Calculadora de vista previa: cuánta agua y producto preparar antes de salir a campo.</p>
+    <div class="mapa-acc"><a href="../agriapp/planeacion/">Abrir ↗</a><a href="agriapp/planeacion/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/planeacion/#que-hace" title="Calculadora de vista previa: cuánta agua y producto preparar antes de salir a campo.">Qué hace y cómo funciona</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/planeacion/#cuanta-agua-hace-falta" title="El área es la suma de los lotes marcados.">Cuánta agua hace falta</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/planeacion/#orden-de-mezcla-en-el-tanque" title="Cada producto tiene una categoría (su Tipo, o si no aparece en la tabla, su formulación) que se busca en una tabla de prioridad de FINCAS.">Orden de mezcla en el tanque</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/planeacion/#cantidad-de-cada-producto" title="La dosis recomendada de PRODUCTOS se multiplica por el factor que corresponda a la unidad en que está anotada: por hectárea (dosis × hectáreas totales), por caneca…">Cantidad de cada producto</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/planeacion/#aviso-de-resistencia" title="Si dos productos de la mezcla comparten el mismo código de grupo de acción (el mismo &quot;H2&quot;, por ejemplo), aparece un aviso: combinarlos no aporta control adicional…">Aviso de resistencia</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="agriapp/inventario" aria-expanded="false" aria-controls="m-agriapp-inventario"><span>Inventario</span><span class="n">4</span></button>
+  <div class="mapa-detalle" id="m-agriapp-inventario" hidden>
+    <p class="mapa-res">El último conteo de existencias en bodega, y cómo levantar uno nuevo.</p>
+    <div class="mapa-acc"><a href="../agriapp/inventario/">Abrir ↗</a><a href="agriapp/inventario/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/inventario/#que-hace" title="El último conteo de existencias en bodega, y cómo levantar uno nuevo.">Qué hace y cómo funciona</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/inventario/#productos-fuera-de-catalogo" title="Cada producto contado se busca por su nombre (no por id) en el catálogo de PRODUCTOS, para traerle su tipo y sus ingredientes activos con el mismo código de grupo que…">Productos contados y productos fuera de catálogo</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/inventario/#historial-de-conteos" title="Antes de reemplazar el conteo vigente, se exporta su estado actual a PDF (el mismo formato de &quot;Descargar PDF&quot;) y se sube a la carpeta de Drive &quot;Historial de Inventarios&quot;.">Historial de conteos en PDF</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/inventario/#codigo-de-barras" title="Al escribir un producto que ya existe en el catálogo, si todavía no tiene un código de barras registrado (columna &quot;Código&quot; de PRODUCTOS) aparece un botón &quot;Escanear&quot;…">Código de barras</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="agriapp/costos" aria-expanded="false" aria-controls="m-agriapp-costos"><span>Costos de aplicación</span><span class="n">3</span></button>
+  <div class="mapa-detalle" id="m-agriapp-costos" hidden>
+    <p class="mapa-res">Estimación del gasto fitosanitario, por producto o por finca/lote.</p>
+    <div class="mapa-acc"><a href="../agriapp/costos/">Abrir ↗</a><a href="agriapp/costos/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/costos/#que-hace" title="Estimación del gasto fitosanitario, por producto o por finca/lote.">Qué hace y cómo funciona</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/costos/#cadena-de-calculo-evento-por-evento" title="La insignia de color junto al nombre de cada producto indica de dónde sale el precio usado: verde cuando hay varios proveedores que se pudieron comparar (el detalle…">Cadena de cálculo, evento por evento</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/costos/#analisis-avanzado" title="Es un cálculo aparte, no una vista distinta del mismo número: en vez de agrupar por producto, agrupa por finca o por lote, y permite marcar lotes de varias fincas a…">Análisis avanzado</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="agriapp/reportes" aria-expanded="false" aria-controls="m-agriapp-reportes"><span>Reportes de asistencia técnica</span><span class="n">3</span></button>
+  <div class="mapa-detalle" id="m-agriapp-reportes" hidden>
+    <p class="mapa-res">El PDF de asistencia técnica de una finca, listo para firmar.</p>
+    <div class="mapa-acc"><a href="../agriapp/reportes/">Abrir ↗</a><a href="agriapp/reportes/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/reportes/#que-hace" title="El PDF de asistencia técnica de una finca, listo para firmar.">Qué hace y cómo funciona</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/reportes/#paginas-por-semana" title="Cada aplicación se imprime como un bloque con una fila por producto de la mezcla, en el mismo orden en que se guardaron en EVENTOS_PRODUCTOS.">Páginas por semana y bloques de aplicación</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="agriapp/reportes/#origen-de-los-datos" title="Los datos vienen de las mismas hojas que el visualizador (EVENTOS_APLICACION, EVENTOS_LOTES, EVENTOS_PRODUCTOS y PRODUCTOS), filtrados por la finca y el rango de…">De dónde salen los datos</a></li></ul>
+  </div>
+</li>
+  </ul>
+</div>
+<div class="mapa-col" style="--c:#2F6D9E">
+  <a class="mapa-caja app" href="normativa/">Gestión Normativa (ICA)</a>
+  <div class="mapa-acc"><a href="../normativa/">Abrir ↗</a><a href="normativa/">Qué es</a></div>
+  <ul class="mapa-hijos">
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="normativa/inicio" aria-expanded="false" aria-controls="m-normativa-inicio"><span>Inicio</span><span class="n">4</span></button>
+  <div class="mapa-detalle" id="m-normativa-inicio" hidden>
+    <p class="mapa-res">Estado normativo de todas las fincas y acceso a cada ficha.</p>
+    <div class="mapa-acc"><a href="../normativa/">Abrir ↗</a><a href="normativa/inicio/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/inicio/#que-hace" title="Estado normativo de todas las fincas y acceso a cada ficha.">Qué hace el Inicio</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/inicio/#indicadores-y-alertas" title="Una franja de indicadores cuenta los documentos vencidos y por vencer , y debajo se listan las alertas agrupadas por urgencia.">Indicadores y alertas pendientes</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/inicio/#acceso-por-finca" title="Las fincas se listan agrupadas por grupo empresarial.">Acceso por finca y por grupo</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/inicio/#responsable-y-version" title="El pie del inicio muestra quién elabora el sistema (nombre y correo de contacto) y la versión instalada.">Responsable y versión</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="normativa/sesion" aria-expanded="false" aria-controls="m-normativa-sesion"><span>Acceso y sesión</span><span class="n">3</span></button>
+  <div class="mapa-detalle" id="m-normativa-sesion" hidden>
+    <p class="mapa-res">Quién puede escribir datos: usuario y contraseña, sesión de 6 horas.</p>
+    <div class="mapa-acc"><a href="normativa/sesion/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/sesion/#que-hace" title="Quién puede escribir datos: usuario y contraseña, sesión de 6 horas.">Cómo funciona el acceso</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/sesion/#iniciar-sesion" title="Se entra con usuario y contraseña. El usuario no distingue mayúsculas; la contraseña sí.">Iniciar y cerrar sesión</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/sesion/#crear-usuarios" title="Es un equipo pequeño y de confianza, por eso no hay un rol de administrador: cualquier usuario con sesión puede crear otro (usuario, contraseña y nombre).">Crear usuarios</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="normativa/finca" aria-expanded="false" aria-controls="m-normativa-finca"><span>Ficha de finca</span><span class="n">6</span></button>
+  <div class="mapa-detalle" id="m-normativa-finca" hidden>
+    <p class="mapa-res">El expediente ICA de un lugar de producción: datos del predio, documentos y verificaciones.</p>
+    <div class="mapa-acc"><a href="../normativa/">Abrir ↗</a><a href="normativa/finca/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/finca/#que-hace" title="El expediente ICA de un lugar de producción: datos del predio, documentos y verificaciones.">Qué hace la ficha de finca</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/finca/#datos-del-predio" title="Se pueden editar: nombre del lugar de producción, área sembrada (ha), especies cultivadas, ubicación (vereda/municipio/departamento), coordenadas, capacidad, tipo de…">Datos del predio</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/finca/#documentos-del-lugar-de-produccion" title="Cada finca lleva estos documentos, uno por línea con su estado:">Documentos del lugar de producción (Art. 5 y 11)</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/finca/#registros-periodicos" title="Son documentos que se repiten en el tiempo: cada entrega es un registro nuevo y se conserva todo el histórico.">Informe trimestral, monitoreo y conteo de trips</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/finca/#capacitacion-del-personal" title="Registro mensual de la capacitación fitosanitaria: se presenta como una cuadrícula de los 12 meses del año en curso , con un soporte (archivo) por mes.">Capacitación del personal (Art. 11.1.11)</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/finca/#infraestructura" title="Es una lista de verificación de 12 ítems de la visita técnica del ICA: área de cultivo señalizada, manejo de residuos vegetales, almacenamiento de insumos, área bajo…">Infraestructura (Art. 5.3)</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="normativa/grupo" aria-expanded="false" aria-controls="m-normativa-grupo"><span>Ficha de grupo empresarial</span><span class="n">5</span></button>
+  <div class="mapa-detalle" id="m-normativa-grupo" hidden>
+    <p class="mapa-res">Datos generales, asistente técnico y documentos que heredan todas las fincas del grupo.</p>
+    <div class="mapa-acc"><a href="../normativa/">Abrir ↗</a><a href="normativa/grupo/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/grupo/#que-hace" title="Datos generales, asistente técnico y documentos que heredan todas las fincas del grupo.">Qué hace la ficha de grupo</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/grupo/#datos-generales" title="Se editan: razón social, NIT, dirección, teléfono y correo, y los datos del asistente técnico (nombre, profesión, tarjeta profesional y fecha de la tarjeta).">Datos generales (Art. 4)</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/grupo/#documentos-del-grupo" title="Art. 4 — Inscripción en SimplifICA. Es un único registro sin archivo: sólo se deja constancia con la fecha de expedición (la de hoy si no se indica otra).">Documentos del grupo</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/grupo/#registro-de-importador" title="Si el grupo no importa, el Registro de Importador aparece como No aplica y no genera alertas.">Registro de Importador: &quot;No aplica&quot; y activación</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/grupo/#fincas-del-grupo" title="Lista las fincas que pertenecen al grupo, cada una con acceso directo a su ficha.">Fincas del grupo</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="normativa/documentos" aria-expanded="false" aria-controls="m-normativa-documentos"><span>Documentos y archivos</span><span class="n">8</span></button>
+  <div class="mapa-detalle" id="m-normativa-documentos" hidden>
+    <p class="mapa-res">Cómo se suben, reemplazan, corrigen y eliminan los documentos.</p>
+    <div class="mapa-acc"><a href="normativa/documentos/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/documentos/#que-hace" title="Cómo se suben, reemplazan, corrigen y eliminan los documentos.">Qué hace esta parte</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/documentos/#subir-documento" title="Se elige el archivo o se arrastra y suelta sobre la zona indicada.">Subir un documento</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/documentos/#reemplazar-documento" title="Sube la versión nueva en el mismo lugar: el registro pasa a la versión siguiente y el archivo anterior no se borra, se mueve a una subcarpeta Reemplazados dentro de…">Reemplazar un documento</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/documentos/#editar-fechas" title="Permite corregir la fecha de expedición y la de vencimiento de un documento ya subido, sin volver a subir el archivo.">Editar fechas</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/documentos/#eliminar-documento" title="Nunca se borra de verdad: si tenía archivo, se mueve a Reemplazados .">Eliminar un documento</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/documentos/#registro-sin-archivo-o-con-enlace" title="Dos tipos no piden archivo. La inscripción en SimplifICA sólo deja constancia con una fecha.">Registros sin archivo y con enlace</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/documentos/#iniciar-renovacion" title="El Registro del Lugar de Producción y el Registro de Sanidad Vegetal del asistente técnico muestran un botón Iniciar renovación cuando están por vencer o vencidos.">Iniciar una renovación (Art. 9)</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/documentos/#confirmaciones-de-acciones" title="Cada vez que una acción de escritura sale bien (subir, reemplazar, eliminar, editar fechas, guardar un enlace, activar o renovar un registro) aparece un aviso breve…">Confirmación de las acciones</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="normativa/estados" aria-expanded="false" aria-controls="m-normativa-estados"><span>Estados y alertas</span><span class="n">5</span></button>
+  <div class="mapa-detalle" id="m-normativa-estados" hidden>
+    <p class="mapa-res">Cómo se decide si un documento está vigente, por vencer o vencido.</p>
+    <div class="mapa-acc"><a href="normativa/estados/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/estados/#que-hace" title="Cómo se decide si un documento está vigente, por vencer o vencido.">Qué hace esta parte</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/estados/#los-cinco-estados" title="Pendiente — todavía no hay un documento válido.">Los cinco estados</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/estados/#documentos-que-reemplazan" title="Hay a lo sumo un documento vigente por finca o grupo; los anteriores son historial.">Documentos que se reemplazan</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/estados/#documentos-periodicos" title="Informe trimestral, monitoreo y trips no tienen un vencimiento fijo: cada entrega es un registro nuevo y el estado se calcula contra el próximo corte esperado desde…">Documentos que se acumulan</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/estados/#capacitacion-mensual" title="Aquí no importa el día en que se subió el archivo.">Capacitación mensual por mes calendario</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="normativa/avisos" aria-expanded="false" aria-controls="m-normativa-avisos"><span>Avisos automáticos</span><span class="n">4</span></button>
+  <div class="mapa-detalle" id="m-normativa-avisos" hidden>
+    <p class="mapa-res">Correo diario y eventos en Google Calendar antes de cada vencimiento.</p>
+    <div class="mapa-acc"><a href="normativa/avisos/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/avisos/#que-hace" title="Correo diario y eventos en Google Calendar antes de cada vencimiento.">Qué hace esta parte</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/avisos/#correo-resumen-diario" title="Cada día, alrededor de las 7 de la mañana, se envía un correo a los destinatarios configurados.">Correo-resumen diario</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/avisos/#avisos-en-google-calendar" title="Para cada obligación pendiente se crea un evento de día completo en el calendario principal del dueño del proyecto, con la anticipación que corresponda a cada tipo de…">Avisos en Google Calendar</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/avisos/#escalamiento-diario-de-trips" title="El conteo semanal de trips tiene un tratamiento especial: además del aviso previo, mientras esté vencido se crea un evento nuevo cada día.">Escalamiento diario del conteo de trips</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="normativa/drive" aria-expanded="false" aria-controls="m-normativa-drive"><span>Organización en Drive</span><span class="n">3</span></button>
+  <div class="mapa-detalle" id="m-normativa-drive" hidden>
+    <p class="mapa-res">Dónde quedan los archivos y cómo se nombran.</p>
+    <div class="mapa-acc"><a href="normativa/drive/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/drive/#que-hace" title="Dónde quedan los archivos y cómo se nombran.">Qué hace esta parte</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/drive/#estructura-de-carpetas" title="Dentro de la carpeta raíz del proyecto, la ruta es: Grupo / (Compartido - grupo | Por finca / Finca) / (Permanente | Vence) .">Estructura de carpetas</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/drive/#nombres-estandarizados" title="El nombre se arma como FINCA o GRUPO + numeral normativo + código del tipo + sufijo , conservando la extensión original.">Nombres de archivo estandarizados</a></li></ul>
+  </div>
+</li>
+  </ul>
+</div>
+<div class="mapa-col" style="--c:#C9A227">
+  <a class="mapa-caja app" href="rendimientos/">Rendimientos</a>
+  <div class="mapa-acc"><a href="../rendimientos/">Abrir ↗</a><a href="rendimientos/">Qué es</a></div>
+  <ul class="mapa-hijos">
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="rendimientos/formulario" aria-expanded="false" aria-controls="m-rendimientos-formulario"><span>Registrar jornada</span><span class="n">7</span></button>
+  <div class="mapa-detalle" id="m-rendimientos-formulario" hidden>
+    <p class="mapa-res">El formulario para registrar lo que hizo un operario en un día.</p>
+    <div class="mapa-acc"><a href="../rendimientos/">Abrir ↗</a><a href="rendimientos/formulario/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/formulario/#que-hace" title="El formulario para registrar lo que hizo un operario en un día.">Qué hace el formulario</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/formulario/#bloque-de-trabajo" title="Cada bloque tiene hora de inicio y hora de fin (de ahí salen las horas del bloque), una categoría y una actividad dentro de esa categoría.">Bloque de trabajo: horario, categoría y actividad</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/formulario/#ubicacion-finca-lote-y-camas" title="Según la actividad, se pide sólo la finca, la finca y uno o varios lotes completos, o la finca, el lote y las camas puntuales; algunas actividades no piden ubicación.">Ubicación: finca, lote y camas</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/formulario/#ultima-cama-y-fraccion" title="Si la última cama quedó completa se deja marcada la casilla.">Última cama completa y fracción alcanzada</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/formulario/#cantidad-calidad-y-paquetes" title="Cuando la actividad pide cantidad, se escribe en la unidad que tenga definida (kg, tallos, cajas, litros, etc.).">Cantidad, calidades y paquetes</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/formulario/#actividad-secundaria" title="Para el caso poco común de dos labores simultáneas en el mismo bloque de horas, se puede añadir una actividad secundaria, con su propia categoría, actividad y cantidad.">Actividad secundaria</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/formulario/#como-se-guarda-la-jornada" title="Al guardar, se escribe una fila de cabecera en Registros (fecha, operario, número de bloques y total de horas) y una fila por bloque en Actividades , enlazadas por un…">Cómo se guarda la jornada</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="rendimientos/visualizador" aria-expanded="false" aria-controls="m-rendimientos-visualizador"><span>Visualizador de rendimientos</span><span class="n">5</span></button>
+  <div class="mapa-detalle" id="m-rendimientos-visualizador" hidden>
+    <p class="mapa-res">Gráficas y rankings de horas, tallos y operarios.</p>
+    <div class="mapa-acc"><a href="../rendimientos/">Abrir ↗</a><a href="rendimientos/visualizador/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#que-hace" title="Gráficas y rankings de horas, tallos y operarios.">Qué hace el visualizador</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#resumen-general" title="Dos gráficas fijas al abrir el visualizador: días registrados por mes y horas por actividad .">Resumen general</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#explorador-interactivo" title="Se elige el período con &quot;Desde&quot; y &quot;Hasta&quot;, o con los atajos de últimos 30, 60 o 90 días y todo el período, y se puede limpiar con &quot;Limpiar fechas&quot;.">Explorador interactivo</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#cosecha-en-tallos" title="Una sección aparte para la cosecha, con sus propios filtros: finca, cultivo, lote, operario y calidad (con &quot;Limpiar filtros de cosecha&quot;).">Cosecha en tallos</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#ranking-de-operarios" title="Ordena a los operarios por tallos cosechados, con el desglose por calidad.">Ranking de operarios</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="rendimientos/validaciones" aria-expanded="false" aria-controls="m-rendimientos-validaciones"><span>Catálogo y reglas</span><span class="n">4</span></button>
+  <div class="mapa-detalle" id="m-rendimientos-validaciones" hidden>
+    <p class="mapa-res">La hoja que define qué pregunta el formulario en cada actividad.</p>
+    <div class="mapa-acc"><a href="rendimientos/validaciones/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/validaciones/#que-hace" title="La hoja que define qué pregunta el formulario en cada actividad.">Qué es el catálogo de reglas</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/validaciones/#ubicacion-de-la-actividad" title="La columna nivel_ubicacion de una actividad acepta: cama (finca, lote y camas puntuales), lote (finca y uno o varios lotes completos), finca (sólo la finca) o vacía…">Dónde ocurre la actividad (nivel de ubicación)</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/validaciones/#cantidad-de-la-actividad" title="La columna unidad_cantidad responde una sola pregunta: ¿se mide una cantidad?">Si se mide una cantidad y en qué unidad</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/validaciones/#producto-y-calidad" title="Cuando la actividad pide cantidad pero no ubicación (por ejemplo la poscosecha), la columna preguntar_producto con &quot;Sí&quot; hace que el formulario pregunte primero de qué…">Producto y desglose por calidad</a></li></ul>
+  </div>
+</li>
+  </ul>
+</div>
+  </div>
+</div>
+</div>
+<div id="vista-lista" hidden>
 <ul class="arbol" id="arbol">
 <li class="nodo app" style="--c:#4F7D3A">
   <button type="button" class="nodo-btn" id="n-agriapp" data-ruta="agriapp" aria-expanded="false" aria-controls="c-agriapp">
@@ -383,8 +565,9 @@
   </div>
 </li>
 </ul>
+</div>
 <p class="sin-resultados" id="sin-resultados" hidden>Ninguna función coincide con la búsqueda.</p>
-<noscript><style>.nodo-cuerpo[hidden]{display:block}</style></noscript>
+<noscript><style>.nodo-cuerpo[hidden],.mapa-detalle[hidden],#vista-lista[hidden]{display:block}</style></noscript>
   <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>
 </main>
 <script src="../assets/arbol.js"></script>

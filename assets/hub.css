@@ -132,3 +132,70 @@ code { font-family: 'IBM Plex Mono', monospace; font-size: .92em; background: va
   .nodo-btn .num { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .nodo-btn .chev { transition: none; } }
+
+/* ---------------- Mapa visual (organigrama) ---------------- */
+.lienzo.ancho { max-width: 1240px; }
+.lienzo.ancho .encabezado { max-width: var(--ancho-lectura); }
+.vistas { display: inline-flex; border: 1px solid var(--linea-fuerte); border-radius: var(--r); overflow: hidden; }
+.vistas button { font: inherit; font-size: 13px; min-height: 40px; padding: 8px 16px; border: 0; background: var(--superficie); color: var(--tinta-2); cursor: pointer; }
+.vistas button + button { border-left: 1px solid var(--linea-fuerte); }
+.vistas button[aria-pressed="true"] { background: var(--verde); color: var(--sobre-acento); }
+.vistas button:focus-visible { outline: 2px solid var(--verde); outline-offset: -2px; }
+
+.mapa { --lm: var(--linea-fuerte); padding: 12px 0 24px; }
+.mapa ul { list-style: none; margin: 0; padding: 0; }
+.mapa-caja {
+  display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+  font: inherit; font-size: 13.5px; line-height: 1.25; text-align: center; text-decoration: none;
+  color: var(--tinta); background: var(--superficie); border: 1px solid var(--linea-fuerte);
+  border-radius: var(--r); padding: 10px 14px; cursor: pointer;
+}
+.mapa-caja:hover { border-color: var(--verde); }
+.mapa-caja:focus-visible { outline: 2px solid var(--verde); outline-offset: 2px; }
+.mapa-raiz { position: relative; display: flex; justify-content: center; padding-bottom: 28px; }
+.mapa-raiz::after { content: ""; position: absolute; left: 50%; bottom: 0; height: 28px; border-left: 2px solid var(--lm); }
+.mapa-caja.raiz {
+  flex-direction: column; gap: 2px; width: auto; min-width: 260px; padding: 14px 44px;
+  background: var(--verde); border-color: var(--verde); color: var(--sobre-acento);
+  font-family: 'IBM Plex Sans Condensed', sans-serif; font-weight: 700; font-size: 24px;
+}
+.mapa-caja.raiz:hover { background: var(--verde-2); border-color: var(--verde-2); }
+.mapa-caja.raiz small { font: 500 10.5px 'IBM Plex Mono', monospace; letter-spacing: .16em; text-transform: uppercase; opacity: .9; }
+
+.mapa-ramas { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; padding-top: 28px; align-items: start; }
+.mapa-ramas::before { content: ""; position: absolute; top: 0; left: calc((100% - 40px) / 6); right: calc((100% - 40px) / 6); border-top: 2px solid var(--lm); }
+.mapa-col { position: relative; }
+.mapa-col::before { content: ""; position: absolute; top: -28px; left: 50%; height: 28px; border-left: 2px solid var(--lm); }
+.mapa-caja.app {
+  border: 2px solid var(--c); border-top-width: 6px; font-family: 'IBM Plex Sans Condensed', sans-serif;
+  font-weight: 700; font-size: 17px; padding: 12px 14px;
+}
+.mapa-acc { display: flex; gap: 14px; justify-content: center; font-size: 12.5px; margin: 6px 0 0; }
+.mapa-acc a { color: var(--verde); }
+.mapa-hijos { margin-top: 4px; }
+.mapa-item { position: relative; padding-top: 16px; }
+.mapa-item::before { content: ""; position: absolute; top: 0; left: 50%; height: 16px; border-left: 2px solid var(--lm); }
+.mapa-caja.herr { justify-content: space-between; text-align: left; font-weight: 500; }
+.mapa-caja.herr[aria-expanded="true"] { border-color: var(--c); box-shadow: inset 4px 0 0 var(--c); }
+.mapa-caja .n { font: 11px 'IBM Plex Mono', monospace; color: var(--tinta-3); flex: none; }
+.mapa-detalle { padding-top: 6px; }
+.mapa-detalle[hidden] { display: none; }
+.mapa-res { margin: 0 0 4px; font-size: 12.5px; color: var(--tinta-2); text-align: center; }
+.mapa-hojas { margin: 0 0 0 14px; }
+.mapa-hojas .mapa-item { padding-top: 12px; }
+.mapa-hojas .mapa-item::before { height: 12px; left: 18px; }
+.mapa-hojas .mapa-item { margin-left: 0; }
+.mapa-caja.hoja { justify-content: flex-start; text-align: left; font-size: 12.5px; padding: 8px 10px; background: var(--superficie); border: 1px dashed var(--tinta-3); }
+.mapa-caja.hoja:hover { border-style: solid; }
+.mapa-caja.coincide { border-color: var(--verde); border-style: solid; background: var(--verde-suave); color: var(--ok-texto); }
+.mapa-item.atenuado { opacity: .3; }
+
+@media (max-width: 899px) {
+  .mapa-ramas { grid-template-columns: 1fr; gap: 28px; padding-top: 4px; }
+  .mapa-ramas::before, .mapa-col::before, .mapa-raiz::after { display: none; }
+  .mapa-raiz { padding-bottom: 20px; }
+  .mapa-caja.raiz { width: 100%; min-width: 0; }
+}
+@media (prefers-reduced-motion: no-preference) { .mapa-caja { transition: border-color .12s ease; } }
+
+.barra-fila.ancho { max-width: 1240px; }
