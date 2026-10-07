@@ -103,7 +103,8 @@ body.inicio { position: relative; min-height: 100vh; overflow-x: hidden; }
 :root[data-theme="dark"] .follaje { filter: brightness(.7) saturate(.9); }
 :root[data-theme="dark"] .tarjeta-app { box-shadow: 0 calc(var(--luz, 0) * 14px) calc(var(--luz, 0) * 32px) rgba(143, 198, 114, calc(var(--luz, 0) * .16)); }
 
-/* Acceso discreto a la configuración de administrador: un candado pequeño al pie, sin rótulo. */
-.acceso-admin { display: inline-flex; vertical-align: middle; margin-left: 10px; color: var(--tinta-3); opacity: .55; }
-.acceso-admin svg { width: 14px; height: 14px; }
-.acceso-admin:hover, .acceso-admin:focus-visible { opacity: 1; color: var(--texto-verde); }
+/* Acceso discreto a la configuración de administrador: un candado diminuto al pie, casi imperceptible (el tamaño también va en los atributos
+   width/height del svg, para que nunca se dibuje a tamaño completo si esta hoja tarda en cargar). */
+.acceso-admin { display: inline-flex; vertical-align: middle; margin-left: 8px; color: var(--tinta-3); opacity: .28; line-height: 0; }
+.acceso-admin svg { width: 11px; height: 11px; max-width: 11px; max-height: 11px; }
+.acceso-admin:hover, .acceso-admin:focus-visible { opacity: .9; color: var(--texto-verde); }

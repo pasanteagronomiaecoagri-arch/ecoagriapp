@@ -32,8 +32,11 @@
 <div class="encabezado"><p class="rotulo">Eco Agri · Versiones</p><h1>Qué ha cambiado</h1><p>La versión de cada aplicación aparece en su barra superior. Aquí está el historial de cambios de las tres, de la más reciente a la más antigua.</p></div>
 <div class="filtros" role="group" aria-label="Filtrar por aplicación"><button type="button" class="chip" data-app="todas" aria-pressed="true">Todas</button><button type="button" class="chip" data-app="agriapp" aria-pressed="false">EcoAgriApp</button><button type="button" class="chip" data-app="normativa" aria-pressed="false">Gestión Normativa (ICA)</button><button type="button" class="chip" data-app="rendimientos" aria-pressed="false">Rendimientos</button></div>
 <section class="bloque-app" id="agriapp" data-app="agriapp">
-  <h2>EcoAgriApp <span class="insignia">Versión actual: alpha 8.0</span></h2>
+  <h2>EcoAgriApp <span class="insignia">Versión actual: alpha 8.3</span></h2>
   <ul class="cambios">
+<li><span class="v">alpha 8.3</span><span class="r">Inicio de sesión más discreto y a mano: un icono de persona junto al botón de tema, en la barra de cada herramienta. Sin sesión abre el inicio de sesión; con sesión muestra un menú con su nombre, «Cambiar contraseña» y «Cerrar sesión». Ya no ocupa espacio dentro de los formularios, y el cuadro de inicio de sesión sigue apareciendo solo cuando una acción lo exige.</span></li>
+<li><span class="v">alpha 8.2</span><span class="r">Permisos por función: el administrador puede decidir, desde el panel de control, quién puede usar cada función (cualquiera, solo con sesión, solo administrador o desactivada). Quien tiene sesión puede cambiar su propia contraseña desde la tarjeta de sesión. Las funciones restringidas piden iniciar sesión solo cuando hace falta; si están abiertas, se usan sin entrar.</span></li>
+<li><span class="v">alpha 8.1</span><span class="r">Inicio de sesión común: para registrar aplicaciones, guardar el inventario o asociar códigos de barras ahora se entra con usuario y contraseña (los mismos de Gestión Normativa), en lugar del código de registro. Si no hay sesión, el formulario se llena igual y la pide al guardar; si vence, se vuelve a pedir sin perder lo escrito. Queda registrado el usuario que guardó.</span></li>
 <li><span class="v">alpha 8.0</span><span class="r">Seguridad: las funciones de administración y diagnóstico (códigos de acceso, pruebas, inspecciones) ya no pueden invocarse desde el navegador, solo desde el editor de Apps Script. Asociar un código de barras a un producto ahora exige el mismo código de registro que guardar el inventario. No cambia nada en el uso diario.</span></li>
 <li><span class="v">alpha 7.9</span><span class="r">El escáner de código de barras ahora forma parte del portal de Herramientas y usa el mismo diseño: tipografía y colores comunes, modo oscuro, animación mientras abre la cámara y una pantalla de fallo con «Reintentar» (cámara bloqueada, ausente o en uso). El funcionamiento no cambia.</span></li>
 <li><span class="v">alpha 7.8</span><span class="r">Menú de la barra arreglado en pantallas medianas: antes, entre 761 y ~1100 px los últimos botones quedaban cortados fuera de la pantalla y hasta 1439 px todas las etiquetas se partían en dos líneas. Ahora el menú es normal desde 1380 px, compacto entre 1160 y 1379 px (y sin &quot;Datos al…&quot; cuando no cabe), y se pliega en el menú de hamburguesa por debajo de 1160 px.</span></li>
@@ -60,8 +63,9 @@
   </ul>
 </section>
 <section class="bloque-app" id="normativa" data-app="normativa">
-  <h2>Gestión Normativa (ICA) <span class="insignia">Versión actual: alpha 1.15</span></h2>
+  <h2>Gestión Normativa (ICA) <span class="insignia">Versión actual: alpha 1.17</span></h2>
   <ul class="cambios">
+<li><span class="v">alpha 1.17</span><span class="r">Permisos por funcion, cambiar contrasena y control de sesion en la barra.</span></li>
 <li><span class="v">alpha 1.15</span><span class="r">Inicio de sesion comun, roles y funciones de editor protegidas.</span></li>
 <li><span class="v">alpha 1.14</span><span class="r">Tema oscuro comun.</span></li>
 <li><span class="v">alpha 1.13</span><span class="r">Fallo de carga con reintento, pagina 404, avisos y ventanas comunes.</span></li>
@@ -93,8 +97,11 @@
   </ul>
 </section>
 <section class="bloque-app" id="rendimientos" data-app="rendimientos">
-  <h2>Rendimientos <span class="insignia">Versión actual: alpha 0.58</span></h2>
+  <h2>Rendimientos <span class="insignia">Versión actual: alpha 0.61</span></h2>
   <ul class="cambios">
+<li><span class="v">alpha 0.61<small>2026-10-06</small></span><span class="r">Control de sesion discreto en la barra (icono junto al tema).</span></li>
+<li><span class="v">alpha 0.60<small>2026-10-06</small></span><span class="r">Permisos por funcion, cambiar contrasena, llamarServidor_ en el cliente.</span></li>
+<li><span class="v">alpha 0.59<small>2026-10-06</small></span><span class="r">Guardar jornada exige sesion (inicio de sesion comun); columna registrado_por.</span></li>
 <li><span class="v">alpha 0.58<small>2026-10-06</small></span><span class="r">Funciones de mantenimiento reservadas al editor.</span></li>
 <li><span class="v">alpha 0.57<small>2026-10-06</small></span><span class="r">Tema oscuro comun (interruptor y tema separados, tokens nuevos).</span></li>
 <li><span class="v">alpha 0.56<small>2026-10-06</small></span><span class="r">Dialogos propios (confirmar al quitar un bloque, errores de guardado), aviso emergente al guardar y vigilancia de las cargas.</span></li>
