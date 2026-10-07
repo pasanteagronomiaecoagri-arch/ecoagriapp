@@ -64,7 +64,6 @@
     <a href="../../normativa/" aria-current="page">Normativa</a>
     <a href="../../rendimientos/">Rendimientos</a>
   </nav>
-  <span class="barra-sesion" id="barra-sesion-portal"></span>
 </header>
 <div class="sp-modal" id="sp-modal" hidden>
   <div class="sp-caja" role="dialog" aria-labelledby="sp-titulo">
@@ -79,6 +78,20 @@
       <p class="sp-error" id="sp-error" role="alert" hidden></p>
       <div class="sp-acciones"><button type="button" class="boton" id="sp-cancelar">Cancelar</button><button type="submit" class="boton principal" id="sp-enviar">Iniciar sesión</button></div>
     </form>
+  </div>
+</div>
+<div class="sp-modal" id="sp-cuenta" hidden>
+  <div class="sp-caja" role="dialog" aria-labelledby="spc-nombre">
+    <p class="sp-rotulo">Mi cuenta</p>
+    <h2 id="spc-nombre"></h2>
+    <p class="sp-dato"><span class="sp-pastilla" id="spc-rol"></span></p>
+    <p class="sp-dato" id="spc-sesion"></p>
+    <p class="sp-nota">La sesión se comparte con EcoAgriApp, Gestión Normativa y Rendimientos: al cerrarla aquí se cierra en todas.</p>
+    <div class="sp-acciones">
+      <button type="button" class="boton" id="spc-cerrar">Cerrar</button>
+      <a class="boton" id="spc-admin" href="#" hidden>Configuración de administrador</a>
+      <button type="button" class="boton principal" id="spc-salir">Cerrar sesión</button>
+    </div>
   </div>
 </div>
 <iframe id="app" title="Gestión Normativa (ICA)" allow="clipboard-write"></iframe>

@@ -44,12 +44,27 @@
     </form>
   </div>
 </div>
+<div class="sp-modal" id="sp-cuenta" hidden>
+  <div class="sp-caja" role="dialog" aria-labelledby="spc-nombre">
+    <p class="sp-rotulo">Mi cuenta</p>
+    <h2 id="spc-nombre"></h2>
+    <p class="sp-dato"><span class="sp-pastilla" id="spc-rol"></span></p>
+    <p class="sp-dato" id="spc-sesion"></p>
+    <p class="sp-nota">La sesión se comparte con EcoAgriApp, Gestión Normativa y Rendimientos: al cerrarla aquí se cierra en todas.</p>
+    <div class="sp-acciones">
+      <button type="button" class="boton" id="spc-cerrar">Cerrar</button>
+      <a class="boton" id="spc-admin" href="#" hidden>Configuración de administrador</a>
+      <button type="button" class="boton principal" id="spc-salir">Cerrar sesión</button>
+    </div>
+  </div>
+</div>
 <main class="lienzo">
 <div class="encabezado"><p class="rotulo">Eco Agri · Versiones</p><h1>Qué ha cambiado</h1><p>La versión de cada aplicación aparece en su barra superior. Aquí está el historial de cambios de las tres, de la más reciente a la más antigua.</p></div>
 <div class="filtros" role="group" aria-label="Filtrar por aplicación"><button type="button" class="chip" data-app="todas" aria-pressed="true">Todas</button><button type="button" class="chip" data-app="agriapp" aria-pressed="false">EcoAgriApp</button><button type="button" class="chip" data-app="normativa" aria-pressed="false">Gestión Normativa (ICA)</button><button type="button" class="chip" data-app="rendimientos" aria-pressed="false">Rendimientos</button></div>
 <section class="bloque-app" id="agriapp" data-app="agriapp">
-  <h2>EcoAgriApp <span class="insignia">Versión actual: alpha 8.5</span></h2>
+  <h2>EcoAgriApp <span class="insignia">Versión actual: alpha 8.6</span></h2>
   <ul class="cambios">
+<li><span class="v">alpha 8.6</span><span class="r">El icono de sesión de la barra ahora abre una ventana emergente «Mi cuenta» (nombre, tipo de sesión, cambiar contraseña y cerrar sesión) en lugar de un menú desplegable, igual que el resto de ventanas de la aplicación.</span></li>
 <li><span class="v">alpha 8.5</span><span class="r">La sesión ahora pasa de una herramienta a otra: al iniciar sesión en el hub de Herramientas (o en cualquier app) ya no hace falta volver a escribir la contraseña en las demás, y dura mientras no cierre la página. El inicio de sesión tiene la opción «Mantener sesión iniciada en este dispositivo» (30 días). Cerrar sesión en una la cierra en todas.</span></li>
 <li><span class="v">alpha 8.4</span><span class="r">Copias de los PDF por correo, configurables: el reporte de asistencia técnica, el inventario (y el conteo anterior al guardar uno nuevo), la rotación y la sugerencia de aplicación pueden mandar una copia a los destinatarios que elija el administrador. Todo arranca apagado; se activa desde la configuración de administrador.</span></li>
 <li><span class="v">alpha 8.3</span><span class="r">Inicio de sesión más discreto y a mano: un icono de persona junto al botón de tema, en la barra de cada herramienta. Sin sesión abre el inicio de sesión; con sesión muestra un menú con su nombre, «Cambiar contraseña» y «Cerrar sesión». Ya no ocupa espacio dentro de los formularios, y el cuadro de inicio de sesión sigue apareciendo solo cuando una acción lo exige.</span></li>
@@ -81,8 +96,9 @@
   </ul>
 </section>
 <section class="bloque-app" id="normativa" data-app="normativa">
-  <h2>Gestión Normativa (ICA) <span class="insignia">Versión actual: alpha 1.19</span></h2>
+  <h2>Gestión Normativa (ICA) <span class="insignia">Versión actual: alpha 1.20</span></h2>
   <ul class="cambios">
+<li><span class="v">alpha 1.20</span><span class="r">Ventana Mi cuenta en lugar del menu de sesion.</span></li>
 <li><span class="v">alpha 1.19</span><span class="r">Sesion compartida entre herramientas y mantener sesion.</span></li>
 <li><span class="v">alpha 1.18</span><span class="r">Correo-resumen configurable desde la app de administracion.</span></li>
 <li><span class="v">alpha 1.17</span><span class="r">Permisos por funcion, cambiar contrasena y control de sesion en la barra.</span></li>
@@ -117,7 +133,7 @@
   </ul>
 </section>
 <section class="bloque-app" id="rendimientos" data-app="rendimientos">
-  <h2>Rendimientos <span class="insignia">Versión actual: alpha 0.62</span></h2>
+  <h2>Rendimientos <span class="insignia">Versión actual: alpha 0.63</span></h2>
   <ul class="cambios">
 <li><span class="v">alpha 0.61<small>2026-10-06</small></span><span class="r">Control de sesion discreto en la barra (icono junto al tema).</span></li>
 <li><span class="v">alpha 0.60<small>2026-10-06</small></span><span class="r">Permisos por funcion, cambiar contrasena, llamarServidor_ en el cliente.</span></li>

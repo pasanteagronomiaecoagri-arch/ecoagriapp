@@ -331,7 +331,7 @@ code { font-family: 'IBM Plex Mono', monospace; font-size: .92em; background: va
 
 /* ---- Control de sesión de la barra (fuente: ecoagri-core/estilos/sesion-barra.css) ----
    Un icono de persona junto al interruptor de tema, en las cuatro apps: sin sesión abre el inicio de sesión; con sesión (punto verde)
-   abre un menú con el nombre, «Cambiar contraseña» y «Cerrar sesión». Su lógica está en sesion.js (pintarBarraSesion_) y, en Gestión
+   abre una ventana emergente («Mi cuenta») con el nombre, «Cambiar contraseña» y «Cerrar sesión». Su lógica está en sesion.js (pintarBarraSesion_) y, en Gestión
    Normativa, en App_Alertas.html. No editar aquí dentro a mano: cambiar sesion-barra.css y correr sincronizar.mjs. */
 .barra-sesion { position: relative; display: flex; align-items: center; flex-shrink: 0; }
 /* Pegado al interruptor de tema (la barra deja 20 px entre elementos). */
@@ -349,21 +349,6 @@ code { font-family: 'IBM Plex Mono', monospace; font-size: .92em; background: va
   content: ''; position: absolute; right: 6px; bottom: 6px; width: 7px; height: 7px; border-radius: 50%;
   background: var(--verde); border: 2px solid var(--superficie); box-sizing: content-box;
 }
-.barra-sesion-menu {
-  position: absolute; top: calc(100% + 6px); right: 0; z-index: 60; min-width: 230px; padding: 6px;
-  background: var(--superficie); border: 1px solid var(--linea-fuerte); border-top: 3px solid var(--verde);
-  border-radius: var(--r); box-shadow: 0 12px 32px rgba(0, 0, 0, .18);
-}
-.barra-sesion-menu[hidden] { display: none; }
-.barra-sesion-quien { padding: 8px 10px 10px; margin-bottom: 4px; border-bottom: 1px solid var(--linea); font-size: 12.5px; color: var(--tinta-3); }
-.barra-sesion-quien b { display: block; font-size: 14px; color: var(--tinta); font-weight: 600; overflow-wrap: anywhere; }
-.barra-sesion-menu button {
-  display: block; width: 100%; text-align: left; padding: 8px 10px; border: 0; border-radius: var(--r);
-  background: transparent; font: inherit; font-size: 13.5px; color: var(--tinta); cursor: pointer;
-}
-.barra-sesion-menu button:hover { background: var(--verde-suave); color: var(--texto-verde); }
-/* Las pantallas angostas no deben cortar el menú por el borde izquierdo. */
-@media (max-width: 420px) { .barra-sesion-menu { right: -48px; } }
 /* ---- fin control de sesión de la barra ---- */
 
 /* Sesión del portal: control de la barra (icono de persona; sus estilos base vienen de estilos/sesion-barra.css) y diálogo de inicio de sesión.
@@ -373,18 +358,9 @@ code { font-family: 'IBM Plex Mono', monospace; font-size: .92em; background: va
 /* En la portada el control flota junto al interruptor de tema. */
 .barra-sesion.flotante { position: fixed; top: 12px; right: 58px; z-index: 3; }
 .barra-sesion.flotante .barra-sesion-boton { background: var(--superficie); border: 1px solid var(--linea); }
-/* En la barra oscura de cada herramienta. */
-.portal .barra-sesion { margin-left: 0; flex: none; }
-.portal .barra-sesion-boton { color: #C9D1C3; height: 32px; width: 32px; }
-.portal .barra-sesion-boton:hover { color: #fff; background: rgba(255, 255, 255, .1); }
-.portal .barra-sesion.activa .barra-sesion-boton { color: #93B95A; }
-.portal .barra-sesion.activa .barra-sesion-boton::after { border-color: #2B3327; right: 3px; bottom: 3px; }
-.sp-enlace { display: block; padding: 8px 10px; border-radius: var(--r); font-size: 13.5px; color: var(--tinta); text-decoration: none; }
-.sp-enlace:hover { background: var(--verde-suave); color: var(--texto-verde); }
-
 .sp-modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(0, 0, 0, .5); }
 .sp-modal[hidden] { display: none; }
-.sp-caja { width: 100%; max-width: 420px; background: var(--superficie); color: var(--tinta); border: 1px solid var(--linea-fuerte); border-top: 4px solid var(--verde); border-radius: var(--r); padding: 22px 24px; box-shadow: 0 18px 50px rgba(0, 0, 0, .3); }
+.sp-caja { width: 100%; max-width: 460px; background: var(--superficie); color: var(--tinta); border: 1px solid var(--linea-fuerte); border-top: 4px solid var(--verde); border-radius: var(--r); padding: 22px 24px; box-shadow: 0 18px 50px rgba(0, 0, 0, .3); }
 .sp-rotulo { margin: 0 0 4px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--texto-verde); }
 .sp-caja h2 { margin: 0 0 14px; font-size: 22px; }
 .sp-caja label { display: block; margin: 0 0 12px; font-size: 13px; color: var(--tinta-2); }
@@ -395,4 +371,8 @@ code { font-family: 'IBM Plex Mono', monospace; font-size: .92em; background: va
 .sp-nota { margin: 0 0 12px; font-size: 12.5px; color: var(--tinta-3); }
 .sp-error { margin: 0 0 12px; font-size: 13.5px; color: var(--error-texto); }
 .sp-error[hidden] { display: none; }
-.sp-acciones { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
+.sp-acciones { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; margin-top: 8px; }
+.sp-dato { margin: 0 0 10px; font-size: 14px; color: var(--tinta-2); }
+.sp-pastilla { display: inline-block; padding: 2px 9px; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: var(--superficie); border: 1px solid var(--linea-fuerte); color: var(--tinta-2); }
+.sp-pastilla.admin { background: var(--verde-suave); border-color: transparent; color: var(--ok-texto); }
+.sp-acciones a.boton { text-decoration: none; }

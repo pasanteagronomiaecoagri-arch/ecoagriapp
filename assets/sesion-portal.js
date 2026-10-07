@@ -115,22 +115,29 @@
       return;
     }
     caja.classList.add('activa');
-    caja.innerHTML = '<button type="button" class="barra-sesion-boton" aria-haspopup="true" aria-expanded="false" aria-label="Cuenta: ' + escapar(s.nombre) + '" title="' + escapar(s.nombre) + '">' + ICONO + '</button>' +
-      '<div class="barra-sesion-menu" hidden><div class="barra-sesion-quien"><b>' + escapar(s.nombre) + '</b>' + (s.rol === 'administrador' ? 'Administrador' : 'Usuario') +
-      (s.recordar ? ' · sesión de 30 días' : '') + '</div>' +
-      (s.rol === 'administrador' ? '<a class="sp-enlace" href="' + BASE + 'admin/">Configuración de administrador</a>' : '') +
-      '<button type="button" data-sesion="cerrar">Cerrar sesión</button></div>';
-    var boton = caja.querySelector('.barra-sesion-boton');
-    var menu = caja.querySelector('.barra-sesion-menu');
-    boton.addEventListener('click', function (e) { e.stopPropagation(); menu.hidden = !menu.hidden; boton.setAttribute('aria-expanded', menu.hidden ? 'false' : 'true'); });
-    caja.querySelector('[data-sesion="cerrar"]').addEventListener('click', function () { menu.hidden = true; cerrar(); });
+    caja.innerHTML = '<button type="button" class="barra-sesion-boton" aria-haspopup="dialog" aria-label="Mi cuenta: ' + escapar(s.nombre) + '" title="' + escapar(s.nombre) + '">' + ICONO + '</button>';
+    caja.querySelector('button').addEventListener('click', abrirCuenta);
   }
 
-  document.addEventListener('click', function (e) {
-    var caja = el('barra-sesion-portal');
-    var menu = caja && caja.querySelector('.barra-sesion-menu');
-    if (menu && !menu.hidden && !(e.target.closest && e.target.closest('#barra-sesion-portal'))) menu.hidden = true;
-  });
+  /* Ventana «Mi cuenta» (mismo estilo de ventana emergente que el inicio de sesión y que las herramientas). */
+  function abrirCuenta() {
+    var s = leer();
+    if (!s) { abrirDialogo(); return; }
+    var rol = el('spc-rol');
+    el('spc-nombre').textContent = s.nombre;
+    rol.textContent = s.rol === 'administrador' ? 'administrador' : 'usuario';
+    rol.className = 'sp-pastilla' + (s.rol === 'administrador' ? ' admin' : '');
+    var hasta = s.expira ? new Date(s.expira).toLocaleString('es-CO', { dateStyle: 'medium', timeStyle: 'short' }) : '';
+    el('spc-sesion').textContent = s.recordar
+      ? 'Sesión de 30 días en este dispositivo' + (hasta ? ' (hasta el ' + hasta + ')' : '') + '.'
+      : 'Sesión normal: dura mientras no cierre la página' + (hasta ? ' (máximo hasta el ' + hasta + ')' : '') + '.';
+    var admin = el('spc-admin');
+    admin.hidden = s.rol !== 'administrador';
+    admin.href = BASE + 'admin/';
+    el('sp-cuenta').hidden = false;
+    el('spc-cerrar').focus();
+  }
+  function cerrarCuenta() { var m = el('sp-cuenta'); if (m) m.hidden = true; }
 
   function abrirDialogo() {
     var modal = el('sp-modal');
@@ -172,7 +179,10 @@
     });
     el('sp-cancelar').addEventListener('click', cerrarDialogo);
     el('sp-modal').addEventListener('click', function (e) { if (e.target.id === 'sp-modal') cerrarDialogo(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { cerrarDialogo(); } });
+    el('spc-cerrar').addEventListener('click', cerrarCuenta);
+    el('spc-salir').addEventListener('click', function () { cerrarCuenta(); cerrar(); });
+    el('sp-cuenta').addEventListener('click', function (e) { if (e.target.id === 'sp-cuenta') cerrarCuenta(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { cerrarDialogo(); cerrarCuenta(); } });
   }
 
   /* ---------------- Arranque ---------------- */
