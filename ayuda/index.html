@@ -26,8 +26,24 @@
     <a href="../ayuda/" aria-current="page">Ayuda</a>
     <a href="../versiones/">Versiones</a>
   </nav>
+  <span class="barra-sesion" id="barra-sesion-portal"></span>
   <button type="button" class="barra-tema-boton" id="barra-tema-boton" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema"><span class="barra-tema-icono" aria-hidden="true"></span></button>
 </div></header>
+<div class="sp-modal" id="sp-modal" hidden>
+  <div class="sp-caja" role="dialog" aria-labelledby="sp-titulo">
+    <p class="sp-rotulo">Acceso</p>
+    <h2 id="sp-titulo">Iniciar sesión</h2>
+    <form id="sp-form" autocomplete="on">
+      <label>Usuario<input type="text" id="sp-usuario" name="username" autocomplete="username" autocapitalize="none" spellcheck="false"></label>
+      <label>Contraseña<input type="password" id="sp-clave" name="password" autocomplete="current-password"></label>
+      <label class="sp-chk"><input type="checkbox" id="sp-recordar"><span>Mantener sesión iniciada en este dispositivo (30 días)</span></label>
+      <label class="sp-chk" id="sp-guardar-fila" hidden><input type="checkbox" id="sp-guardar"><span>Guardar la contraseña en este navegador</span></label>
+      <p class="sp-nota">Sin marcar «Mantener sesión», la sesión dura mientras no cierre la página (máximo 6 horas) y se comparte con EcoAgriApp, Gestión Normativa y Rendimientos. La contraseña solo la puede guardar su navegador; esta página no la conserva.</p>
+      <p class="sp-error" id="sp-error" role="alert" hidden></p>
+      <div class="sp-acciones"><button type="button" class="boton" id="sp-cancelar">Cancelar</button><button type="submit" class="boton principal" id="sp-enviar">Iniciar sesión</button></div>
+    </form>
+  </div>
+</div>
 <main class="lienzo ancho">
 <div class="encabezado">
   <p class="rotulo">Eco Agri · Ayuda</p>
@@ -131,11 +147,11 @@
   </div>
 </li>
 <li class="mapa-item mapa-herr">
-  <button type="button" class="mapa-caja herr" data-ruta="normativa/sesion" aria-expanded="false" aria-controls="m-normativa-sesion"><span>Acceso y sesión</span><span class="n">5</span></button>
+  <button type="button" class="mapa-caja herr" data-ruta="normativa/sesion" aria-expanded="false" aria-controls="m-normativa-sesion"><span>Acceso y sesión</span><span class="n">6</span></button>
   <div class="mapa-detalle" id="m-normativa-sesion" hidden>
     <p class="mapa-res">Quién puede escribir datos: usuario y contraseña (los mismos de las demás herramientas), sesión de 6 horas y dos roles.</p>
     <div class="mapa-acc"><a href="normativa/sesion/">Leer todo</a></div>
-    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/sesion/#que-hace" title="Quién puede escribir datos: usuario y contraseña (los mismos de las demás herramientas), sesión de 6 horas y dos roles.">Cómo funciona el acceso</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/sesion/#iniciar-sesion" title="Se entra con usuario y contraseña, desde el icono de persona de la barra superior o desde el cuadro que se abre solo cuando una acción lo exige (al entrar, la acción…">Iniciar y cerrar sesión</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/sesion/#roles" title="Hay dos roles. El usuario consulta, sube, reemplaza y edita.">Roles: usuario y administrador</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/sesion/#crear-usuarios" title="Los usuarios los crea, modifica y elimina un administrador en la configuración de administrador , una herramienta aparte a la que solo entran administradores (se…">Crear y administrar usuarios</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/sesion/#cambiar-o-recuperar-la-contrasena" title="Con la sesión abierta, el menú del icono de persona tiene Cambiar contraseña : pide la actual y la nueva (mínimo 8 caracteres, distinta de la actual).">Cambiar o recuperar la contraseña</a></li></ul>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/sesion/#que-hace" title="Quién puede escribir datos: usuario y contraseña (los mismos de las demás herramientas), sesión de 6 horas y dos roles.">Cómo funciona el acceso</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/sesion/#iniciar-sesion" title="Se entra con usuario y contraseña, desde el icono de persona de la barra superior o desde el cuadro que se abre solo cuando una acción lo exige (al entrar, la acción…">Iniciar y cerrar sesión</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/sesion/#sesion-compartida" title="Puede iniciar sesión en el inicio de Herramientas (icono de persona arriba a la derecha, también en las páginas de ayuda y versiones y en la barra oscura de cada…">Una sola sesión para todas las herramientas</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/sesion/#roles" title="Hay dos roles. El usuario consulta, sube, reemplaza y edita.">Roles: usuario y administrador</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/sesion/#crear-usuarios" title="Los usuarios los crea, modifica y elimina un administrador en la configuración de administrador , una herramienta aparte a la que solo entran administradores (se…">Crear y administrar usuarios</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="normativa/sesion/#cambiar-o-recuperar-la-contrasena" title="Con la sesión abierta, el menú del icono de persona tiene Cambiar contraseña : pide la actual y la nueva (mínimo 8 caracteres, distinta de la actual).">Cambiar o recuperar la contraseña</a></li></ul>
   </div>
 </li>
 <li class="mapa-item mapa-herr">
@@ -367,7 +383,7 @@
   <button type="button" class="nodo-btn" id="n-normativa" data-ruta="normativa" aria-expanded="false" aria-controls="c-normativa">
     <span class="punto" aria-hidden="true"></span>
     <span class="textos"><span class="tit">Gestión Normativa (ICA)</span><span class="res">Cumplimiento de la Resolución ICA 2191/2024: documentos por finca y grupo, estados y avisos de vencimiento.</span></span>
-    <span class="num">8 herramientas · 43 funciones</span><span class="chev" aria-hidden="true"></span>
+    <span class="num">8 herramientas · 44 funciones</span><span class="chev" aria-hidden="true"></span>
   </button>
   <div class="nodo-cuerpo" id="c-normativa" hidden>
     <div class="acciones"><a class="boton principal" href="../normativa/">Abrir Gestión Normativa (ICA)</a><a class="boton" href="normativa/">Qué es y cómo se organiza</a></div>
@@ -393,15 +409,16 @@
 </li><li class="nodo herr">
   <button type="button" class="nodo-btn" id="n-normativa-sesion" data-ruta="normativa/sesion" aria-expanded="false" aria-controls="c-normativa-sesion">
     <span class="textos"><span class="tit">Acceso y sesión</span><span class="res">Quién puede escribir datos: usuario y contraseña (los mismos de las demás herramientas), sesión de 6 horas y dos roles.</span></span>
-    <span class="num">5 funciones</span><span class="chev" aria-hidden="true"></span>
+    <span class="num">6 funciones</span><span class="chev" aria-hidden="true"></span>
   </button>
   <div class="nodo-cuerpo" id="c-normativa-sesion" hidden>
     <p class="rotulo">En esta herramienta puede</p>
-    <ul class="puedes"><li>Iniciar y cerrar sesión desde el icono de la barra.</li><li>Cambiar su contraseña, o recuperarla con un administrador.</li><li>Saber qué puede hacer un usuario y qué solo un administrador.</li></ul>
+    <ul class="puedes"><li>Iniciar y cerrar sesión desde el inicio de Herramientas o desde cualquier herramienta (una sola sesión para todas).</li><li>Mantener la sesión iniciada 30 días en su dispositivo.</li><li>Cambiar su contraseña, o recuperarla con un administrador.</li><li>Saber qué puede hacer un usuario y qué solo un administrador.</li></ul>
     <div class="acciones"><a class="boton" href="normativa/sesion/">Leer todo</a></div>
     <ul>
 <li class="hoja"><a href="normativa/sesion/#que-hace"><b>Cómo funciona el acceso</b><span class="res">Quién puede escribir datos: usuario y contraseña (los mismos de las demás herramientas), sesión de 6 horas y dos roles.</span><span class="ir">Ver descripción detallada →</span></a></li>
 <li class="hoja"><a href="normativa/sesion/#iniciar-sesion"><b>Iniciar y cerrar sesión</b><span class="res">Se entra con usuario y contraseña, desde el icono de persona de la barra superior o desde el cuadro que se abre solo cuando una acción lo exige (al entrar, la acción…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="normativa/sesion/#sesion-compartida"><b>Una sola sesión para todas las herramientas</b><span class="res">Puede iniciar sesión en el inicio de Herramientas (icono de persona arriba a la derecha, también en las páginas de ayuda y versiones y en la barra oscura de cada…</span><span class="ir">Ver descripción detallada →</span></a></li>
 <li class="hoja"><a href="normativa/sesion/#roles"><b>Roles: usuario y administrador</b><span class="res">Hay dos roles. El usuario consulta, sube, reemplaza y edita.</span><span class="ir">Ver descripción detallada →</span></a></li>
 <li class="hoja"><a href="normativa/sesion/#crear-usuarios"><b>Crear y administrar usuarios</b><span class="res">Los usuarios los crea, modifica y elimina un administrador en la configuración de administrador , una herramienta aparte a la que solo entran administradores (se…</span><span class="ir">Ver descripción detallada →</span></a></li>
 <li class="hoja"><a href="normativa/sesion/#cambiar-o-recuperar-la-contrasena"><b>Cambiar o recuperar la contraseña</b><span class="res">Con la sesión abierta, el menú del icono de persona tiene Cambiar contraseña : pide la actual y la nueva (mínimo 8 caracteres, distinta de la actual).</span><span class="ir">Ver descripción detallada →</span></a></li>
@@ -588,5 +605,6 @@
 </main>
 <script src="../assets/arbol.js"></script>
 <script src="../assets/tema.js"></script>
+<script src="../assets/sesion-portal.js"></script>
 </body>
 </html>

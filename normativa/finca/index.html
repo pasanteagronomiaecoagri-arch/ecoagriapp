@@ -64,7 +64,23 @@
     <a href="../../normativa/" aria-current="page">Normativa</a>
     <a href="../../rendimientos/">Rendimientos</a>
   </nav>
+  <span class="barra-sesion" id="barra-sesion-portal"></span>
 </header>
+<div class="sp-modal" id="sp-modal" hidden>
+  <div class="sp-caja" role="dialog" aria-labelledby="sp-titulo">
+    <p class="sp-rotulo">Acceso</p>
+    <h2 id="sp-titulo">Iniciar sesión</h2>
+    <form id="sp-form" autocomplete="on">
+      <label>Usuario<input type="text" id="sp-usuario" name="username" autocomplete="username" autocapitalize="none" spellcheck="false"></label>
+      <label>Contraseña<input type="password" id="sp-clave" name="password" autocomplete="current-password"></label>
+      <label class="sp-chk"><input type="checkbox" id="sp-recordar"><span>Mantener sesión iniciada en este dispositivo (30 días)</span></label>
+      <label class="sp-chk" id="sp-guardar-fila" hidden><input type="checkbox" id="sp-guardar"><span>Guardar la contraseña en este navegador</span></label>
+      <p class="sp-nota">Sin marcar «Mantener sesión», la sesión dura mientras no cierre la página (máximo 6 horas) y se comparte con EcoAgriApp, Gestión Normativa y Rendimientos. La contraseña solo la puede guardar su navegador; esta página no la conserva.</p>
+      <p class="sp-error" id="sp-error" role="alert" hidden></p>
+      <div class="sp-acciones"><button type="button" class="boton" id="sp-cancelar">Cancelar</button><button type="submit" class="boton principal" id="sp-enviar">Iniciar sesión</button></div>
+    </form>
+  </div>
+</div>
 <iframe id="app" title="Gestión Normativa (ICA)" allow="clipboard-write"></iframe>
 <div id="carga-portal" class="carga-portal" role="status">
   <svg class="carga-brote" viewBox="0 0 48 48" aria-hidden="true">
@@ -110,6 +126,7 @@
     esperar();
   })();
 </script>
+<script src="../../assets/sesion-portal.js"></script>
 <noscript><p style="padding:48px 20px">Esta página necesita JavaScript. <a href="https://script.google.com/macros/s/AKfycbytfISbpqdQozzqixdWkSoy0tQRuia-AwZgMVn3qAnUgyIHO0h2Tbsj-OxzlT_A-3ca/exec?vista=finca">Abrir la app directamente</a>.</p></noscript>
 </body>
 </html>

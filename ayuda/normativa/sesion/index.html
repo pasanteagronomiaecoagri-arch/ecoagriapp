@@ -26,17 +26,36 @@
     <a href="../../../ayuda/" aria-current="page">Ayuda</a>
     <a href="../../../versiones/">Versiones</a>
   </nav>
+  <span class="barra-sesion" id="barra-sesion-portal"></span>
   <button type="button" class="barra-tema-boton" id="barra-tema-boton" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema"><span class="barra-tema-icono" aria-hidden="true"></span></button>
 </div></header>
+<div class="sp-modal" id="sp-modal" hidden>
+  <div class="sp-caja" role="dialog" aria-labelledby="sp-titulo">
+    <p class="sp-rotulo">Acceso</p>
+    <h2 id="sp-titulo">Iniciar sesión</h2>
+    <form id="sp-form" autocomplete="on">
+      <label>Usuario<input type="text" id="sp-usuario" name="username" autocomplete="username" autocapitalize="none" spellcheck="false"></label>
+      <label>Contraseña<input type="password" id="sp-clave" name="password" autocomplete="current-password"></label>
+      <label class="sp-chk"><input type="checkbox" id="sp-recordar"><span>Mantener sesión iniciada en este dispositivo (30 días)</span></label>
+      <label class="sp-chk" id="sp-guardar-fila" hidden><input type="checkbox" id="sp-guardar"><span>Guardar la contraseña en este navegador</span></label>
+      <p class="sp-nota">Sin marcar «Mantener sesión», la sesión dura mientras no cierre la página (máximo 6 horas) y se comparte con EcoAgriApp, Gestión Normativa y Rendimientos. La contraseña solo la puede guardar su navegador; esta página no la conserva.</p>
+      <p class="sp-error" id="sp-error" role="alert" hidden></p>
+      <div class="sp-acciones"><button type="button" class="boton" id="sp-cancelar">Cancelar</button><button type="submit" class="boton principal" id="sp-enviar">Iniciar sesión</button></div>
+    </form>
+  </div>
+</div>
 <main class="lienzo">
 <p class="migas"><a href="../../">Ayuda</a> › <a href="../">Gestión Normativa (ICA)</a> › Acceso y sesión</p>
 <div class="encabezado"><p class="rotulo">Gestión Normativa (ICA)</p><h1>Acceso y sesión</h1><p>Quién puede escribir datos: usuario y contraseña (los mismos de las demás herramientas), sesión de 6 horas y dos roles.</p></div>
 <div class="acciones" style="margin-top:16px"><a class="boton" href="../../#normativa/sesion">Ver en el árbol</a></div>
-<nav class="indice" aria-label="En esta página"><p class="rotulo">En esta página</p><ol><li><a href="#que-hace">Cómo funciona el acceso</a></li><li><a href="#iniciar-sesion">Iniciar y cerrar sesión</a></li><li><a href="#roles">Roles: usuario y administrador</a></li><li><a href="#crear-usuarios">Crear y administrar usuarios</a></li><li><a href="#cambiar-o-recuperar-la-contrasena">Cambiar o recuperar la contraseña</a></li></ol></nav>
+<nav class="indice" aria-label="En esta página"><p class="rotulo">En esta página</p><ol><li><a href="#que-hace">Cómo funciona el acceso</a></li><li><a href="#iniciar-sesion">Iniciar y cerrar sesión</a></li><li><a href="#sesion-compartida">Una sola sesión para todas las herramientas</a></li><li><a href="#roles">Roles: usuario y administrador</a></li><li><a href="#crear-usuarios">Crear y administrar usuarios</a></li><li><a href="#cambiar-o-recuperar-la-contrasena">Cambiar o recuperar la contraseña</a></li></ol></nav>
 <section class="seccion" id="que-hace"><h2><a href="#que-hace">Cómo funciona el acceso</a></h2><div class="cuerpo"><p>Ver la información es libre. Cualquier acción que escribe datos (subir o reemplazar un documento, editar fechas, guardar los datos del predio o del grupo, registrar una verificación de infraestructura) exige una sesión iniciada, y <b>eliminar un documento</b> exige además ser administrador. El servidor rechaza toda acción sin el permiso que le corresponde, aunque alguien intente saltarse la pantalla.</p>
   <p>El inicio de sesión es <b>el mismo en EcoAgriApp, Gestión Normativa y Rendimientos</b>: un usuario y una contraseña sirven en las tres herramientas.</p></div></section>
 <section class="seccion" id="iniciar-sesion"><h2><a href="#iniciar-sesion">Iniciar y cerrar sesión</a></h2><div class="cuerpo"><p>Se entra con usuario y contraseña, desde el icono de persona de la barra superior o desde el cuadro que se abre solo cuando una acción lo exige (al entrar, la acción continúa sin perder lo que se estaba haciendo). El usuario no distingue mayúsculas; la contraseña sí. Si algo falla, el mensaje no revela si el error fue el usuario o la contraseña, y tras cinco contraseñas erróneas seguidas la cuenta se bloquea 15 minutos. La sesión dura <b>6 horas</b> y se puede cerrar antes desde el mismo icono; si vence mientras se trabaja, el cuadro vuelve a aparecer.</p>
   <p>Las contraseñas nunca se guardan en texto: la hoja USUARIOS guarda sólo un resumen cifrado (hash) con una sal propia de cada usuario.</p></div></section>
+<section class="seccion" id="sesion-compartida"><h2><a href="#sesion-compartida">Una sola sesión para todas las herramientas</a></h2><div class="cuerpo"><p>Puede iniciar sesión en el <b>inicio de Herramientas</b> (icono de persona arriba a la derecha, también en las páginas de ayuda y versiones y en la barra oscura de cada herramienta) o en cualquiera de las tres herramientas: la sesión pasa sola de una a otra mientras navega por el portal, sin volver a escribir la contraseña. Cerrar sesión en un sitio la cierra en todos.</p>
+  <p>Hay dos duraciones. <b>Normal</b>: dura mientras no cierre la pestaña (máximo 6 horas). <b>Mantener sesión iniciada en este dispositivo</b> (casilla del cuadro de inicio de sesión): dura 30 días y vale también en otras pestañas y después de cerrar el navegador; úsela solo en un equipo propio. Si una cuenta se desactiva o se cierra la sesión, deja de valer en todas las herramientas en menos de un minuto.</p>
+  <p><b>Guardar la contraseña</b> no lo hace el portal ni las herramientas (nunca la conservan): lo hace el gestor de contraseñas de su navegador, que normalmente ofrece guardarla al iniciar sesión. En el inicio de Herramientas, si su navegador lo permite, aparece la casilla «Guardar la contraseña en este navegador».</p></div></section>
 <section class="seccion" id="roles"><h2><a href="#roles">Roles: usuario y administrador</a></h2><div class="cuerpo"><p>Hay dos roles. El <b>usuario</b> consulta, sube, reemplaza y edita. El <b>administrador</b> hace lo mismo y además elimina documentos y gestiona las cuentas y los permisos.</p></div></section>
 <section class="seccion" id="crear-usuarios"><h2><a href="#crear-usuarios">Crear y administrar usuarios</a></h2><div class="cuerpo"><p>Los usuarios los crea, modifica y elimina un administrador en la <b>configuración de administrador</b>, una herramienta aparte a la que solo entran administradores (se llega desde el pequeño candado al pie del inicio de Herramientas). Ahí también se puede desactivar una cuenta, cambiar su rol, restablecer su contraseña y ver una bitácora de los cambios. Nadie puede quitarse a sí mismo el rol de administrador, y siempre queda al menos un administrador activo.</p>
   <p>Con el mismo panel, el administrador decide <b>función por función</b> quién puede usarla: cualquiera, solo usuarios, solo administradores o nadie. Los cambios se notan en menos de un minuto.</p></div></section>
@@ -45,5 +64,6 @@
   <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>
 </main>
 <script src="../../../assets/tema.js"></script>
+<script src="../../../assets/sesion-portal.js"></script>
 </body>
 </html>
