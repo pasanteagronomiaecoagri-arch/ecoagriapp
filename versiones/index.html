@@ -62,8 +62,9 @@
 <div class="encabezado"><p class="rotulo">Eco Agri · Versiones</p><h1>Qué ha cambiado</h1><p>La versión de cada aplicación aparece en su barra superior. Aquí está el historial de cambios de las tres, de la más reciente a la más antigua.</p></div>
 <div class="filtros" role="group" aria-label="Filtrar por aplicación"><button type="button" class="chip" data-app="todas" aria-pressed="true">Todas</button><button type="button" class="chip" data-app="agriapp" aria-pressed="false">EcoAgriApp</button><button type="button" class="chip" data-app="normativa" aria-pressed="false">Gestión Normativa (ICA)</button><button type="button" class="chip" data-app="rendimientos" aria-pressed="false">Rendimientos</button></div>
 <section class="bloque-app" id="agriapp" data-app="agriapp">
-  <h2>EcoAgriApp <span class="insignia">Versión actual: alpha 8.6</span></h2>
+  <h2>EcoAgriApp <span class="insignia">Versión actual: alpha 8.7</span></h2>
   <ul class="cambios">
+<li><span class="v">alpha 8.7</span><span class="r">El logo de Economía Agrícola de la barra ahora tiene fondo transparente y, en modo oscuro, se aclara para que se lea bien (antes se veía con un recuadro blanco).</span></li>
 <li><span class="v">alpha 8.6</span><span class="r">El icono de sesión de la barra ahora abre una ventana emergente «Mi cuenta» (nombre, tipo de sesión, cambiar contraseña y cerrar sesión) en lugar de un menú desplegable, igual que el resto de ventanas de la aplicación.</span></li>
 <li><span class="v">alpha 8.5</span><span class="r">La sesión ahora pasa de una herramienta a otra: al iniciar sesión en el hub de Herramientas (o en cualquier app) ya no hace falta volver a escribir la contraseña en las demás, y dura mientras no cierre la página. El inicio de sesión tiene la opción «Mantener sesión iniciada en este dispositivo» (30 días). Cerrar sesión en una la cierra en todas.</span></li>
 <li><span class="v">alpha 8.4</span><span class="r">Copias de los PDF por correo, configurables: el reporte de asistencia técnica, el inventario (y el conteo anterior al guardar uno nuevo), la rotación y la sugerencia de aplicación pueden mandar una copia a los destinatarios que elija el administrador. Todo arranca apagado; se activa desde la configuración de administrador.</span></li>
@@ -96,8 +97,11 @@
   </ul>
 </section>
 <section class="bloque-app" id="normativa" data-app="normativa">
-  <h2>Gestión Normativa (ICA) <span class="insignia">Versión actual: alpha 1.20</span></h2>
+  <h2>Gestión Normativa (ICA) <span class="insignia">Versión actual: alpha 1.24</span></h2>
   <ul class="cambios">
+<li><span class="v">alpha 1.24</span><span class="r">Permisos OAuth explicitos (userinfo.email), autorizar(), guarda de editor con aviso claro, funciones de calentamiento de cache.</span></li>
+<li><span class="v">alpha 1.23</span><span class="r">Arreglo: la capa de carga quedaba tapando la vista al reabrir (pintado desde cache).</span></li>
+<li><span class="v">alpha 1.22</span><span class="r">Rendimiento: validacion de archivos en lote, cache de lecturas, carga instantanea con refresco en segundo plano, precarga y compresion de fotos.</span></li>
 <li><span class="v">alpha 1.20</span><span class="r">Ventana Mi cuenta en lugar del menu de sesion.</span></li>
 <li><span class="v">alpha 1.19</span><span class="r">Sesion compartida entre herramientas y mantener sesion.</span></li>
 <li><span class="v">alpha 1.18</span><span class="r">Correo-resumen configurable desde la app de administracion.</span></li>
@@ -133,8 +137,11 @@
   </ul>
 </section>
 <section class="bloque-app" id="rendimientos" data-app="rendimientos">
-  <h2>Rendimientos <span class="insignia">Versión actual: alpha 0.63</span></h2>
+  <h2>Rendimientos <span class="insignia">Versión actual: alpha 0.66</span></h2>
   <ul class="cambios">
+<li><span class="v">alpha 0.66<small>2026-10-07</small></span><span class="r">El visualizador pinta la copia guardada aunque la precarga ya vaya en camino.</span></li>
+<li><span class="v">alpha 0.65<small>2026-10-07</small></span><span class="r">Carga mas rapida (cache del servidor, copia local, precarga del visualizador, datos compactos).</span></li>
+<li><span class="v">alpha 0.64<small>2026-10-07</small></span><span class="r">Logo con fondo transparente y modo oscuro.</span></li>
 <li><span class="v">alpha 0.61<small>2026-10-06</small></span><span class="r">Control de sesion discreto en la barra (icono junto al tema).</span></li>
 <li><span class="v">alpha 0.60<small>2026-10-06</small></span><span class="r">Permisos por funcion, cambiar contrasena, llamarServidor_ en el cliente.</span></li>
 <li><span class="v">alpha 0.59<small>2026-10-06</small></span><span class="r">Guardar jornada exige sesion (inicio de sesion comun); columna registrado_por.</span></li>
