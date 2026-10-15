@@ -1,0 +1,30 @@
+{
+  "_nota": "Fincas del selector de Clima. 'coordenadas' = 'lat,lng' en decimales (las mismas que la ficha de la finca en Gestión Normativa). Vacío = la finca aparece en la lista pero pide ingresar o elegir el punto.",
+  "fincas": [
+    {
+      "id": "SA",
+      "nombre": "Santa Ana",
+      "coordenadas": "4.738344,-74.426717"
+    },
+    {
+      "id": "ER",
+      "nombre": "El Retiro",
+      "coordenadas": "4.738397,-74.423400"
+    },
+    {
+      "id": "CA",
+      "nombre": "Campo Alegre",
+      "coordenadas": "4.738914,-74.422294"
+    },
+    {
+      "id": "EP",
+      "nombre": "El Porvenir",
+      "coordenadas": "4.736183,-74.424303"
+    },
+    {
+      "id": "EV",
+      "nombre": "El Vergel",
+      "coordenadas": "4.789950,-74.425406"
+    }
+  ]
+}

@@ -108,3 +108,8 @@ body.inicio { position: relative; min-height: 100vh; overflow-x: hidden; }
 .acceso-admin { display: inline-flex; vertical-align: middle; margin-left: 8px; color: var(--tinta-3); opacity: .28; line-height: 0; }
 .acceso-admin svg { width: 11px; height: 11px; max-width: 11px; max-height: 11px; }
 .acceso-admin:hover, .acceso-admin:focus-visible { opacity: .9; color: var(--texto-verde); }
+
+/* Acceso a Clima: el mismo estilo discreto que el del administrador, pero visible (icono 20 px + rótulo). */
+.acceso-clima { display: inline-flex; align-items: center; gap: 5px; vertical-align: middle; margin-left: 10px; padding: 3px 10px 3px 7px; border: 1px solid var(--linea-fuerte); border-radius: 999px; color: var(--tinta-2); text-decoration: none; font-size: 12.5px; line-height: 1.2; opacity: .8; }
+.acceso-clima svg { width: 20px; height: 20px; max-width: 20px; max-height: 20px; color: var(--texto-frac); }
+.acceso-clima:hover, .acceso-clima:focus-visible { opacity: 1; border-color: var(--frac); color: var(--texto-frac); }

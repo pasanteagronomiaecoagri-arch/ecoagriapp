@@ -1,0 +1,113 @@
+/* Clima — usa los tokens del hub (hub.css / tema.css), así que sigue el modo oscuro solo. */
+.clima-lienzo { max-width: 1120px; }
+.icono-titulo { width: 30px; height: 30px; vertical-align: -5px; margin-right: 10px; color: var(--texto-frac); }
+.barra .barra-tema-boton { margin: 0; }
+
+.panel { background: var(--superficie); border: 1px solid var(--linea); border-top: 3px solid var(--verde); border-radius: var(--r); padding: 16px 18px 18px; margin-bottom: 16px; }
+.panel h2 { font-size: 19px; margin: 0 0 4px; }
+.panel .sub { margin: 0 0 12px; font-size: 13px; color: var(--tinta-2); }
+.panel.azul { border-top-color: var(--frac); }
+.panel.ambar { border-top-color: var(--aviso); }
+
+/* Selector + mapa */
+.selector { display: grid; grid-template-columns: minmax(260px, 340px) 1fr; gap: 18px; margin-top: 22px; }
+.campo { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+.campo label { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--tinta-3); }
+.campo select, .campo input { min-height: 42px; padding: 8px 10px; font: inherit; font-size: 14.5px; color: var(--tinta); background: var(--superficie); border: 1px solid var(--linea-fuerte); border-radius: var(--r); width: 100%; }
+.campo select:focus-visible, .campo input:focus-visible, .boton:focus-visible { outline: 2px solid var(--verde); outline-offset: 2px; }
+.campo input.invalido { border-color: var(--alerta); }
+.par { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.acciones { display: flex; gap: 8px; flex-wrap: wrap; }
+.acciones .boton { min-height: 44px; flex: 1 1 auto; justify-content: center; }
+.ayuda-punto { font-size: 12.5px; color: var(--tinta-2); margin: 12px 0 0; }
+.clima-mapa { min-height: 340px; border: 1px solid var(--linea-fuerte); border-radius: var(--r); overflow: hidden; }
+#mapa { height: 100%; min-height: 340px; background: var(--papel); }
+.leaflet-container { font-family: inherit; }
+.marca-estacion { background: var(--frac); border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 0 1px rgba(0,0,0,.35); }
+.marca-estacion.activa { background: var(--aviso); }
+
+.aviso-estado { margin: 0 0 14px; padding: 10px 14px; background: var(--frac-suave); border-left: 3px solid var(--frac); border-radius: 0 var(--r) var(--r) 0; color: var(--tinta); font-size: 14px; }
+.aviso-estado.error { background: var(--alerta-suave); border-left-color: var(--alerta); color: var(--error-texto); }
+[hidden] { display: none !important; }
+
+/* Ahora */
+.ahora { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; }
+.ahora-temp { display: flex; align-items: center; gap: 14px; }
+.ahora-temp svg { width: 64px; height: 64px; color: var(--texto-frac); }
+.ahora-temp .grande { font-family: 'IBM Plex Sans Condensed', sans-serif; font-weight: 700; font-size: 54px; line-height: 1; }
+.ahora-temp .grande small { font-size: 22px; font-weight: 600; color: var(--tinta-2); }
+.ahora-temp .cond { color: var(--tinta-2); font-size: 14px; margin-top: 4px; }
+.datos { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+.dato { background: var(--papel); border: 1px solid var(--linea); border-radius: var(--r); padding: 9px 11px; }
+.dato .e { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-3); }
+.dato .v { display: block; font-family: 'IBM Plex Sans Condensed', sans-serif; font-weight: 700; font-size: 20px; margin-top: 2px; }
+.dato .v small { font-size: 12px; font-weight: 500; color: var(--tinta-2); }
+.nota { font-size: 12.5px; color: var(--tinta-3); margin: 10px 0 0; }
+
+.dos-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.dos-col .panel { margin-bottom: 16px; }
+
+/* Sanidad vegetal */
+.lista-indicadores { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.lista-indicadores li { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; padding: 8px 0; border-bottom: 1px dashed var(--linea); font-size: 14px; }
+.lista-indicadores li:last-child { border-bottom: 0; }
+.lista-indicadores b { font-family: 'IBM Plex Mono', monospace; font-weight: 500; white-space: nowrap; }
+.pastilla { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.pastilla.ok { background: var(--verde-suave); color: var(--ok-texto); }
+.pastilla.aviso { background: var(--aviso-suave); color: var(--aviso-texto); }
+.pastilla.alerta { background: var(--alerta-suave); color: var(--error-texto); }
+.ventanas { margin: 10px 0 0; font-size: 13.5px; }
+.ventanas span { display: inline-block; margin: 3px 6px 3px 0; padding: 3px 9px; background: var(--verde-suave); color: var(--ok-texto); border-radius: var(--r); font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; }
+
+/* IDEAM */
+.estacion { margin-bottom: 14px; }
+.estacion:last-child { margin-bottom: 0; }
+.estacion h3 { font-size: 16px; margin: 0 0 2px; }
+.estacion .meta { font-size: 12.5px; color: var(--tinta-2); margin: 0 0 8px; }
+.tabla { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.tabla th, .tabla td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--linea); }
+.tabla th { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--tinta-3); }
+.tabla td.num, .tabla th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.tabla tr.hoy td { background: var(--verde-suave); }
+.tabla-scroll { overflow-x: auto; }
+
+/* Pronóstico */
+.dias { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; }
+.dia { background: var(--papel); border: 1px solid var(--linea); border-radius: var(--r); padding: 10px; text-align: center; }
+.dia.hoy { border-color: var(--verde); background: var(--verde-suave); }
+.dia .nombre { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-3); }
+.dia svg { width: 36px; height: 36px; margin: 4px auto; display: block; color: var(--texto-frac); }
+.dia .t { font-family: 'IBM Plex Sans Condensed', sans-serif; font-weight: 700; font-size: 17px; }
+.dia .t i { font-style: normal; color: var(--tinta-3); font-weight: 500; }
+.dia .l { font-size: 12.5px; color: var(--texto-frac); margin-top: 2px; }
+.dia .et { font-size: 11.5px; color: var(--tinta-3); }
+
+/* Gráficas */
+.grafica { margin: 4px 0 18px; }
+.grafica h3 { font-size: 15px; margin: 0 0 2px; }
+.grafica svg { width: 100%; height: auto; display: block; }
+.grafica .eje { stroke: var(--linea-fuerte); stroke-width: 1; }
+.grafica .rejilla { stroke: var(--linea); stroke-width: 1; stroke-dasharray: 3 3; }
+.grafica text { fill: var(--tinta-3); font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; }
+.grafica .hoy-linea { stroke: var(--verde); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.grafica .hoy-txt { fill: var(--texto-verde); }
+.barra-obs { fill: var(--frac); }
+.barra-pron { fill: var(--frac); fill-opacity: .45; stroke: var(--frac); stroke-width: 1; stroke-dasharray: 3 2; }
+.l-max { fill: none; stroke: var(--alerta); stroke-width: 2; }
+.l-min { fill: none; stroke: var(--frac); stroke-width: 2; }
+.p-max { fill: var(--alerta); }
+.p-min { fill: var(--frac); }
+.leyenda { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12.5px; color: var(--tinta-2); margin: 2px 0 0; }
+.leyenda i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 5px; }
+
+.cargando-bloque { color: var(--tinta-3); font-size: 14px; display: flex; align-items: center; gap: 10px; }
+.cargando-bloque::before { content: ''; width: 14px; height: 14px; border: 2px solid var(--linea-fuerte); border-top-color: var(--verde); border-radius: 50%; animation: giro .8s linear infinite; }
+@keyframes giro { to { transform: rotate(360deg); } }
+.pie-clima { font-size: 12px; color: var(--tinta-3); max-width: 90ch; margin: 18px 0 0; }
+
+@media (max-width: 860px) {
+  .selector { grid-template-columns: 1fr; }
+  .dos-col { grid-template-columns: 1fr; }
+  .ahora { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { .cargando-bloque::before { animation: none; } }

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clima — Economía Agrícola</title>
+<meta name="description" content="Clima por finca: observación de estaciones IDEAM, pronóstico, histórico y ventanas de aplicación.">
+<link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
+<script>
+  try {
+    var temaGuardado = localStorage.getItem('ecoagriapp_tema');
+    if (temaGuardado === 'dark' || temaGuardado === 'light') document.documentElement.setAttribute('data-theme', temaGuardado);
+  } catch (error) { /* sin almacenamiento: sigue el tema del sistema */ }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="../assets/hub.css">
+<link rel="stylesheet" href="clima.css">
+<!-- Generado por ecoagri-core/generador (clima.mjs). No editar a mano: cambiar generador/hub/clima.html, clima.css o clima.js. -->
+</head>
+<body class="pagina-clima">
+  <header class="barra">
+    <div class="barra-fila">
+      <a class="barra-marca" href="../">Eco<span>Agri</span> · Herramientas</a>
+      <nav aria-label="Secciones"><a href="../ayuda/">Ayuda</a><a href="../versiones/">Versiones</a></nav>
+      <button type="button" class="barra-tema-boton" id="barra-tema-boton" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema"><span class="barra-tema-icono" aria-hidden="true"></span></button>
+    </div>
+  </header>
+
+  <main class="lienzo clima-lienzo">
+    <div class="encabezado">
+      <p class="rotulo">Herramienta de apoyo</p>
+      <h1><svg class="icono-titulo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="3"/><path d="M8 2v1.5M2 8h1.5M3.8 3.8l1 1M12.2 3.8l-1 1"/><path d="M8 20h9a4 4 0 0 0 .6-7.95A5.5 5.5 0 0 0 7.4 13.1 3.5 3.5 0 0 0 8 20Z"/></svg>Clima</h1>
+      <p>Consulte el clima de una finca, de unas coordenadas o de un punto del mapa. Combina lo medido por la estación IDEAM más cercana con el pronóstico y el histórico de modelos.</p>
+    </div>
+
+    <section class="panel selector" aria-label="Punto a consultar">
+      <div class="selector-controles">
+        <div class="campo">
+          <label for="finca">Finca</label>
+          <select id="finca"></select>
+        </div>
+        <div class="par">
+          <div class="campo"><label for="lat">Latitud</label><input id="lat" type="text" inputmode="decimal" placeholder="4.7347" autocomplete="off"></div>
+          <div class="campo"><label for="lng">Longitud</label><input id="lng" type="text" inputmode="decimal" placeholder="-74.4358" autocomplete="off"></div>
+        </div>
+        <div class="acciones">
+          <button type="button" class="boton principal" id="consultar">Consultar clima</button>
+          <button type="button" class="boton" id="mi-ubicacion">Mi ubicación</button>
+        </div>
+        <p class="ayuda-punto" id="nota-punto">Elija una finca, escriba las coordenadas o haga clic en el mapa.</p>
+      </div>
+      <div class="clima-mapa"><div id="mapa" role="application" aria-label="Mapa para elegir el punto"></div></div>
+    </section>
+
+    <p class="aviso-estado" id="estado" role="status" aria-live="polite" hidden></p>
+
+    <div id="resultado" hidden>
+      <section class="panel" id="sec-ahora" aria-labelledby="t-ahora"></section>
+      <div class="dos-col">
+        <section class="panel" id="sec-sanidad" aria-labelledby="t-sanidad"></section>
+        <section class="panel" id="sec-ideam" aria-labelledby="t-ideam"></section>
+      </div>
+      <section class="panel" id="sec-pronostico" aria-labelledby="t-pron"></section>
+      <section class="panel" id="sec-graficas" aria-labelledby="t-graf"></section>
+      <section class="panel" id="sec-modelos" aria-labelledby="t-mod"></section>
+    </div>
+
+    <p class="pie-clima" id="pie-clima">Clima 0.1 · Datos: <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a> (modelos ECMWF, GFS, ICON y reanálisis ERA5), <a href="https://www.datos.gov.co" target="_blank" rel="noopener">IDEAM en datos.gov.co</a> y <a href="https://power.larc.nasa.gov" target="_blank" rel="noopener">NASA POWER</a> como respaldo. Mapa © colaboradores de OpenStreetMap / Esri. Los modelos son estimaciones de una cuadrícula de ~10–25 km: en zona de ladera la lluvia real puede diferir bastante; la estación IDEAM es la referencia medida.</p>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="../assets/tema.js"></script>
+  <script src="clima.js"></script>
+</body>
+</html>
