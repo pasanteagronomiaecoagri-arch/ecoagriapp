@@ -72,14 +72,14 @@
 .tabla-scroll { overflow-x: auto; }
 
 /* Pronóstico */
-.dias { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; }
+.dias { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 8px; }
 .dia { background: var(--papel); border: 1px solid var(--linea); border-radius: var(--r); padding: 10px; text-align: center; }
 .dia.hoy { border-color: var(--verde); background: var(--verde-suave); }
 .dia .nombre { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-3); }
 .dia svg { width: 36px; height: 36px; margin: 4px auto; display: block; color: var(--texto-frac); }
 .dia .t { font-family: 'IBM Plex Sans Condensed', sans-serif; font-weight: 700; font-size: 17px; }
 .dia .t i { font-style: normal; color: var(--tinta-3); font-weight: 500; }
-.dia .l { font-size: 12.5px; color: var(--texto-frac); margin-top: 2px; }
+.dia .l { font-size: 12px; white-space: nowrap; color: var(--texto-frac); margin-top: 2px; }
 .dia .et { font-size: 11.5px; color: var(--tinta-3); }
 
 /* Gráficas */
@@ -111,3 +111,64 @@
   .ahora { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { .cargando-bloque::before { animation: none; } }
+
+/* ---- Sanidad: indicadores con detalle ---- */
+.lista-indicadores li.fila-clic { padding: 0; display: block; }
+.fila-boton { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 9px 0; font: inherit; font-size: 14px; color: inherit; background: none; border: 0; cursor: pointer; text-align: left; }
+.fila-boton:hover span:first-child { color: var(--texto-verde); }
+.fila-boton:focus-visible { outline: 2px solid var(--verde); outline-offset: 2px; }
+.flechita { display: inline-block; width: 7px; height: 7px; margin-left: 9px; border-right: 2px solid var(--tinta-3); border-bottom: 2px solid var(--tinta-3); transform: rotate(45deg) translateY(-2px); transition: transform .15s; }
+.fila-boton[aria-expanded="true"] .flechita { transform: rotate(225deg) translateY(-1px); }
+.lista-indicadores li.detalle { display: block; background: var(--papel); border: 1px solid var(--linea); border-radius: var(--r); padding: 12px 14px; margin: 0 0 8px; font-size: 13.5px; }
+.lista-indicadores li.detalle p { margin: 0 0 8px; }
+.lista-indicadores li.chips { display: block; padding: 0 0 8px; border-bottom: 1px dashed var(--linea); }
+.criterios { margin: 0 0 10px; padding-left: 18px; font-size: 13.5px; }
+.criterios li { display: list-item; border: 0; padding: 2px 0; }
+.tira { display: grid; grid-template-columns: 52px repeat(24, minmax(0, 1fr)); gap: 2px; align-items: center; margin: 8px 0 4px; }
+.tira-et { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--tinta-3); }
+.tira-h { font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; color: var(--tinta-3); text-align: left; }
+.c { display: block; height: 18px; border-radius: 2px; background: var(--linea); }
+.c.fuera { background: transparent; border: 1px dashed var(--linea); }
+.c.humedo { background: var(--alerta); }
+.c.seco { background: var(--verde-medio); }
+.c.ok { background: var(--verde); }
+.c.corta { background: var(--aviso); opacity: .75; }
+.c.no { background: var(--linea-fuerte); }
+.leyenda-tira { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--tinta-2); margin: 4px 0 8px; }
+.leyenda-tira .c { display: inline-block; width: 12px; height: 12px; vertical-align: -2px; margin-right: 5px; }
+
+/* ---- Pronóstico por día / por hora ---- */
+button.dia { font: inherit; color: inherit; cursor: pointer; width: 100%; }
+button.dia:hover { border-color: var(--frac); }
+button.dia:focus-visible { outline: 2px solid var(--verde); outline-offset: 2px; }
+.dia[aria-pressed="true"] { border-color: var(--frac); box-shadow: 0 0 0 2px var(--frac-suave); }
+.dia.ayer { background: transparent; border-style: dashed; }
+.hora-panel { margin-top: 14px; padding: 14px 16px 6px; border: 1px solid var(--linea); border-radius: var(--r); background: var(--superficie); }
+.hora-cab { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 4px; }
+.hora-cab h3 { font-size: 17px; margin: 0; }
+.hora-cab .boton { min-height: 32px; padding: 4px 12px; }
+.tabla.compacta th, .tabla.compacta td { padding: 4px 8px; font-size: 13px; }
+.tabla-scroll.alta { max-height: 360px; overflow: auto; }
+.tabla-scroll.alta thead th { position: sticky; top: 0; background: var(--superficie); z-index: 1; }
+.tabla tr.pasada td { color: var(--tinta-3); }
+.tabla tr.ahora-fila td { background: var(--verde-suave); }
+.icono-celda svg { width: 20px; height: 20px; vertical-align: middle; color: var(--texto-frac); }
+.tabla-det { margin: 8px 0 12px; }
+.tabla-det summary { cursor: pointer; font-size: 13.5px; color: var(--texto-verde); margin-bottom: 8px; }
+.resumen-ayer { font-size: 14px; background: var(--frac-suave); border-left: 3px solid var(--frac); padding: 8px 12px; border-radius: 0 var(--r) var(--r) 0; margin: 0 0 12px; }
+
+/* ---- Series de gráficas ---- */
+.barra-neg { fill: var(--alerta); }
+.s-pron { fill: none; stroke: var(--aviso); stroke-width: 2; stroke-dasharray: 5 3; }
+.s-anal { fill: none; stroke: var(--tinta-3); stroke-width: 2; }
+.s-obs { fill: none; stroke: var(--verde); stroke-width: 2.6; }
+.q-pron { fill: var(--aviso); } .q-anal { fill: var(--tinta-3); } .q-obs { fill: var(--verde); }
+.l-var { fill: none; stroke: var(--frac); stroke-width: 2; }
+.p-var { fill: var(--frac); }
+.ref-linea { stroke: var(--alerta); stroke-width: 1.2; stroke-dasharray: 5 3; }
+.grafica text.ref-txt { fill: var(--texto-alerta); }
+
+/* ---- Explorador ---- */
+.exp-controles { display: grid; grid-template-columns: minmax(220px, 2fr) minmax(160px, 1fr); gap: 12px; max-width: 720px; }
+.exp-desc { font-size: 13.5px; color: var(--tinta-2); margin: 2px 0 12px; max-width: 80ch; }
+@media (max-width: 860px) { .exp-controles { grid-template-columns: 1fr; } .tira { grid-template-columns: 40px repeat(24, minmax(0, 1fr)); } }

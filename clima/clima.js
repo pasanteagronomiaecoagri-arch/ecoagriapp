@@ -140,10 +140,16 @@
   /* ---------------- Open-Meteo ---------------- */
   function urlOpenMeteo(lat, lng) {
     var base = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lng + '&timezone=America%2FBogota';
-    return base + '&past_days=14&forecast_days=8'
+    return base + '&past_days=60&forecast_days=8'
       + '&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,cloud_cover,wind_speed_10m,wind_gusts_10m,vapour_pressure_deficit,soil_moisture_0_to_1cm'
-      + '&hourly=temperature_2m,relative_humidity_2m,precipitation,precipitation_probability,wind_speed_10m'
-      + '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,et0_fao_evapotranspiration,wind_speed_10m_max,shortwave_radiation_sum';
+      + '&hourly=temperature_2m,relative_humidity_2m,precipitation,precipitation_probability,wind_speed_10m,weather_code,cloud_cover'
+      + '&daily=weather_code,temperature_2m_max,temperature_2m_min,temperature_2m_mean,precipitation_sum,precipitation_hours,precipitation_probability_max,et0_fao_evapotranspiration,'
+      + 'wind_speed_10m_max,wind_gusts_10m_max,shortwave_radiation_sum,sunshine_duration,daylight_duration,cloud_cover_mean,relative_humidity_2m_mean,dew_point_2m_mean,vapour_pressure_deficit_max,uv_index_max';
+  }
+  // Pronóstico emitido el día anterior (API de «previous runs») junto con el valor ya analizado, para contrastar ayer.
+  function urlAyer(lat, lng) {
+    return 'https://previous-runs-api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lng + '&timezone=America%2FBogota&past_days=3&forecast_days=1'
+      + '&hourly=temperature_2m,temperature_2m_previous_day1,precipitation,precipitation_previous_day1,relative_humidity_2m,relative_humidity_2m_previous_day1';
   }
   function urlModelos(lat, lng) {
     return 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lng + '&timezone=America%2FBogota&forecast_days=7&daily=precipitation_sum&models=' + MODELOS.map(function (m) { return m[0]; }).join(',');
@@ -172,104 +178,383 @@
 
   function sumar(arr, a, b) { var s = 0; for (var i = Math.max(a, 0); i < Math.min(b, arr.length); i++) s += (arr[i] || 0); return s; }
 
+  /* ---------------- Fechas ---------------- */
+  var MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+  function indiceAhora(om) {
+    var h = om.hourly, i = h.time.indexOf(om.current.time.slice(0, 13) + ':00');
+    if (i < 0) i = h.time.findIndex(function (t) { return t > om.current.time; }) - 1;
+    return i;
+  }
+  function indiceHoy(om) { var i = om.daily.time.indexOf(om.current.time.slice(0, 10)); return i < 0 ? 60 : i; }
+  function nombreDia(f) { var d = new Date(f + 'T12:00:00'); return DIAS[d.getDay()] + ' ' + d.getDate(); }
+  function fechaLarga(f) { var d = new Date(f + 'T12:00:00'); return DIAS[d.getDay()] + ' ' + d.getDate() + ' de ' + MESES[d.getMonth()]; }
+  function fechaBogota(offsetDias) { return new Date(Date.now() - 5 * 3600000 + offsetDias * 86400000).toISOString().slice(0, 10); }
+  function hh(c) { return String(c).padStart(2, '0'); }
+
+  /* ---------------- Sanidad vegetal ---------------- */
+  // Parámetros de las interpretaciones (se muestran al hacer clic en cada indicador).
+  var U = { hr: 90, hongosMedio: 10, hongosAlto: 20, horaIni: 6, horaFin: 17, lluviaMax: 0.1, probMax: 30, vientoMax: 15, minHoras: 2 };
+
+  function razonesNoAplicar(h, k) {
+    var hora = parseInt(h.time[k].slice(11, 13), 10), r = [];
+    if (hora < U.horaIni || hora > U.horaFin) r.push('fuera del horario diurno (' + U.horaIni + ':00 a ' + (U.horaFin + 1) + ':00)');
+    if ((h.precipitation[k] || 0) >= U.lluviaMax) r.push('lluvia prevista ' + num(h.precipitation[k], 1) + ' mm');
+    var p = h.precipitation_probability[k];
+    if (p !== null && p !== undefined && p >= U.probMax) r.push('probabilidad de lluvia ' + p + ' %');
+    if ((h.wind_speed_10m[k] || 0) >= U.vientoMax) r.push('viento ' + num(h.wind_speed_10m[k], 0) + ' km/h');
+    return r;
+  }
+  function franjasAplicar(h, desde, hasta) {
+    var v = [], ini = null;
+    for (var k = desde; k <= hasta; k++) {
+      var ok = razonesNoAplicar(h, k).length === 0;
+      if (ok && ini === null) ini = k;
+      if ((!ok || k === hasta) && ini !== null) { var fin = ok ? k : k - 1; if (fin - ini + 1 >= U.minHoras) v.push([ini, fin]); ini = null; }
+    }
+    return v;
+  }
+  // Mapa hora por hora (una fila por fecha, 24 columnas). clasificar(k) -> [clase, texto del tooltip]
+  function tiraHoras(h, desde, hasta, clasificar) {
+    var fechas = [];
+    for (var k = desde; k <= hasta; k++) { var f = h.time[k].slice(0, 10); if (fechas.indexOf(f) < 0) fechas.push(f); }
+    var html = '<div class="tira"><span class="tira-et"></span>';
+    for (var c = 0; c < 24; c++) html += '<span class="tira-h">' + (c % 3 === 0 ? c : '') + '</span>';
+    fechas.forEach(function (f) {
+      var base = h.time.indexOf(f + 'T00:00');
+      html += '<span class="tira-et">' + esc(nombreDia(f)) + '</span>';
+      for (var c2 = 0; c2 < 24; c2++) {
+        var kk = base + c2;
+        if (base < 0 || kk < desde || kk > hasta) html += '<i class="c fuera"></i>';
+        else { var r = clasificar(kk); html += '<i class="c ' + r[0] + '" title="' + esc(hh(c2) + ':00 — ' + r[1]) + '"></i>'; }
+      }
+    });
+    return html + '</div>';
+  }
+
   function pintarSanidad(om) {
-    var h = om.hourly, ahora = h.time.indexOf(om.current.time.slice(0, 13) + ':00');
-    if (ahora < 0) ahora = h.time.findIndex(function (t) { return t > om.current.time; }) - 1;
+    var h = om.hourly, ahora = indiceAhora(om), tope = Math.min(ahora + 48, h.time.length - 1);
     var l24 = sumar(h.precipitation, ahora - 23, ahora + 1), l72 = sumar(h.precipitation, ahora - 71, ahora + 1), p48 = sumar(h.precipitation, ahora + 1, ahora + 49);
     var hr = 0, hrPasada = 0;
-    for (var i = ahora + 1; i < Math.min(ahora + 49, h.time.length); i++) if (h.relative_humidity_2m[i] >= 90) hr++;
-    for (var j = Math.max(ahora - 23, 0); j <= ahora; j++) if (h.relative_humidity_2m[j] >= 90) hrPasada++;
-    // Ventanas de aplicación: horas diurnas (6–17 h) sin lluvia prevista y con viento suave.
-    var ventanas = [], inicio = null;
-    for (var k = ahora + 1; k <= Math.min(ahora + 48, h.time.length - 1); k++) {
-      var hora = parseInt(h.time[k].slice(11, 13), 10);
-      var buena = hora >= 6 && hora <= 17 && (h.precipitation[k] || 0) < 0.1 && (h.precipitation_probability[k] === null || h.precipitation_probability[k] < 30) && (h.wind_speed_10m[k] || 0) < 15;
-      if (buena && inicio === null) inicio = k;
-      if ((!buena || k === Math.min(ahora + 48, h.time.length - 1)) && inicio !== null) {
-        var fin = buena ? k : k - 1;
-        if (fin - inicio + 1 >= 2) ventanas.push([inicio, fin]);
-        inicio = null;
-      }
-    }
-    function rango(v) {
-      var d = new Date(h.time[v[0]]), dia = DIAS[d.getDay()];
-      return dia + ' ' + h.time[v[0]].slice(11, 13) + '–' + String(parseInt(h.time[v[1]].slice(11, 13), 10) + 1).padStart(2, '0') + ' h';
-    }
-    var estadoHongos = hr >= 20 ? ['alerta', 'Alto'] : hr >= 10 ? ['aviso', 'Medio'] : ['ok', 'Bajo'];
-    $('sec-sanidad').innerHTML = '<h2 id="t-sanidad">Para sanidad vegetal</h2><p class="sub">Calculado con el pronóstico por hora del modelo.</p>'
+    for (var i = ahora + 1; i <= tope; i++) if (h.relative_humidity_2m[i] >= U.hr) hr++;
+    for (var j = Math.max(ahora - 23, 0); j <= ahora; j++) if (h.relative_humidity_2m[j] >= U.hr) hrPasada++;
+    var ventanas = franjasAplicar(h, ahora + 1, tope);
+    function rango(v) { return nombreDia(h.time[v[0]].slice(0, 10)) + ' ' + h.time[v[0]].slice(11, 13) + '–' + hh(parseInt(h.time[v[1]].slice(11, 13), 10) + 1) + ' h'; }
+    var nivel = hr >= U.hongosAlto ? ['alerta', 'Alto'] : hr >= U.hongosMedio ? ['aviso', 'Medio'] : ['ok', 'Bajo'];
+
+    var tiraHongos = tiraHoras(h, ahora + 1, tope, function (k) {
+      return h.relative_humidity_2m[k] >= U.hr ? ['humedo', 'humedad relativa ' + num(h.relative_humidity_2m[k], 0) + ' % (≥ ' + U.hr + ' %)'] : ['seco', 'humedad relativa ' + num(h.relative_humidity_2m[k], 0) + ' %'];
+    });
+    var enVentana = {};
+    ventanas.forEach(function (v) { for (var k = v[0]; k <= v[1]; k++) enVentana[k] = true; });
+    var tiraAplicar = tiraHoras(h, ahora + 1, tope, function (k) {
+      var r = razonesNoAplicar(h, k);
+      if (!r.length) return enVentana[k] ? ['ok', 'cumple todos los criterios'] : ['corta', 'cumple, pero la franja dura menos de ' + U.minHoras + ' h'];
+      return ['no', 'no: ' + r.join('; ')];
+    });
+
+    $('sec-sanidad').innerHTML = '<h2 id="t-sanidad">Para sanidad vegetal</h2><p class="sub">Calculado con el pronóstico por hora del modelo. Haga clic en un indicador para ver cómo se calcula.</p>'
       + '<ul class="lista-indicadores">'
       + '<li><span>Lluvia últimas 24 h / 72 h</span><b>' + num(l24, 1) + ' / ' + num(l72, 1) + ' mm</b></li>'
       + '<li><span>Lluvia prevista próximas 48 h</span><b>' + num(p48, 1) + ' mm</b></li>'
-      + '<li><span>Horas con humedad ≥ 90 % (24 h atrás / 48 h adelante)</span><b>' + hrPasada + ' / ' + hr + ' h</b></li>'
-      + '<li><span>Condiciones que favorecen hongos</span><span class="pastilla ' + estadoHongos[0] + '">' + estadoHongos[1] + '</span></li>'
-      + '</ul>'
-      + '<p class="ventanas"><strong>Franjas para aplicar</strong> (próximas 48 h, de día, sin lluvia prevista y viento &lt; 15 km/h):<br>'
-      + (ventanas.length ? ventanas.slice(0, 6).map(function (v) { return '<span>' + esc(rango(v)) + '</span>'; }).join('') : 'No hay franjas de 2 h o más que cumplan las condiciones.') + '</p>'
-      + '<p class="nota">Orientativo: confirme con la lectura en campo y las condiciones de cada producto.</p>';
+      + '<li><span>Horas con humedad ≥ ' + U.hr + ' % (24 h atrás / 48 h adelante)</span><b>' + hrPasada + ' / ' + hr + ' h</b></li>'
+      + '<li class="fila-clic"><button type="button" class="fila-boton" aria-expanded="false" aria-controls="det-hongos"><span>Condiciones que favorecen hongos<i class="flechita" aria-hidden="true"></i></span><span class="pastilla ' + nivel[0] + '">' + nivel[1] + '</span></button></li>'
+      + '<li class="detalle" id="det-hongos" hidden>'
+      + '<p><strong>Cómo se calcula.</strong> Se cuentan las horas con humedad relativa ≥ ' + U.hr + ' % en las próximas 48 h (pronóstico por hora de Open-Meteo).</p>'
+      + '<ul class="criterios"><li><span class="pastilla ok">Bajo</span> menos de ' + U.hongosMedio + ' h</li><li><span class="pastilla aviso">Medio</span> de ' + U.hongosMedio + ' a ' + (U.hongosAlto - 1) + ' h</li><li><span class="pastilla alerta">Alto</span> ' + U.hongosAlto + ' h o más</li></ul>'
+      + '<p>Ahora: <strong>' + hr + ' h</strong> en las próximas 48 h (y ' + hrPasada + ' h en las últimas 24 h) → nivel <strong>' + nivel[1].toLowerCase() + '</strong>.</p>'
+      + tiraHongos + '<p class="leyenda-tira"><span><i class="c humedo"></i>HR ≥ ' + U.hr + ' %</span><span><i class="c seco"></i>HR menor</span><span><i class="c fuera"></i>fuera de las 48 h</span></p>'
+      + '<p class="nota">Es un indicador simple de humedad alta sostenida, que acompaña a muchas infecciones por hongos. No considera la temperatura, el mojado real de la hoja, el cultivo, su etapa ni la sensibilidad de cada patógeno: úselo como aviso para revisar el lote, no como diagnóstico.</p></li>'
+      + '<li class="fila-clic"><button type="button" class="fila-boton" aria-expanded="false" aria-controls="det-franjas"><span>Franjas para aplicar (próximas 48 h)<i class="flechita" aria-hidden="true"></i></span><span class="pastilla ' + (ventanas.length ? 'ok' : 'aviso') + '">' + ventanas.length + (ventanas.length === 1 ? ' franja' : ' franjas') + '</span></button></li>'
+      + '<li class="chips"><span class="ventanas">' + (ventanas.length ? ventanas.slice(0, 6).map(function (v) { return '<span>' + esc(rango(v)) + '</span>'; }).join('') : 'No hay franjas de ' + U.minHoras + ' h o más que cumplan las condiciones.') + '</span></li>'
+      + '<li class="detalle" id="det-franjas" hidden>'
+      + '<p><strong>Criterios</strong> (una hora cuenta solo si cumple todos a la vez):</p>'
+      + '<ul class="criterios"><li>Horario diurno: de ' + U.horaIni + ':00 a ' + (U.horaFin + 1) + ':00.</li><li>Lluvia prevista menor a ' + num(U.lluviaMax, 1) + ' mm en esa hora.</li><li>Probabilidad de lluvia menor a ' + U.probMax + ' % (si el modelo la entrega).</li><li>Viento menor a ' + U.vientoMax + ' km/h (para limitar la deriva de la aspersión).</li><li>La franja debe durar al menos ' + U.minHoras + ' horas seguidas.</li></ul>'
+      + tiraAplicar + '<p class="leyenda-tira"><span><i class="c ok"></i>franja válida</span><span><i class="c corta"></i>cumple, franja muy corta</span><span><i class="c no"></i>no cumple (pase el cursor para ver el motivo)</span><span><i class="c fuera"></i>fuera de las 48 h</span></p>'
+      + '<p class="nota">No considera la temperatura ni la humedad del aire, el periodo de reentrada o carencia, ni lo que indique la etiqueta de cada producto. Confirme siempre con la lectura en campo.</p></li>'
+      + '</ul>';
+  }
+  function alternarDetalle(e) {
+    var b = e.target.closest ? e.target.closest('.fila-boton') : null;
+    if (!b) return;
+    var panel = $(b.getAttribute('aria-controls')), abierto = b.getAttribute('aria-expanded') === 'true';
+    b.setAttribute('aria-expanded', abierto ? 'false' : 'true');
+    if (panel) panel.hidden = abierto;
   }
 
+  /* ---------------- Pronóstico por día y por hora ---------------- */
+  function tarjetaDia(d, i, etiqueta, clase) {
+    var cond = condicion(d.weather_code[i]), prob = d.precipitation_probability_max[i];
+    return '<button type="button" class="dia' + (clase ? ' ' + clase : '') + '" data-i="' + i + '" aria-pressed="false"><div class="nombre">' + esc(etiqueta) + '</div>' + icono(cond[1])
+      + '<div class="t">' + num(d.temperature_2m_max[i], 0) + '° <i>/ ' + num(d.temperature_2m_min[i], 0) + '°</i></div>'
+      + '<div class="l">' + num(d.precipitation_sum[i], 1) + ' mm' + (prob === null || prob === undefined ? '' : ' · ' + num(prob, 0) + ' %') + '</div>'
+      + '<div class="et">ET0 ' + num(d.et0_fao_evapotranspiration[i], 1) + ' mm</div></button>';
+  }
   function pintarPronostico(om) {
-    var d = om.daily, hoy = om.current.time.slice(0, 10), i0 = d.time.indexOf(hoy);
-    if (i0 < 0) i0 = 14;
-    var html = '<h2 id="t-pron">Pronóstico de 7 días</h2><p class="sub">Temperatura máxima / mínima, lluvia acumulada, probabilidad y evapotranspiración de referencia (ET0).</p><div class="dias">';
-    for (var i = i0; i < Math.min(i0 + 7, d.time.length); i++) {
-      var f = new Date(d.time[i] + 'T12:00:00'), cond = condicion(d.weather_code[i]);
-      html += '<div class="dia' + (i === i0 ? ' hoy' : '') + '"><div class="nombre">' + (i === i0 ? 'hoy' : DIAS[f.getDay()] + ' ' + f.getDate()) + '</div>' + icono(cond[1])
-        + '<div class="t">' + num(d.temperature_2m_max[i], 0) + '° <i>/ ' + num(d.temperature_2m_min[i], 0) + '°</i></div>'
-        + '<div class="l">' + num(d.precipitation_sum[i], 1) + ' mm · ' + num(d.precipitation_probability_max[i], 0) + ' %</div>'
-        + '<div class="et">ET0 ' + num(d.et0_fao_evapotranspiration[i], 1) + ' mm</div></div>';
+    var d = om.daily, i0 = indiceHoy(om);
+    estado.om = om; estado.i0 = i0; estado.diaSel = null;
+    var html = '<h2 id="t-pron">Pronóstico de 7 días</h2><p class="sub">Haga clic en un día para ver el pronóstico hora por hora. «Ayer» contrasta lo que se había pronosticado con lo que ocurrió.</p><div class="dias">';
+    html += tarjetaDia(d, i0 - 1, 'ayer', 'ayer');
+    for (var i = i0; i < Math.min(i0 + 7, d.time.length); i++) html += tarjetaDia(d, i, i === i0 ? 'hoy' : nombreDia(d.time[i]), i === i0 ? 'hoy' : '');
+    $('sec-pronostico').innerHTML = html + '</div><div class="hora-panel" id="hora-panel" hidden></div>';
+  }
+  function alElegirDia(e) {
+    var cerrar = e.target.closest ? e.target.closest('[data-cerrar]') : null;
+    var b = e.target.closest ? e.target.closest('.dia') : null;
+    if (!b && !cerrar) return;
+    var i = cerrar ? null : parseInt(b.getAttribute('data-i'), 10);
+    if (i === estado.diaSel) i = null;               // segundo clic en el mismo día: cierra
+    estado.diaSel = i;
+    Array.prototype.forEach.call(document.querySelectorAll('#sec-pronostico .dia'), function (x) { x.setAttribute('aria-pressed', parseInt(x.getAttribute('data-i'), 10) === i ? 'true' : 'false'); });
+    var panel = $('hora-panel');
+    panel.hidden = i === null;
+    if (i !== null) { renderHora(); }
+  }
+  function renderHora() {
+    var om = estado.om, i = estado.diaSel;
+    if (!om || i === null || i === undefined || !$('hora-panel')) return;
+    $('hora-panel').innerHTML = (i === estado.i0 - 1) ? vistaAyer() : vistaHoraDia(om, i);
+  }
+  var BOTON_CERRAR = '<button type="button" class="boton" data-cerrar>Cerrar</button>';
+
+  function vistaHoraDia(om, i) {
+    var h = om.hourly, f = om.daily.time[i], ini = h.time.indexOf(f + 'T00:00'), ahora = indiceAhora(om);
+    var cab = '<div class="hora-cab"><h3>Hora por hora · ' + esc(fechaLarga(f)) + '</h3>' + BOTON_CERRAR + '</div>';
+    if (ini < 0) return cab + '<p class="nota">El modelo no entregó datos por hora para ese día.</p>';
+    var etiq = [], T = [], LL = [], filas = '';
+    for (var c = 0; c < 24; c++) {
+      var k = ini + c, cond = condicion(h.weather_code[k]), pasada = k <= ahora, p = h.precipitation_probability[k];
+      etiq.push(hh(c)); T.push(h.temperature_2m[k]); LL.push(h.precipitation[k]);
+      filas += '<tr class="' + (pasada ? 'pasada' : '') + (k === ahora ? ' ahora-fila' : '') + '"><td>' + hh(c) + ':00</td><td class="icono-celda" title="' + esc(cond[0]) + '">' + icono(cond[1]) + '</td><td class="num">' + num(h.temperature_2m[k], 1) + '</td><td class="num">' + num(h.relative_humidity_2m[k], 0) + '</td><td class="num">' + num(h.precipitation[k], 1) + '</td><td class="num">' + (p === null || p === undefined ? '—' : num(p, 0)) + '</td><td class="num">' + num(h.wind_speed_10m[k], 0) + '</td><td class="num">' + num(h.cloud_cover[k], 0) + '</td></tr>';
     }
-    $('sec-pronostico').innerHTML = html + '</div>';
+    var hoyIdx = (ahora >= ini && ahora <= ini + 23) ? ahora - ini : -1;
+    var pron = ahora >= ini + 23 ? 24 : (ahora < ini ? 0 : ahora - ini + 1);
+    return cab + '<p class="sub">' + (ahora >= ini + 23 ? 'Día ya terminado: valores del análisis del modelo.' : ahora < ini ? 'Pronóstico del modelo.' : 'Las horas ya pasadas (en gris) son análisis del modelo; las siguientes, pronóstico.') + '</p>'
+      + '<div class="grafica"><h3>Temperatura (°C)</h3>' + grafLineas(etiq, [{ nombre: 'Temperatura', v: T, linea: 'l-max', punto: 'p-max' }], { unidad: '°C', hoy: hoyIdx, paso: 3 }) + '</div>'
+      + '<div class="grafica"><h3>Lluvia (mm por hora)</h3>' + grafBarras(etiq, LL, { unidad: 'mm', dec: 1, pron: pron, paso: 3, hoy: hoyIdx }) + '</div>'
+      + '<div class="tabla-scroll alta"><table class="tabla compacta"><thead><tr><th>Hora</th><th>Tiempo</th><th class="num">T °C</th><th class="num">HR %</th><th class="num">Lluvia mm</th><th class="num">Prob. %</th><th class="num">Viento km/h</th><th class="num">Nubes %</th></tr></thead><tbody>' + filas + '</tbody></table></div>';
   }
 
+  /* ---------------- Ayer: pronóstico vs. observado ---------------- */
+  function valido(x) { return x !== null && x !== undefined && isFinite(x); }
+  function estad(v, modo) {
+    var a = v.filter(valido);
+    if (!a.length) return null;
+    if (modo === 'max') return Math.max.apply(null, a);
+    if (modo === 'min') return Math.min.apply(null, a);
+    if (modo === 'suma') return a.reduce(function (s, x) { return s + x; }, 0);
+    if (modo === 'llueve') return a.filter(function (x) { return x >= 0.1; }).length;
+    return a.reduce(function (s, x) { return s + x; }, 0) / a.length;
+  }
+  function acumular(v) { var s = 0, r = []; v.forEach(function (x) { if (valido(x)) s += x; r.push(valido(x) || r.length ? s : null); }); return r; }
+
+  function vistaAyer() {
+    var om = estado.om, f = om.daily.time[estado.i0 - 1], a = estado.ayerPrev, obs = estado.obsAyer;
+    var cab = '<div class="hora-cab"><h3>Ayer · ' + esc(fechaLarga(f)) + ': ¿qué tan bueno fue el pronóstico?</h3>' + BOTON_CERRAR + '</div>';
+    if (estado.ayerError) return cab + '<p class="nota">No se pudo consultar el pronóstico de ayer (servicio de pronósticos anteriores de Open-Meteo). Inténtelo de nuevo en unos minutos.</p>';
+    if (!a) return cab + '<p class="cargando-bloque">Cargando el pronóstico de ayer…</p>';
+    var h = a.hourly, ini = h.time.indexOf(f + 'T00:00');
+    if (ini < 0) return cab + '<p class="nota">El servicio no devolvió datos de ayer.</p>';
+    function tomar(clave) { var r = []; for (var c = 0; c < 24; c++) r.push(h[clave] ? h[clave][ini + c] : null); return r; }
+    var P = { T: tomar('temperature_2m_previous_day1'), LL: tomar('precipitation_previous_day1'), HR: tomar('relative_humidity_2m_previous_day1') };
+    var A = { T: tomar('temperature_2m'), LL: tomar('precipitation'), HR: tomar('relative_humidity_2m') };
+    var O = obs ? { T: obs.temp, LL: obs.lluvia, HR: obs.hr } : null;
+    if (!P.T.some(valido)) return cab + '<p class="nota">Open-Meteo no conserva el pronóstico emitido el día anterior para este punto.</p>';
+    var ref = O && O.T && O.T.some(valido) ? O : A, refNombre = ref === O ? 'la estación IDEAM ' + obs.nombre + ' (' + num(obs.km, 1) + ' km)' : 'el análisis del modelo (no es una medición)';
+
+    function fila(nombre, clave, modo, dec, unidad) {
+      var p = P[clave] && estad(P[clave], modo), an = A[clave] && estad(A[clave], modo), o = O && O[clave] ? estad(O[clave], modo) : null;
+      var r = ref[clave] ? estad(ref[clave], modo) : null, err = (valido(p) && valido(r)) ? p - r : null;
+      return '<tr><td>' + nombre + '</td><td class="num">' + num(p, dec) + '</td><td class="num">' + num(an, dec) + '</td>' + (O ? '<td class="num">' + num(o, dec) + '</td>' : '') + '<td class="num">' + (err === null ? '—' : (err > 0 ? '+' : '') + num(err, dec)) + ' ' + unidad + '</td></tr>';
+    }
+    var mae = null;
+    if (ref.T) { var s = 0, n = 0; for (var c = 0; c < 24; c++) if (valido(P.T[c]) && valido(ref.T[c])) { s += Math.abs(P.T[c] - ref.T[c]); n++; } if (n >= 12) mae = s / n; }
+    var tabla = '<div class="tabla-scroll"><table class="tabla"><thead><tr><th>Variable</th><th class="num">Pronóstico</th><th class="num">Analizado</th>' + (O ? '<th class="num">Observado</th>' : '') + '<th class="num">Error (pron. − ref.)</th></tr></thead><tbody>'
+      + fila('Temperatura máxima (°C)', 'T', 'max', 1, '°C') + fila('Temperatura mínima (°C)', 'T', 'min', 1, '°C') + fila('Temperatura media (°C)', 'T', 'media', 1, '°C')
+      + fila('Humedad relativa media (%)', 'HR', 'media', 0, '%') + fila('Lluvia total (mm)', 'LL', 'suma', 1, 'mm') + fila('Horas con lluvia (≥ 0,1 mm)', 'LL', 'llueve', 0, 'h')
+      + '</tbody></table></div>';
+
+    var etiq = []; for (var c2 = 0; c2 < 24; c2++) etiq.push(hh(c2));
+    function series(clave, acum) {
+      function t(v) { return v ? (acum ? acumular(v) : v) : null; }
+      var s = [{ nombre: 'Pronóstico (emitido ayer)', v: t(P[clave]), linea: 's-pron', punto: 'q-pron' }, { nombre: 'Analizado (modelo)', v: t(A[clave]), linea: 's-anal', punto: 'q-anal' }];
+      if (O && O[clave] && O[clave].some(valido)) s.push({ nombre: 'Observado IDEAM', v: t(O[clave]), linea: 's-obs', punto: 'q-obs' });
+      return s.filter(function (x) { return x.v; });
+    }
+    var leyenda = '<p class="leyenda"><span><i style="background:var(--aviso)"></i>Pronóstico (emitido ayer)</span><span><i style="background:var(--tinta-3)"></i>Analizado (modelo)</span>' + (O ? '<span><i style="background:var(--verde)"></i>Observado IDEAM</span>' : '') + '</p>';
+    var detalle = '<details class="tabla-det"><summary>Ver hora por hora</summary><div class="tabla-scroll alta"><table class="tabla compacta"><thead><tr><th>Hora</th><th class="num">T pron.</th><th class="num">T anal.</th>' + (O && O.T ? '<th class="num">T obs.</th>' : '') + '<th class="num">Lluvia pron.</th><th class="num">Lluvia anal.</th>' + (O && O.LL ? '<th class="num">Lluvia obs.</th>' : '') + '</tr></thead><tbody>';
+    for (var c3 = 0; c3 < 24; c3++) detalle += '<tr><td>' + hh(c3) + ':00</td><td class="num">' + num(P.T[c3], 1) + '</td><td class="num">' + num(A.T[c3], 1) + '</td>' + (O && O.T ? '<td class="num">' + num(O.T[c3], 1) + '</td>' : '') + '<td class="num">' + num(P.LL[c3], 1) + '</td><td class="num">' + num(A.LL[c3], 1) + '</td>' + (O && O.LL ? '<td class="num">' + num(O.LL[c3], 1) + '</td>' : '') + '</tr>';
+    detalle += '</tbody></table></div></details>';
+
+    return cab + '<p class="sub"><strong>Pronóstico</strong> = lo que el modelo anunciaba un día antes · <strong>Analizado</strong> = lo que el modelo estima después, ya con datos · <strong>Observado</strong> = lecturas de la estación IDEAM más cercana con datos'
+      + (O ? ' (' + esc(obs.nombre) + ', ' + num(obs.km, 1) + ' km)' : ' (no hay lecturas de ayer disponibles: se compara solo con el análisis del modelo)') + '.</p>'
+      + (mae !== null ? '<p class="resumen-ayer">Error medio horario de temperatura frente a ' + esc(refNombre) + ': <strong>' + num(mae, 1) + ' °C</strong>.</p>' : '')
+      + tabla
+      + '<div class="grafica"><h3>Temperatura ayer (°C)</h3>' + grafLineas(etiq, series('T', false), { unidad: '°C', paso: 3 }) + leyenda + '</div>'
+      + '<div class="grafica"><h3>Lluvia acumulada ayer (mm)</h3>' + grafLineas(etiq, series('LL', true), { unidad: 'mm', paso: 3, cero: true }) + '</div>'
+      + detalle
+      + '<p class="nota">Las lecturas de IDEAM pueden tener huecos; la lluvia observada se suma por hora con los datos disponibles. Una sola estación (a ' + (obs ? num(obs.km, 1) + ' km' : 'varios km') + ' y otra altitud) no representa exactamente el punto consultado.</p>';
+  }
+  function construirObsAyer(l, fecha) {
+    function porHora(sensor, modo) {
+      var s = [], n = [], c;
+      for (c = 0; c < 24; c++) { s.push(0); n.push(0); }
+      (sensor.filas || []).forEach(function (f) {
+        if (f.fechaobservacion.slice(0, 10) !== fecha) return;
+        var hora = parseInt(f.fechaobservacion.slice(11, 13), 10), v = parseFloat(f.valorobservado);
+        if (isFinite(v)) { s[hora] += v; n[hora]++; }
+      });
+      return s.map(function (x, i) { return n[i] ? (modo === 'suma' ? x : x / n[i]) : null; });
+    }
+    var sT = l.temp.filter(function (s) { return /aire/i.test(s.sensor); })[0], sL = l.precip[0],
+      sH = l.humedad.filter(function (s) { return /aire/i.test(s.sensor) && !/suelo/i.test(s.sensor); })[0];
+    var r = { nombre: l.est.nombre, km: l.est.km, temp: sT ? porHora(sT, 'media') : null, lluvia: sL ? porHora(sL, 'suma') : null, hr: sH ? porHora(sH, 'media') : null };
+    var hay = [r.temp, r.lluvia, r.hr].some(function (a) { return a && a.some(valido); });
+    return hay ? r : null;
+  }
+
+  /* ---------------- Gráficas del periodo ---------------- */
   function pintarGraficas(fechas, tmax, tmin, lluvia, indiceHoy, fuente) {
+    var etiq = fechas.map(etiquetaFecha);
     var html = '<h2 id="t-graf">Últimos 14 días y próximos 7</h2><p class="sub">' + esc(fuente) + '</p>';
-    html += '<div class="grafica"><h3>Lluvia diaria (mm)</h3>' + graficaBarras(fechas, lluvia, indiceHoy) + '<p class="leyenda"><span><i style="background:var(--frac)"></i>Observado/analizado</span><span><i style="background:var(--frac);opacity:.45"></i>Pronóstico</span></p></div>';
-    html += '<div class="grafica"><h3>Temperatura máxima y mínima (°C)</h3>' + graficaLineas(fechas, tmax, tmin, indiceHoy) + '<p class="leyenda"><span><i style="background:var(--alerta)"></i>Máxima</span><span><i style="background:var(--frac)"></i>Mínima</span></p></div>';
+    html += '<div class="grafica"><h3>Lluvia diaria (mm)</h3>' + grafBarras(etiq, lluvia, { unidad: 'mm', dec: 1, pron: indiceHoy + 1, hoy: indiceHoy, paso: 3 }) + '<p class="leyenda"><span><i style="background:var(--frac)"></i>Observado/analizado</span><span><i style="background:var(--frac);opacity:.45"></i>Pronóstico</span></p></div>';
+    html += '<div class="grafica"><h3>Temperatura máxima y mínima (°C)</h3>' + grafLineas(etiq, [{ nombre: 'Máxima', v: tmax, linea: 'l-max', punto: 'p-max' }, { nombre: 'Mínima', v: tmin, linea: 'l-min', punto: 'p-min' }], { unidad: '°C', hoy: indiceHoy, paso: 3, etiquetaHoy: 'hoy' }) + '<p class="leyenda"><span><i style="background:var(--alerta)"></i>Máxima</span><span><i style="background:var(--frac)"></i>Mínima</span></p></div>';
     var acumulado = sumar(lluvia, Math.max(indiceHoy - 13, 0), indiceHoy + 1), acum7 = sumar(lluvia, indiceHoy + 1, indiceHoy + 8);
     html += '<p class="nota">Lluvia acumulada en los últimos 14 días (hasta hoy): <strong>' + num(acumulado, 1) + ' mm</strong> · prevista en los próximos 7 días: <strong>' + num(acum7, 1) + ' mm</strong>.</p>';
     $('sec-graficas').innerHTML = html;
   }
   function etiquetaFecha(f) { var d = new Date(f + 'T12:00:00'); return d.getDate() + '/' + (d.getMonth() + 1); }
-  function graficaBarras(fechas, v, hoy) {
-    var W = 760, H = 210, ml = 36, mr = 8, mt = 14, mb = 26, n = v.length, max = 5;
-    v.forEach(function (x) { if (x > max) max = x; });
-    max = Math.ceil(max / 5) * 5;
-    var ancho = (W - ml - mr) / n, svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Lluvia diaria en milímetros">';
-    for (var g = 0; g <= 4; g++) {
-      var y = mt + (H - mt - mb) * g / 4;
-      svg += '<line class="rejilla" x1="' + ml + '" x2="' + (W - mr) + '" y1="' + y + '" y2="' + y + '"/><text x="' + (ml - 6) + '" y="' + (y + 3) + '" text-anchor="end">' + num(max * (1 - g / 4), 0) + '</text>';
-    }
+  function decEje(rango) { return rango < 2 ? 2 : rango < 20 ? 1 : 0; }
+  function techoBonito(x) { if (x <= 0) return 0; var p = Math.pow(10, Math.floor(Math.log(x) / Math.LN10)), f = x / p; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p; }
+
+  // Barras con base en cero (admite negativos). o: {unidad, dec, pron (desde qué índice es pronóstico), hoy, paso}
+  function grafBarras(etiq, v, o) {
+    o = o || {};
+    var W = 760, H = 210, ml = 42, mr = 8, mt = 14, mb = 26, n = v.length, pron = o.pron === undefined ? n : o.pron;
+    var vals = v.filter(valido), mx = Math.max.apply(null, vals.concat([0])), mn = Math.min.apply(null, vals.concat([0]));
+    if (!vals.length) return '<p class="nota">Sin datos para graficar.</p>';
+    mx = techoBonito(mx); mn = -techoBonito(-mn);
+    if (mx === 0 && mn === 0) mx = 1;
+    if (o.minimoMax && mx < o.minimoMax) mx = o.minimoMax;
+    var rango = mx - mn, ld = Math.max(decEje(rango), 0), paso = o.paso || 1;
+    function Y(x) { return mt + (H - mt - mb) * (mx - x) / rango; }
+    var ancho = (W - ml - mr) / n, svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Gráfica de barras en ' + esc(o.unidad || '') + '">';
+    for (var g = 0; g <= 4; g++) { var val = mx - rango * g / 4, y = Y(val); svg += '<line class="rejilla" x1="' + ml + '" x2="' + (W - mr) + '" y1="' + y + '" y2="' + y + '"/><text x="' + (ml - 6) + '" y="' + (y + 3) + '" text-anchor="end">' + num(val, ld) + '</text>'; }
     v.forEach(function (x, i) {
-      var h = (H - mt - mb) * (x || 0) / max, xx = ml + i * ancho + 2;
-      svg += '<rect class="' + (i > hoy ? 'barra-pron' : 'barra-obs') + '" x="' + xx + '" y="' + (H - mb - h) + '" width="' + Math.max(ancho - 4, 2) + '" height="' + h + '"><title>' + esc(etiquetaFecha(fechas[i]) + ': ' + num(x, 1) + ' mm') + '</title></rect>';
-      if (i % 3 === 0 || i === n - 1) svg += '<text x="' + (xx + (ancho - 4) / 2) + '" y="' + (H - 8) + '" text-anchor="middle">' + etiquetaFecha(fechas[i]) + '</text>';
+      var xx = ml + i * ancho + 1.5;
+      if (valido(x)) {
+        var y0 = Y(0), y1 = Y(x), clase = x < 0 ? 'barra-neg' : (i >= pron ? 'barra-pron' : 'barra-obs');
+        svg += '<rect class="' + clase + '" x="' + xx + '" y="' + Math.min(y0, y1) + '" width="' + Math.max(ancho - 3, 1.5) + '" height="' + Math.abs(y1 - y0) + '"><title>' + esc(etiq[i] + ': ' + num(x, o.dec === undefined ? 1 : o.dec) + ' ' + (o.unidad || '')) + '</title></rect>';
+      }
+      if (i % paso === 0 || (i === n - 1 && (n - 1) % paso >= Math.ceil(paso / 2))) svg += '<text x="' + (xx + (ancho - 3) / 2) + '" y="' + (H - 8) + '" text-anchor="middle">' + esc(etiq[i]) + '</text>';
     });
-    var xh = ml + (hoy + 0.5) * ancho;
-    svg += '<line class="eje" x1="' + ml + '" x2="' + (W - mr) + '" y1="' + (H - mb) + '" y2="' + (H - mb) + '"/><line class="hoy-linea" x1="' + xh + '" x2="' + xh + '" y1="' + mt + '" y2="' + (H - mb) + '"/><text class="hoy-txt" x="' + (xh + 4) + '" y="' + (mt + 8) + '">hoy</text></svg>';
-    return svg;
+    svg += '<line class="eje" x1="' + ml + '" x2="' + (W - mr) + '" y1="' + Y(0) + '" y2="' + Y(0) + '"/>';
+    if (o.hoy !== undefined && o.hoy >= 0 && o.hoy < n) { var xh = ml + (o.hoy + 0.5) * ancho; svg += '<line class="hoy-linea" x1="' + xh + '" x2="' + xh + '" y1="' + mt + '" y2="' + (H - mb) + '"/><text class="hoy-txt" x="' + (xh + 4) + '" y="' + (mt + 8) + '">' + (o.etiquetaHoy || 'ahora') + '</text>'; }
+    return svg + '</svg>';
   }
-  function graficaLineas(fechas, a, b, hoy) {
-    var W = 760, H = 210, ml = 36, mr = 8, mt = 14, mb = 26, n = a.length;
-    var todos = a.concat(b).filter(function (x) { return x !== null && x !== undefined; });
-    var mn = Math.floor(Math.min.apply(null, todos) - 1), mx = Math.ceil(Math.max.apply(null, todos) + 1);
+  // Líneas (varias series, con huecos). series: [{nombre, v, linea, punto}] o: {unidad, hoy, paso, ref, refEtq, cero}
+  function grafLineas(etiq, series, o) {
+    o = o || {};
+    var W = 760, H = 210, ml = 42, mr = 10, mt = 14, mb = 26, n = etiq.length, paso = o.paso || 1;
+    var todos = [];
+    series.forEach(function (s) { s.v.forEach(function (x) { if (valido(x)) todos.push(x); }); });
+    if (o.ref !== undefined) todos.push(o.ref);
+    if (!todos.length) return '<p class="nota">Sin datos para graficar.</p>';
+    var mn = Math.min.apply(null, todos), mx = Math.max.apply(null, todos);
+    if (o.cero) mn = Math.min(mn, 0);
+    var pad = (mx - mn) * 0.08 || 1; mx += pad; if (!o.cero || mn < 0) mn -= pad;
+    var rango = mx - mn, ld = decEje(rango);
     function X(i) { return ml + (i + 0.5) * (W - ml - mr) / n; }
-    function Y(x) { return mt + (H - mt - mb) * (1 - (x - mn) / (mx - mn)); }
-    var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Temperatura máxima y mínima diaria">';
-    for (var g = 0; g <= 4; g++) {
-      var val = mn + (mx - mn) * g / 4, y = Y(val);
-      svg += '<line class="rejilla" x1="' + ml + '" x2="' + (W - mr) + '" y1="' + y + '" y2="' + y + '"/><text x="' + (ml - 6) + '" y="' + (y + 3) + '" text-anchor="end">' + num(val, 0) + '</text>';
-    }
-    function linea(v, clase, punto) {
-      var pts = v.map(function (x, i) { return x === null || x === undefined ? null : X(i).toFixed(1) + ',' + Y(x).toFixed(1); }).filter(Boolean).join(' ');
-      var s = '<polyline class="' + clase + '" points="' + pts + '"/>';
-      v.forEach(function (x, i) { if (x !== null && x !== undefined) s += '<circle class="' + punto + '" cx="' + X(i).toFixed(1) + '" cy="' + Y(x).toFixed(1) + '" r="2.6"><title>' + esc(etiquetaFecha(fechas[i]) + ': ' + num(x, 1) + ' °C') + '</title></circle>'; });
-      return s;
-    }
-    svg += linea(a, 'l-max', 'p-max') + linea(b, 'l-min', 'p-min');
-    fechas.forEach(function (f, i) { if (i % 3 === 0 || i === n - 1) svg += '<text x="' + X(i) + '" y="' + (H - 8) + '" text-anchor="middle">' + etiquetaFecha(f) + '</text>'; });
-    svg += '<line class="eje" x1="' + ml + '" x2="' + (W - mr) + '" y1="' + (H - mb) + '" y2="' + (H - mb) + '"/><line class="hoy-linea" x1="' + X(hoy) + '" x2="' + X(hoy) + '" y1="' + mt + '" y2="' + (H - mb) + '"/><text class="hoy-txt" x="' + (X(hoy) + 4) + '" y="' + (mt + 8) + '">hoy</text></svg>';
-    return svg;
+    function Y(x) { return mt + (H - mt - mb) * (1 - (x - mn) / rango); }
+    var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Gráfica de líneas en ' + esc(o.unidad || '') + '">';
+    for (var g = 0; g <= 4; g++) { var val = mn + rango * g / 4, y = Y(val); svg += '<line class="rejilla" x1="' + ml + '" x2="' + (W - mr) + '" y1="' + y + '" y2="' + y + '"/><text x="' + (ml - 6) + '" y="' + (y + 3) + '" text-anchor="end">' + num(val, ld) + '</text>'; }
+    if (o.ref !== undefined) svg += '<line class="ref-linea" x1="' + ml + '" x2="' + (W - mr) + '" y1="' + Y(o.ref) + '" y2="' + Y(o.ref) + '"/><text class="ref-txt" x="' + (W - mr - 4) + '" y="' + (Y(o.ref) - 4) + '" text-anchor="end">' + esc(o.refEtq || '') + '</text>';
+    series.forEach(function (s) {
+      var seg = [], puntos = '';
+      function cerrar() { if (seg.length > 1) svg += '<polyline class="' + s.linea + '" points="' + seg.join(' ') + '"/>'; seg = []; }
+      s.v.forEach(function (x, i) {
+        if (!valido(x)) { cerrar(); return; }
+        seg.push(X(i).toFixed(1) + ',' + Y(x).toFixed(1));
+        puntos += '<circle class="' + s.punto + '" cx="' + X(i).toFixed(1) + '" cy="' + Y(x).toFixed(1) + '" r="' + (n > 40 ? 1.8 : 2.6) + '"><title>' + esc(etiq[i] + ' · ' + s.nombre + ': ' + num(x, Math.max(ld, 1)) + ' ' + (o.unidad || '')) + '</title></circle>';
+      });
+      cerrar(); svg += puntos;
+    });
+    etiq.forEach(function (f, i) { if (i % paso === 0 || (i === n - 1 && (n - 1) % paso >= Math.ceil(paso / 2))) svg += '<text x="' + X(i) + '" y="' + (H - 8) + '" text-anchor="middle">' + esc(f) + '</text>'; });
+    svg += '<line class="eje" x1="' + ml + '" x2="' + (W - mr) + '" y1="' + (H - mb) + '" y2="' + (H - mb) + '"/>';
+    if (o.hoy !== undefined && o.hoy >= 0 && o.hoy < n) svg += '<line class="hoy-linea" x1="' + X(o.hoy) + '" x2="' + X(o.hoy) + '" y1="' + mt + '" y2="' + (H - mb) + '"/><text class="hoy-txt" x="' + (X(o.hoy) + 4) + '" y="' + (mt + 8) + '">' + (o.etiquetaHoy || (n > 30 ? 'hoy' : 'ahora')) + '</text>';
+    return svg + '</svg>';
+  }
+
+  /* ---------------- Explorador de variables ---------------- */
+  function movil(arr, n, modo) {   // ventana de n días que termina en cada día; null si no hay n datos
+    return arr.map(function (x, i) {
+      if (i < n - 1) return null;
+      var w = arr.slice(i - n + 1, i + 1);
+      if (!w.every(valido)) return null;
+      var s = w.reduce(function (a, b) { return a + b; }, 0);
+      return modo === 'media' ? s / n : s;
+    });
+  }
+  function dividir(a, f) { return a.map(function (x) { return valido(x) ? f(x) : null; }); }
+  var VARIABLES = [
+    { id: 'lluvia', g: 'Agua', n: 'Lluvia diaria', u: 'mm', d: 1, t: 'barras', suma: true, f: function (D) { return D.precipitation_sum; }, desc: 'Lluvia acumulada en el día.' },
+    { id: 'lluvia7', g: 'Agua', n: 'Lluvia acumulada de 7 días (móvil)', u: 'mm', d: 1, t: 'linea', f: function (D) { return movil(D.precipitation_sum, 7, 'suma'); }, desc: 'Suma de la lluvia del día y los 6 anteriores: muestra si la semana ha sido húmeda o seca.' },
+    { id: 'horasllu', g: 'Agua', n: 'Horas con lluvia', u: 'h', d: 0, t: 'barras', suma: true, f: function (D) { return D.precipitation_hours; }, desc: 'Número de horas del día con precipitación.' },
+    { id: 'prob', g: 'Agua', n: 'Probabilidad de lluvia (máxima del día)', u: '%', d: 0, t: 'barras', f: function (D) { return D.precipitation_probability_max; }, desc: 'Solo existe para el pronóstico: los días pasados no tienen probabilidad.' },
+    { id: 'et0', g: 'Agua', n: 'Evapotranspiración de referencia (ET0)', u: 'mm', d: 1, t: 'linea', suma: true, f: function (D) { return D.et0_fao_evapotranspiration; }, desc: 'Agua que perdería un cultivo de referencia bien regado (FAO-56 Penman-Monteith). Es la «evapotranspiración potencial» del día; multiplíquela por el coeficiente de cultivo (Kc) para estimar el uso real.' },
+    { id: 'balance', g: 'Agua', n: 'Balance hídrico diario (lluvia − ET0)', u: 'mm', d: 1, t: 'barras', suma: true, f: function (D) { return D.precipitation_sum.map(function (p, i) { return valido(p) && valido(D.et0_fao_evapotranspiration[i]) ? p - D.et0_fao_evapotranspiration[i] : null; }); }, desc: 'Positivo: la lluvia supera lo que el cultivo de referencia consume; negativo: hay déficit y puede hacer falta riego. Es un cálculo simple, sin suelo ni escorrentía.' },
+    { id: 'gaussen', g: 'Agua', n: 'Índice de Gaussen (30 días móviles)', u: '', d: 2, t: 'linea', ref: 1, refEtq: '1 = límite seco / húmedo', f: function (D) {
+      var P = movil(D.precipitation_sum, 30, 'suma'), T = movil(D.temperature_2m_mean, 30, 'media');
+      return P.map(function (p, i) { return valido(p) && valido(T[i]) && T[i] > 0 ? p / (2 * T[i]) : null; });
+    }, desc: 'Criterio de Bagnouls–Gaussen: un periodo es seco cuando la lluvia (mm) es menor o igual al doble de la temperatura media (°C), P ≤ 2T. Aquí se calcula con los 30 días anteriores a cada fecha: índice = P / (2T). Menor a 1: seco · mayor a 1: húmedo.' },
+    { id: 'tmax', g: 'Temperatura', n: 'Temperatura máxima', u: '°C', d: 1, t: 'linea', f: function (D) { return D.temperature_2m_max; }, desc: 'Máxima del día a 2 m de altura.' },
+    { id: 'tmin', g: 'Temperatura', n: 'Temperatura mínima', u: '°C', d: 1, t: 'linea', f: function (D) { return D.temperature_2m_min; }, desc: 'Mínima del día a 2 m de altura.' },
+    { id: 'tmed', g: 'Temperatura', n: 'Temperatura media', u: '°C', d: 1, t: 'linea', f: function (D) { return D.temperature_2m_mean; }, desc: 'Promedio de las 24 horas.' },
+    { id: 'rocio', g: 'Temperatura', n: 'Punto de rocío medio', u: '°C', d: 1, t: 'linea', f: function (D) { return D.dew_point_2m_mean; }, desc: 'Temperatura a la que el aire se satura y se forma rocío: cuanto más cerca de la mínima nocturna, más probable el mojado de las hojas.' },
+    { id: 'hr', g: 'Aire', n: 'Humedad relativa media', u: '%', d: 0, t: 'linea', f: function (D) { return D.relative_humidity_2m_mean; }, desc: 'Promedio de la humedad relativa del aire en el día.' },
+    { id: 'vpd', g: 'Aire', n: 'Déficit de presión de vapor (máximo)', u: 'kPa', d: 2, t: 'linea', f: function (D) { return D.vapour_pressure_deficit_max; }, desc: 'Qué tan «sediento» está el aire. Valores altos (> 1,5 kPa) aumentan la demanda de agua y el estrés; muy bajos favorecen enfermedades.' },
+    { id: 'viento', g: 'Aire', n: 'Viento máximo', u: 'km/h', d: 0, t: 'linea', f: function (D) { return D.wind_speed_10m_max; }, desc: 'Velocidad máxima del viento a 10 m en el día.' },
+    { id: 'rafaga', g: 'Aire', n: 'Ráfaga máxima', u: 'km/h', d: 0, t: 'linea', f: function (D) { return D.wind_gusts_10m_max; }, desc: 'Ráfaga máxima del día a 10 m.' },
+    { id: 'brillo', g: 'Sol y nubes', n: 'Brillo solar (horas de sol efectivas)', u: 'h', d: 1, t: 'barras', f: function (D) { return dividir(D.sunshine_duration, function (s) { return s / 3600; }); }, desc: 'Horas del día con sol directo (radiación directa suficiente), es decir, sin nubes que lo tapen.' },
+    { id: 'duracion', g: 'Sol y nubes', n: 'Duración del día (horas de luz)', u: 'h', d: 2, t: 'linea', f: function (D) { return dividir(D.daylight_duration, function (s) { return s / 3600; }); }, desc: 'Horas entre la salida y la puesta del sol (fotoperiodo). En la zona ecuatorial casi no cambia durante el año.' },
+    { id: 'pctsol', g: 'Sol y nubes', n: 'Fracción de sol (brillo ÷ duración del día)', u: '%', d: 0, t: 'barras', f: function (D) { return D.sunshine_duration.map(function (s, i) { return valido(s) && D.daylight_duration[i] ? 100 * s / D.daylight_duration[i] : null; }); }, desc: 'Qué parte del día hubo sol efectivo.' },
+    { id: 'rad', g: 'Sol y nubes', n: 'Radiación solar (suma del día)', u: 'MJ/m²', d: 1, t: 'linea', f: function (D) { return D.shortwave_radiation_sum; }, desc: 'Energía solar total recibida en el día; impulsa la fotosíntesis y la evapotranspiración.' },
+    { id: 'nub', g: 'Sol y nubes', n: 'Nubosidad media', u: '%', d: 0, t: 'linea', f: function (D) { return D.cloud_cover_mean; }, desc: 'Porcentaje medio del cielo cubierto de nubes.' },
+    { id: 'uv', g: 'Sol y nubes', n: 'Índice UV máximo', u: '', d: 1, t: 'linea', f: function (D) { return D.uv_index_max; }, desc: 'Radiación ultravioleta máxima del día (≥ 8 muy alto; ≥ 11 extremo).' }
+  ];
+  function pintarExplorador(om) {
+    var grupos = [], porGrupo = {};
+    VARIABLES.forEach(function (v) { if (!porGrupo[v.g]) { porGrupo[v.g] = []; grupos.push(v.g); } porGrupo[v.g].push(v); });
+    var guardada = leerAlmacen() || {}, sel = guardada.variable || 'lluvia';
+    $('sec-explorar').innerHTML = '<h2 id="t-exp">Explorar otras variables</h2><p class="sub">Elija una variable para ver cómo ha evolucionado (hasta «hoy»: análisis del modelo) y cómo se pronostica.</p>'
+      + '<div class="exp-controles"><div class="campo"><label for="var-sel">Variable</label><select id="var-sel">'
+      + grupos.map(function (g) { return '<optgroup label="' + esc(g) + '">' + porGrupo[g].map(function (v) { return '<option value="' + v.id + '"' + (v.id === sel ? ' selected' : '') + '>' + esc(v.n) + (v.u ? ' (' + esc(v.u) + ')' : '') + '</option>'; }).join('') + '</optgroup>'; }).join('')
+      + '</select></div><div class="campo"><label for="var-rango">Periodo</label><select id="var-rango"><option value="14">14 días + pronóstico</option><option value="30">30 días + pronóstico</option><option value="60">60 días + pronóstico</option></select></div></div>'
+      + '<p class="exp-desc" id="exp-desc"></p><div class="grafica" id="exp-grafica"></div><div class="datos" id="exp-datos"></div>';
+    $('var-sel').addEventListener('change', function () { var g = leerAlmacen() || {}; g.variable = $('var-sel').value; guardarAlmacen(g); actualizarExplorador(); });
+    $('var-rango').addEventListener('change', actualizarExplorador);
+    actualizarExplorador();
+  }
+  function actualizarExplorador() {
+    var om = estado.om;
+    if (!om || !$('var-sel')) return;
+    var v = VARIABLES.filter(function (x) { return x.id === $('var-sel').value; })[0] || VARIABLES[0];
+    var D = om.daily, i0 = indiceHoy(om), rango = parseInt($('var-rango').value, 10);
+    var ini = Math.max(i0 - rango, 0), fin = D.time.length, serie = v.f(D).slice(ini, fin), hoy = i0 - ini;
+    var etiq = D.time.slice(ini, fin).map(etiquetaFecha), paso = rango >= 60 ? 6 : rango >= 30 ? 4 : 3;
+    var u = v.u ? ' ' + v.u : '';
+    $('exp-desc').innerHTML = '<strong>' + esc(v.n) + '.</strong> ' + esc(v.desc);
+    $('exp-grafica').innerHTML = '<h3>' + esc(v.n) + (v.u ? ' (' + esc(v.u) + ')' : '') + '</h3>'
+      + (v.t === 'barras' ? grafBarras(etiq, serie, { unidad: v.u, dec: v.d, pron: hoy + 1, hoy: hoy, paso: paso, etiquetaHoy: 'hoy' })
+        : grafLineas(etiq, [{ nombre: v.n, v: serie, linea: 'l-var', punto: 'p-var' }], { unidad: v.u, hoy: hoy, paso: paso, ref: v.ref, refEtq: v.refEtq, cero: v.id === 'uv' || v.id === 'viento' || v.id === 'rafaga' }))
+      + '<p class="leyenda"><span><i style="background:var(--frac)"></i>Pasado (análisis del modelo)</span><span><i style="background:var(--frac);opacity:.45"></i>Pronóstico (después de «hoy»)</span></p>';
+    var pas = serie.slice(0, hoy + 1).filter(valido), pro = serie.slice(hoy + 1).filter(valido), hoyV = serie[hoy];
+    function media(a) { return a.length ? a.reduce(function (s, x) { return s + x; }, 0) / a.length : null; }
+    function fmt(x) { return x === null || x === undefined ? '—' : num(x, v.d); }
+    var datos = dato('Hoy', fmt(hoyV), v.u) + dato('Promedio del pasado', fmt(media(pas)), v.u) + dato('Mínimo del pasado', fmt(pas.length ? Math.min.apply(null, pas) : null), v.u) + dato('Máximo del pasado', fmt(pas.length ? Math.max.apply(null, pas) : null), v.u);
+    if (v.suma) datos += dato('Suma del pasado', fmt(pas.reduce(function (s, x) { return s + x; }, 0)), v.u) + dato('Suma pronosticada', fmt(pro.reduce(function (s, x) { return s + x; }, 0)), v.u);
+    else if (pro.length) datos += dato('Promedio del pronóstico', fmt(media(pro)), v.u);
+    if (v.id === 'gaussen' && valido(hoyV)) datos += dato('Hoy se considera', hoyV < 1 ? 'periodo seco' : 'periodo húmedo', '');
+    $('exp-datos').innerHTML = datos;
   }
 
   function pintarModelos(datos) {
@@ -291,7 +576,8 @@
       .filter(function (e) { return e.km <= maxKm; }).sort(function (a, b) { return a.km - b.km; }).slice(0, n);
   }
   function leerDataset(id, codigo) {
-    var url = 'https://www.datos.gov.co/resource/' + id + '.json?$where=' + encodeURIComponent("codigoestacion='" + codigo + "'") + '&$order=' + encodeURIComponent('fechaobservacion DESC') + '&$limit=200&$select=' + encodeURIComponent('fechaobservacion,valorobservado,descripcionsensor,unidadmedida');
+    var desde = fechaBogota(-3) + 'T00:00:00';   // 3 días: cubre «ayer» aunque IDEAM publique con retraso
+    var url = 'https://www.datos.gov.co/resource/' + id + '.json?$where=' + encodeURIComponent("codigoestacion='" + codigo + "' AND fechaobservacion>='" + desde + "'") + '&$order=' + encodeURIComponent('fechaobservacion DESC') + '&$limit=1000&$select=' + encodeURIComponent('fechaobservacion,valorobservado,descripcionsensor,unidadmedida');
     return pedir(url, 30000).catch(function () { return null; });
   }
   function resumirSensores(filas, esLluvia) {
@@ -300,7 +586,7 @@
     return Object.keys(por).map(function (k) {
       var r = por[k], ult = r[0], t0 = new Date(ult.fechaobservacion).getTime(), v = r.filter(function (x) { return t0 - new Date(x.fechaobservacion).getTime() <= 86400000; }).map(function (x) { return parseFloat(x.valorobservado); }).filter(isFinite);
       return { sensor: k, ultimo: parseFloat(ult.valorobservado), unidad: ult.unidadmedida || '', fecha: ult.fechaobservacion.replace('T', ' ').slice(0, 16),
-        suma: v.reduce(function (a, b) { return a + b; }, 0), max: Math.max.apply(null, v), min: Math.min.apply(null, v), n: v.length, lluvia: esLluvia };
+        suma: v.reduce(function (a, b) { return a + b; }, 0), max: Math.max.apply(null, v), min: Math.min.apply(null, v), n: v.length, lluvia: esLluvia, filas: r };
     });
   }
   function leerEstacion(e) {
@@ -341,7 +627,8 @@
     try { history.replaceState(null, '', '?lat=' + p.lat + '&lng=' + p.lng); } catch (e) { /* sin historial */ }
     var seq = ++estado.secuencia;
     aviso('Consultando el clima…'); $('resultado').hidden = false;
-    ['sec-ahora', 'sec-sanidad', 'sec-ideam', 'sec-pronostico', 'sec-graficas', 'sec-modelos'].forEach(function (id) { $(id).innerHTML = '<p class="cargando-bloque">Cargando…</p>'; });
+    ['sec-ahora', 'sec-sanidad', 'sec-ideam', 'sec-pronostico', 'sec-graficas', 'sec-explorar', 'sec-modelos'].forEach(function (id) { $(id).innerHTML = '<p class="cargando-bloque">Cargando…</p>'; });
+    estado.om = null; estado.ayerPrev = null; estado.ayerError = false; estado.obsAyer = null; estado.diaSel = null;
 
     var cercanas = enColombia(p.lat, p.lng) ? estacionesCercanas(p.lat, p.lng, 4, 60) : [];
     var elevModelo = null;
@@ -350,14 +637,16 @@
       if (seq !== estado.secuencia) return;
       elevModelo = om.elevation;
       pintarAhora(om); pintarSanidad(om); pintarPronostico(om);
-      var d = om.daily, i0 = d.time.indexOf(om.current.time.slice(0, 10)); if (i0 < 0) i0 = 14;
+      pintarExplorador(om);
+      pedir(urlAyer(p.lat, p.lng), 25000).then(function (a) { if (seq === estado.secuencia) { estado.ayerPrev = a; renderHora(); } }, function () { if (seq === estado.secuencia) { estado.ayerError = true; renderHora(); } });
+      var d = om.daily, i0 = indiceHoy(om);
       pintarGraficas(d.time.slice(Math.max(i0 - 14, 0), i0 + 8), d.temperature_2m_max.slice(Math.max(i0 - 14, 0), i0 + 8), d.temperature_2m_min.slice(Math.max(i0 - 14, 0), i0 + 8), d.precipitation_sum.slice(Math.max(i0 - 14, 0), i0 + 8), Math.min(i0, 14), 'Fuente: Open-Meteo (análisis del modelo para los días pasados, pronóstico para los siguientes).');
       aviso('');
       return pedir(urlModelos(p.lat, p.lng), 25000).then(function (m) { if (seq === estado.secuencia) pintarModelos(m); }, function () { if (seq === estado.secuencia) pintarModelos(null); });
     }, function () {
       if (seq !== estado.secuencia) return;
       // Respaldo: NASA POWER (solo histórico diario).
-      ['sec-ahora', 'sec-sanidad', 'sec-pronostico', 'sec-modelos'].forEach(function (id) { $(id).innerHTML = ''; });
+      ['sec-ahora', 'sec-sanidad', 'sec-pronostico', 'sec-explorar', 'sec-modelos'].forEach(function (id) { $(id).innerHTML = ''; });
       $('sec-ahora').innerHTML = '<h2 id="t-ahora">Pronóstico no disponible</h2><p class="nota">Open-Meteo no respondió. Se muestra el histórico de NASA POWER; reintente en unos minutos para ver el pronóstico.</p>';
       return pedir(urlNasa(p.lat, p.lng), 30000).then(function (n) {
         if (seq !== estado.secuencia) return;
@@ -374,6 +663,8 @@
       return principal.then(function () {
         if (seq !== estado.secuencia) return;
         var usadas = pintarIdeam(lecturas, cercanas, elevModelo);
+        var conDatos = lecturas.filter(function (l) { return usadas && usadas.indexOf(l.est.codigo) >= 0; });
+        if (conDatos.length && estado.om) { estado.obsAyer = construirObsAyer(conDatos[0], estado.om.daily.time[estado.i0 - 1]); renderHora(); }
         marcarEstaciones(cercanas, usadas || []);
       });
     }, function () { if (seq === estado.secuencia) $('sec-ideam').innerHTML = '<h2 id="t-ideam">Estación IDEAM más cercana</h2><p class="nota">No se pudo consultar el IDEAM.</p>'; });
@@ -390,6 +681,8 @@
   function arrancar() {
     iniciarMapa();
     $('finca').addEventListener('change', alElegirFinca);
+    $('sec-sanidad').addEventListener('click', alternarDetalle);
+    $('sec-pronostico').addEventListener('click', alElegirDia);
     $('consultar').addEventListener('click', function () { estado.lat = null; estado.lng = null; consultarClima(); });
     $('mi-ubicacion').addEventListener('click', miUbicacion);
     ['lat', 'lng'].forEach(function (id) { $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') { estado.lat = null; estado.lng = null; consultarClima(); } }); });
