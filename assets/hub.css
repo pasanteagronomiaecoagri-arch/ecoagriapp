@@ -376,3 +376,4 @@ code { font-family: 'IBM Plex Mono', monospace; font-size: .92em; background: va
 .sp-pastilla { display: inline-block; padding: 2px 9px; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; background: var(--superficie); border: 1px solid var(--linea-fuerte); color: var(--tinta-2); }
 .sp-pastilla.admin { background: var(--verde-suave); border-color: transparent; color: var(--ok-texto); }
 .sp-acciones a.boton { text-decoration: none; }
+[data-solo-sesion][hidden] { display: none !important; }

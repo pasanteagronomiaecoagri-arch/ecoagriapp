@@ -1,0 +1,155 @@
+/* Mi calendario — usa los tokens del hub (hub.css / tema.css), así que sigue el modo oscuro solo. Ancho 1240 como el resto de las herramientas. */
+.cal-lienzo { max-width: 1240px; }
+.cal-lienzo .encabezado { max-width: 720px; }
+.icono-titulo { width: 30px; height: 30px; vertical-align: -5px; margin-right: 10px; color: var(--texto-frac); }
+[hidden] { display: none !important; }
+.sr-solo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.barra .barra-tema-boton { margin: 0; }
+.barra-fila .barra-sesion { margin-left: auto; }
+
+/* Colores por estado: pendiente (azul), hecha (verde), cancelada (gris y tachado). */
+.e-pendiente { --e-fondo: var(--frac-suave); --e-borde: var(--frac); --e-texto: var(--tinta); --e-pastilla: var(--texto-frac); }
+.e-hecha { --e-fondo: var(--verde-suave); --e-borde: var(--verde); --e-texto: var(--ok-texto); --e-pastilla: var(--ok-texto); }
+.e-cancelada { --e-fondo: var(--papel); --e-borde: var(--tinta-3); --e-texto: var(--tinta-2); --e-pastilla: var(--tinta-2); }
+
+/* Mensajes que sustituyen al calendario */
+.cal-aviso { margin-top: 22px; padding: 28px 24px; background: var(--superficie); border: 1px solid var(--linea); border-top: 3px solid var(--frac); border-radius: var(--r); text-align: center; }
+.cal-aviso h2 { font-size: 20px; margin: 0 0 8px; }
+.cal-aviso p { margin: 0 auto 16px; max-width: 56ch; color: var(--tinta-2); }
+.cal-aviso-acciones { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.cal-aviso.error { border-top-color: var(--alerta); }
+
+/* Barra de herramientas */
+.cal-barra { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: 22px 0 12px; }
+.cal-nav { display: flex; gap: 6px; }
+.cal-nav .boton { min-width: 44px; min-height: 44px; justify-content: center; font-size: 16px; }
+.cal-nav #cal-hoy { font-size: 13px; }
+.cal-titulo { font-size: 22px; flex: 1 1 auto; min-width: 12ch; }
+.cal-cargando { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--tinta-2); }
+.cal-cargando i { width: 14px; height: 14px; border: 2px solid var(--linea-fuerte); border-top-color: var(--verde); border-radius: 50%; animation: cal-giro .8s linear infinite; }
+@keyframes cal-giro { to { transform: rotate(360deg); } }
+.cal-barra .boton { min-height: 44px; }
+.cal-vistas { display: inline-flex; border: 1px solid var(--linea-fuerte); border-radius: var(--r); overflow: hidden; }
+.cal-vistas button { min-height: 44px; padding: 8px 16px; font: inherit; font-size: 13.5px; color: var(--tinta-2); background: var(--superficie); border: 0; border-left: 1px solid var(--linea-fuerte); cursor: pointer; }
+.cal-vistas button:first-child { border-left: 0; }
+.cal-vistas button:hover { color: var(--texto-verde); }
+.cal-vistas button[aria-pressed="true"] { background: var(--verde); color: var(--sobre-acento); }
+.cal-barra button:focus-visible, .cal-lienzo button:focus-visible, .cal-lienzo [tabindex]:focus-visible, .cal-caja button:focus-visible { outline: 2px solid var(--verde); outline-offset: 2px; }
+
+.cal-mensaje { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 12px; padding: 10px 14px; background: var(--frac-suave); border-left: 3px solid var(--frac); border-radius: 0 var(--r) var(--r) 0; font-size: 14px; color: var(--tinta); }
+.cal-mensaje.error { background: var(--alerta-suave); border-left-color: var(--alerta); color: var(--error-texto); }
+.cal-mensaje .boton { min-height: 36px; }
+.cal-pie { margin: 14px 0 0; font-size: 12.5px; color: var(--tinta-3); }
+.cal-pie a { margin-left: 8px; color: var(--tinta-2); }
+
+/* ---------- Mes ---------- */
+.cal-mes { background: var(--superficie); border: 1px solid var(--linea-fuerte); border-radius: var(--r); overflow: hidden; }
+.cal-mes-cab, .cal-mes-fila { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.cal-mes-cab > div { padding: 8px 6px; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-3); background: var(--papel); border-bottom: 1px solid var(--linea-fuerte); }
+.cal-dia { min-height: 116px; padding: 6px 6px 4px; border-right: 1px solid var(--linea); border-bottom: 1px solid var(--linea); cursor: default; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.cal-mes-fila > .cal-dia:nth-child(7) { border-right: 0; }
+.cal-mes-fila:last-child > .cal-dia { border-bottom: 0; }
+.cal-dia.fuera { background: var(--papel); }
+.cal-dia.fuera .cal-num { color: var(--tinta-3); }
+.cal-dia:hover { background: var(--verde-suave); }
+.cal-num { align-self: flex-start; min-width: 26px; height: 26px; padding: 0 6px; display: inline-flex; align-items: center; justify-content: center; border-radius: 13px; font-size: 13px; font-weight: 600; color: var(--tinta-2); }
+.cal-dia.hoy .cal-num { background: var(--verde); color: var(--sobre-acento); }
+.cal-dia:focus-visible { outline: 2px solid var(--verde); outline-offset: -2px; }
+.cal-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cal-ev { display: block; width: 100%; padding: 2px 6px; font: inherit; font-size: 12px; line-height: 1.35; text-align: left; color: var(--e-texto); background: var(--e-fondo); border: 0; border-left: 3px solid var(--e-borde); border-radius: 2px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cal-ev:hover { filter: brightness(.96); }
+.cal-ev.e-cancelada { text-decoration: line-through; }
+.cal-ev .h { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; margin-right: 4px; opacity: .85; }
+.cal-ev.sigue { border-left-style: dotted; }
+.cal-mas { display: block; padding: 1px 6px; font: inherit; font-size: 12px; color: var(--texto-verde); background: transparent; border: 0; cursor: pointer; text-align: left; }
+.cal-mas:hover { text-decoration: underline; }
+.cal-puntos { display: none; gap: 3px; align-items: center; flex-wrap: wrap; }
+.cal-puntos i { width: 7px; height: 7px; border-radius: 50%; background: var(--e-borde); }
+
+/* ---------- Semana ---------- */
+.cal-sem-marco { overflow-x: auto; border: 1px solid var(--linea-fuerte); border-radius: var(--r); background: var(--superficie); }
+.cal-sem { min-width: 760px; }
+.cal-sem-fila { display: grid; grid-template-columns: 56px repeat(7, minmax(0, 1fr)); }
+.cal-sem-cab { background: var(--papel); border-bottom: 1px solid var(--linea-fuerte); }
+.cal-sem-dia { padding: 8px 4px; font: inherit; font-size: 13px; color: var(--tinta-2); background: transparent; border: 0; border-left: 1px solid var(--linea); cursor: pointer; text-align: center; }
+.cal-sem-dia b { display: inline-flex; align-items: center; justify-content: center; min-width: 28px; height: 28px; border-radius: 14px; font-size: 15px; color: var(--tinta); }
+.cal-sem-dia.hoy b { background: var(--verde); color: var(--sobre-acento); }
+.cal-sem-dia:hover { background: var(--verde-suave); }
+.cal-sem-todo { border-bottom: 1px solid var(--linea-fuerte); }
+.cal-sem-todo > div { padding: 3px; border-left: 1px solid var(--linea); display: flex; flex-direction: column; gap: 2px; min-width: 0; min-height: 30px; }
+.cal-sem-todo > .cal-eje { border-left: 0; font-size: 10.5px; color: var(--tinta-3); padding: 6px 4px; text-align: right; }
+.cal-sem-scroll { max-height: 620px; overflow-y: auto; }
+.cal-sem-horas { display: grid; grid-template-columns: 56px repeat(7, minmax(0, 1fr)); position: relative; }
+.cal-eje-horas { position: relative; }
+.cal-eje-horas span { position: absolute; right: 6px; transform: translateY(-50%); font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: var(--tinta-3); background: var(--superficie); padding: 0 2px; }
+.cal-col { position: relative; border-left: 1px solid var(--linea); background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--hora) - 1px), var(--linea) calc(var(--hora) - 1px), var(--linea) var(--hora)); }
+.cal-col.hoy { background-color: var(--verde-suave); }
+.cal-bloque { position: absolute; padding: 2px 5px; overflow: hidden; font: inherit; font-size: 12px; line-height: 1.3; text-align: left; color: var(--e-texto); background: var(--e-fondo); border: 1px solid var(--e-borde); border-left-width: 4px; border-radius: 3px; cursor: pointer; }
+.cal-bloque:hover { filter: brightness(.96); z-index: 2; }
+.cal-bloque b { display: block; font-weight: 600; }
+.cal-bloque.e-cancelada b { text-decoration: line-through; }
+.cal-bloque small { display: block; font-size: 11px; opacity: .85; }
+.cal-ahora { position: absolute; left: 0; right: 0; height: 0; border-top: 2px solid var(--alerta); z-index: 1; pointer-events: none; }
+
+/* ---------- Lista ---------- */
+.cal-lista { display: flex; flex-direction: column; gap: 14px; }
+.cal-lista-dia { background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--r); padding: 12px 14px; }
+.cal-lista-dia.hoy { border-color: var(--verde); border-left: 4px solid var(--verde); }
+.cal-lista-dia.pasado { opacity: .75; }
+.cal-lista-dia h3 { font-size: 16px; margin: 0 0 8px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.cal-lista-dia h3 .hoy-ins { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; padding: 1px 7px; border-radius: 999px; background: var(--verde); color: var(--sobre-acento); }
+.cal-lista-dia ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.cal-fila { display: grid; grid-template-columns: 200px 1fr auto; gap: 4px 14px; align-items: center; width: 100%; padding: 9px 12px; font: inherit; font-size: 14px; text-align: left; color: var(--e-texto); background: var(--e-fondo); border: 0; border-left: 4px solid var(--e-borde); border-radius: 3px; cursor: pointer; }
+.cal-fila:hover { filter: brightness(.97); }
+.cal-fila .hora { font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+.cal-fila .tit { font-weight: 600; min-width: 0; }
+.cal-fila.e-cancelada .tit { text-decoration: line-through; }
+.cal-fila .meta { grid-column: 2 / 3; font-size: 12.5px; opacity: .85; }
+.cal-fila .cal-pastilla { grid-row: 1; grid-column: 3; }
+.cal-pastilla { display: inline-block; padding: 1px 9px; border-radius: 999px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; line-height: 1.6; color: var(--e-pastilla); border: 1px solid var(--e-borde); background: var(--superficie); white-space: nowrap; }
+
+/* ---------- Ventana de detalle ---------- */
+.cal-modal { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(0, 0, 0, .5); }
+.cal-caja { display: flex; flex-direction: column; width: 100%; max-width: 560px; max-height: calc(100vh - 32px); background: var(--superficie); color: var(--tinta); border: 1px solid var(--linea-fuerte); border-top: 4px solid var(--e-borde, var(--verde)); border-radius: var(--r); box-shadow: 0 18px 50px rgba(0, 0, 0, .3); }
+.cal-caja:focus { outline: none; }
+.cal-caja-cuerpo { padding: 20px 22px 8px; overflow-y: auto; }
+.cal-caja-pie { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 22px 18px; }
+.cal-caja h2 { font-size: 22px; margin: 4px 0 12px; }
+.cal-caja .cal-pastilla { margin-left: 8px; vertical-align: 2px; }
+.cal-volver { margin: 0 0 8px; padding: 0; font: inherit; font-size: 13px; color: var(--texto-verde); background: none; border: 0; cursor: pointer; }
+.cal-datos { margin: 0 0 12px; display: grid; grid-template-columns: 90px 1fr; gap: 6px 12px; font-size: 14px; }
+.cal-datos dt { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-3); padding-top: 3px; }
+.cal-datos dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.cal-personas { display: flex; flex-wrap: wrap; gap: 6px; }
+.cal-personas span { padding: 1px 10px; border: 1px solid var(--linea-fuerte); border-radius: 999px; font-size: 13px; background: var(--papel); }
+.cal-desc { margin: 0 0 12px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14px; color: var(--tinta-2); }
+.cal-tareas h3 { font-size: 15px; margin: 0 0 6px; }
+.cal-tareas ul { list-style: none; margin: 0 0 8px; padding: 0; }
+.cal-tareas li { display: flex; gap: 8px; padding: 4px 0; font-size: 14px; }
+.cal-check { flex: none; width: 18px; height: 18px; margin-top: 2px; display: inline-flex; align-items: center; justify-content: center; border: 1.5px solid var(--linea-fuerte); border-radius: 3px; font-size: 12px; line-height: 1; color: var(--sobre-acento); }
+.cal-tareas li.hecha .cal-check { background: var(--verde); border-color: var(--verde); }
+.cal-tareas li.hecha .cal-tarea-texto { color: var(--tinta-3); text-decoration: line-through; }
+.cal-lista-modal { list-style: none; margin: 0 0 8px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.cal-lista-modal .cal-fila { grid-template-columns: 1fr auto; }
+.cal-lista-modal .cal-fila .hora, .cal-lista-modal .cal-fila .tit, .cal-lista-modal .cal-fila .meta { grid-column: 1 / 2; }
+.cal-lista-modal .cal-fila .cal-pastilla { grid-row: 1; grid-column: 2; }
+
+/* ---------- Móvil ---------- */
+@media (max-width: 700px) {
+  .cal-lienzo { padding: 24px 12px 72px; }
+  .cal-titulo { order: -1; flex: 1 0 100%; font-size: 20px; }
+  .cal-vistas { flex: 1 1 100%; }
+  .cal-vistas button { flex: 1; }
+  .cal-dia { min-height: 62px; padding: 4px 3px; }
+  .cal-num { min-width: 24px; height: 24px; font-size: 12.5px; }
+  .cal-chips { display: none; }
+  .cal-puntos { display: flex; }
+  .cal-mes-cab > div { font-size: 10px; letter-spacing: 0; padding: 6px 2px; }
+  .cal-fila { grid-template-columns: 1fr auto; }
+  .cal-fila .hora, .cal-fila .tit, .cal-fila .meta { grid-column: 1 / 2; }
+  .cal-fila .cal-pastilla { grid-row: 1; grid-column: 2; }
+  .cal-datos { grid-template-columns: 1fr; gap: 0; }
+  .cal-datos dd { margin-bottom: 8px; }
+  .cal-caja-cuerpo { padding: 16px 16px 6px; }
+}
+@media (prefers-reduced-motion: reduce) { .cal-cargando i { animation: none; } }

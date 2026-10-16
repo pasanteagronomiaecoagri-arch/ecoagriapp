@@ -105,9 +105,13 @@
   var ICONO = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.8 20c.6-3.6 3.6-5.6 7.2-5.6s6.6 2 7.2 5.6"/></svg>';
 
   function pintar() {
+    var s = leer();
+    // Accesos que solo tienen sentido con sesión (p. ej. «Mi calendario» en la barra y en el inicio).
+    Array.prototype.forEach.call(document.querySelectorAll('[data-solo-sesion]'), function (x) { x.hidden = !s; });
+    // Aviso a la página (p. ej. Mi calendario) de que la sesión cambió.
+    try { document.dispatchEvent(new CustomEvent('ecoagri:sesion', { detail: { sesion: s } })); } catch (e) { /* navegador antiguo */ }
     var caja = el('barra-sesion-portal');
     if (!caja) return;
-    var s = leer();
     if (!s) {
       caja.classList.remove('activa');   // conserva otras clases (p. ej. «flotante» en la portada)
       caja.innerHTML = '<button type="button" class="barra-sesion-boton" aria-label="Iniciar sesión" title="Iniciar sesión">' + ICONO + '</button>';
@@ -134,6 +138,8 @@
     var admin = el('spc-admin');
     admin.hidden = s.rol !== 'administrador';
     admin.href = BASE + 'admin/';
+    var cal = el('spc-calendario');
+    if (cal) cal.href = BASE + 'calendario/';
     el('sp-cuenta').hidden = false;
     el('spc-cerrar').focus();
   }
@@ -199,5 +205,9 @@
     }).catch(function () { /* sin red: se conserva lo guardado */ });
   })();
 
-  window.EcoAgriSesionPortal = { leer: leer, iniciar: iniciar, cerrar: cerrar };
+  /* El servidor dijo que la sesión venció: se descarta aquí y en las herramientas abiertas (sin llamar a logout). */
+  function vencida() { limpiar(); difundir({ tipo: 'cerrada' }); pintar(); }
+
+  /* llamar: misma mecánica de red que el inicio de sesión (POST text/plain al servicio de administración); la usa «Mi calendario». */
+  window.EcoAgriSesionPortal = { leer: leer, iniciar: iniciar, cerrar: cerrar, llamar: llamar, abrirDialogo: abrirDialogo, vencida: vencida };
 })();

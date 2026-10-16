@@ -25,6 +25,7 @@
     <a href="../../">Herramientas</a>
     <a href="../../ayuda/" aria-current="page">Ayuda</a>
     <a href="../../versiones/">Versiones</a>
+    <a href="../../calendario/" data-solo-sesion hidden>Mi calendario</a>
   </nav>
   <span class="barra-sesion" id="barra-sesion-portal"></span>
   <button type="button" class="barra-tema-boton" id="barra-tema-boton" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema"><span class="barra-tema-icono" aria-hidden="true"></span></button>
@@ -53,6 +54,7 @@
     <p class="sp-nota">La sesión se comparte con EcoAgriApp, Gestión Normativa y Rendimientos: al cerrarla aquí se cierra en todas.</p>
     <div class="sp-acciones">
       <button type="button" class="boton" id="spc-cerrar">Cerrar</button>
+      <a class="boton" id="spc-calendario" href="#">Mi calendario</a>
       <a class="boton" id="spc-admin" href="#" hidden>Configuración de administrador</a>
       <button type="button" class="boton principal" id="spc-salir">Cerrar sesión</button>
     </div>
@@ -65,7 +67,7 @@
 <section class="seccion" id="que-es"><h2>Qué es Rendimientos</h2><div class="cuerpo"><p>Es la aplicación de seguimiento de labores agrícolas en finca: cada día se registra qué hizo cada operario, en qué horario, dónde (finca, lote, camas) y cuánto produjo, y después se consulta todo en un visualizador con gráficas.</p>
   <p>Tiene dos pantallas: el <b>formulario</b> para registrar la jornada de un operario y el <b>visualizador</b> para analizarla. Se pasa de una a otra con el botón superior "Ver visualizador de rendimientos" y su "← Volver al formulario".</p>
   <p>Consultar el visualizador es libre; <b>guardar una jornada exige iniciar sesión</b> con su usuario y contraseña (los mismos de las otras herramientas), y queda anotado quién la guardó. Un administrador puede ajustar estos permisos desde la configuración de administrador.</p>
-  <p>La barra superior tiene los accesos <b>Registrar jornada</b>, <b>Visualizador</b> y <b>Ayuda</b>, el botón de tema (círculo) y, junto a él, un icono de persona: sin sesión abre el inicio de sesión; con sesión muestra un menú con su nombre, <b>Cambiar contraseña</b> y <b>Cerrar sesión</b>.</p>
+  <p>La barra superior tiene los accesos <b>Registrar jornada</b>, <b>Visualizador</b> y <b>Ayuda</b>, el botón de tema (círculo) y, junto a él, un icono de persona: sin sesión abre el inicio de sesión; con sesión muestra un menú con su nombre, <b>Cambiar contraseña</b>, <b>Cerrar sesión</b> y un botón <b>Mi calendario</b> (su agenda de eventos y tareas; ver <i>Acceso y sesión</i> en la ayuda de Gestión Normativa).</p>
   <p>Los datos se guardan en un libro de Google Sheets con tres hojas: <b>Registros</b> (una fila por operario y día), <b>Actividades</b> (una fila por bloque de trabajo) y <b>VALIDACIONES</b> (los catálogos: operarios, actividades, fincas, lotes, productos y las reglas de qué se pregunta en cada actividad).</p></div></section>
 <section class="seccion"><h2>Herramientas y funciones</h2><ul class="lista-herramientas">
 <li><a href="formulario/"><b>Registrar jornada</b><span>El formulario para registrar lo que hizo un operario en un día.</span></a></li>

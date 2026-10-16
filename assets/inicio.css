@@ -113,3 +113,7 @@ body.inicio { position: relative; min-height: 100vh; overflow-x: hidden; }
 .acceso-clima { display: inline-flex; align-items: center; gap: 5px; vertical-align: middle; margin-left: 10px; padding: 3px 10px 3px 7px; border: 1px solid var(--linea-fuerte); border-radius: 999px; color: var(--tinta-2); text-decoration: none; font-size: 12.5px; line-height: 1.2; opacity: .8; }
 .acceso-clima svg { width: 20px; height: 20px; max-width: 20px; max-height: 20px; color: var(--texto-frac); }
 .acceso-clima:hover, .acceso-clima:focus-visible { opacity: 1; border-color: var(--frac); color: var(--texto-frac); }
+
+/* Acceso «Mi calendario»: solo aparece con sesión iniciada (lo muestra sesion-portal.js). */
+.tarjeta-calendario { margin-top: 16px; animation-delay: .24s; }
+.tarjeta-calendario[hidden] { display: none; }
