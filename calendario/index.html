@@ -64,7 +64,7 @@
     <div class="encabezado">
       <p class="rotulo">Mi cuenta</p>
       <h1><svg class="icono-titulo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8 14h2M12 14h2M8 17.5h2"/></svg>Mi calendario</h1>
-      <p>Sus eventos y tareas, con fecha, hora y lugar. Solo usted ve los suyos; los crea y cambia el administrador.</p>
+      <p>Sus eventos y tareas, con fecha, hora y lugar. Solo usted ve los suyos: los crea el administrador, y usted marca sus tareas y su estado.</p>
     </div>
 
     <!-- Sin sesión / sin preparar / error: un solo mensaje que sustituye al calendario. -->
@@ -91,9 +91,10 @@
         </div>
       </div>
 
+      <div class="cal-guardado" id="cal-guardado" role="status" hidden><span id="cal-guardado-texto"></span><button type="button" class="boton" id="cal-guardado-cerrar" aria-label="Cerrar este aviso">Cerrar</button></div>
       <p class="cal-mensaje" id="cal-mensaje" role="status" hidden></p>
       <div class="cal-cuerpo" id="cal-cuerpo"></div>
-      <p class="cal-pie">Solo lectura · Horas de Colombia (UTC−5) sin importar la zona de su dispositivo.
+      <p class="cal-pie">Horas de Colombia (UTC−5) sin importar la zona de su dispositivo.
         <a id="cal-google" href="#" target="_blank" rel="noopener" hidden>Abrir calendario de Google</a></p>
     </section>
   </main>
@@ -102,6 +103,7 @@
   <div class="cal-modal" id="cal-modal" hidden>
     <div class="cal-caja" id="cal-caja" role="dialog" aria-modal="true" aria-labelledby="cal-modal-titulo" tabindex="-1">
       <div class="cal-caja-cuerpo" id="cal-modal-cuerpo"></div>
+      <div class="cal-caja-msgs"><p class="cal-modal-msg" id="cal-modal-estado" role="status" aria-live="polite"></p><p class="cal-modal-error" id="cal-modal-error" role="alert"></p></div>
       <div class="cal-caja-pie"><button type="button" class="boton principal" id="cal-modal-cerrar">Cerrar</button></div>
     </div>
   </div>

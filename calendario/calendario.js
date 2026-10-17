@@ -1,10 +1,12 @@
 /* Mi calendario (portal). Fuente: ecoagri-core/generador/hub/calendario.js — se copia a calendario/calendario.js.
-   SOLO LECTURA: pide a la app de administración los eventos de la persona con sesión (acción agenda_mis_eventos, por POST, con el mismo
-   token y la misma red que el inicio de sesión del portal: window.EcoAgriSesionPortal.llamar) y los muestra por mes, semana o lista.
+   Pide a la app de administración los eventos de la persona con sesión (acción agenda_mis_eventos, por POST, con el mismo token y la misma
+   red que el inicio de sesión del portal: window.EcoAgriSesionPortal.llamar) y los muestra por mes, semana o lista. Si el evento trae
+   editable:true, la persona puede marcar sus tareas y cambiar el estado (pendiente/hecha) y guardarlo con la acción agenda_actualizar
+   { accion, token, id, inicio, estado?, hechas? } -> { ok:true, evento } | { ok:false, error }. Los repetidos y cancelados son de solo lectura.
    Todas las horas se muestran en Colombia (UTC-5, sin horario de verano) sin importar la zona del navegador: se calculan a mano a partir del
    instante (Date.parse del texto con su desfase) restándole 5 horas, nunca con la zona local del dispositivo.
    Contrato del evento: { id, titulo, descripcion, tareas:[{texto,hecha}], inicio, fin, todoDia, lugar, finca, usuarios, personas:[{id,nombre}],
-   estado:'pendiente'|'hecha'|'cancelada', recurrencia:{tipo,hasta}, color }. inicio/fin = 'AAAA-MM-DDTHH:MM:SS-05:00', o 'AAAA-MM-DD' si todoDia.
+   estado:'pendiente'|'hecha'|'cancelada', recurrencia:{tipo,hasta}, color, editable:boolean, repetido:boolean }. inicio/fin = 'AAAA-MM-DDTHH:MM:SS-05:00', o 'AAAA-MM-DD' si todoDia.
    Convención de «todo el día»: la fecha fin es EXCLUSIVA (como en Google Calendar: un evento del 5 al 6 trae fin = 7); si fin <= inicio es de un día. */
 (function () {
   'use strict';
@@ -74,6 +76,7 @@
     motivoSinSesion: ''
   };
   var modal = { abierto: false, origen: null, tipo: '', uid: '', dia: '', viaDia: false };
+  var guardando = {};              // uid -> true mientras se guarda ese evento (evita el doble clic)
   var restaurarFoco = false;
   var irAHoyLista = true;          // al abrir (y con «Hoy») la lista se desplaza al primer día de hoy en adelante
 
@@ -88,7 +91,9 @@
     var todoDia = e.todoDia === true || /^\d{4}-\d{2}-\d{2}$/.test(ini);
     var n = {
       id: aTexto(e.id), titulo: aTexto(e.titulo).trim() || '(Sin título)', descripcion: aTexto(e.descripcion),
-      tareas: Array.isArray(e.tareas) ? e.tareas.filter(function (t) { return t && aTexto(t.texto).trim(); }).map(function (t) { return { texto: aTexto(t.texto), hecha: t.hecha === true }; }) : [],
+      // Se conservan todas (aunque alguna venga sin texto) para que «hechas» siga alineado con las tareas del servidor; las vacías no se dibujan.
+      tareas: Array.isArray(e.tareas) ? e.tareas.map(function (t) { return { texto: aTexto(t && t.texto), hecha: !!t && t.hecha === true }; }) : [],
+      inicioRaw: ini, editable: e.editable === true, repetido: e.repetido === true,
       todoDia: todoDia, lugar: aTexto(e.lugar).trim(), finca: aTexto(e.finca).trim(),
       personas: Array.isArray(e.personas) ? e.personas.filter(function (p) { return p && aTexto(p.nombre).trim(); }).map(function (p) { return { id: aTexto(p.id), nombre: aTexto(p.nombre) }; }) : [],
       estado: ESTADOS[e.estado] || 'pendiente',
@@ -246,7 +251,9 @@
     var habia = !!estado.token;
     estado.token = token;
     estado.eventos = {}; estado.indice = null; estado.trozos = {}; estado.preparado = null; estado.mensajeError = ''; estado.calendarioUrl = '';
+    guardando = {};
     cerrarModal(true);
+    avisoPagina('', '');
     if (!token) { if (habia || document.readyState !== 'loading') pedirSesionSinDialogo(); return; }
     estado.motivoSinSesion = '';
     $('cal-aviso').hidden = true;
@@ -501,16 +508,32 @@
     modal.abierto = false;
     var o = modal.origen;
     modal.origen = null;
+    if (!o || !document.contains(o)) { var u = modal.uid && $('cal-cuerpo').querySelector('[data-uid="' + modal.uid.replace(/(["\\])/g, '\\$1') + '"]'); if (u) o = u; }   // el dibujo pudo reemplazar el botón de origen
     if (!sinFoco && o && document.contains(o) && o.focus) o.focus();
     else if (!sinFoco && estado.vista === 'mes') enfocarDia(estado.foco);
+  }
+
+  function tareasVisibles(e) {
+    return e.tareas.map(function (t, i) { return { i: i, texto: t.texto, hecha: t.hecha }; }).filter(function (t) { return t.texto.trim(); });
+  }
+  function leyendaTareas(vis) {
+    return 'Tareas (' + vis.filter(function (t) { return t.hecha; }).length + ' de ' + vis.length + ' hechas)';
   }
 
   function abrirEvento(uid, origen, viaDia) {
     var e = estado.eventos[uid];
     if (!e) return;
     modal.tipo = 'evento'; modal.uid = uid; modal.viaDia = !!viaDia;
+    avisoModal('', '');
+    dibujarEvento(e);
+    abrirModal(origen);
+    if (e.editable) actualizarEditor(e);
+  }
+
+  /* Contenido del detalle de un evento (no mueve el foco: lo usa también el redibujo tras guardar). */
+  function dibujarEvento(e) {
     var h = '';
-    if (viaDia) h += '<button type="button" class="cal-volver" id="cal-volver">← Eventos del ' + escapar(fechaMes(modal.dia)) + '</button>';
+    if (modal.viaDia) h += '<button type="button" class="cal-volver" id="cal-volver">← Eventos del ' + escapar(fechaMes(modal.dia)) + '</button>';
     h += '<p class="rotulo">Evento</p><h2 id="cal-modal-titulo">' + escapar(e.titulo) + '<span class="cal-pastilla">' + nombreEstado(e) + '</span></h2><dl class="cal-datos">';
     h += '<dt>Cuándo</dt><dd>' + escapar(cuando(e)) + '</dd>';
     var donde = dondeTexto(e);
@@ -523,19 +546,175 @@
     h += '</dl>';
     var desc = textoPlano(e.descripcion);
     if (desc) h += '<p class="cal-desc">' + escapar(desc) + '</p>';
-    if (e.tareas.length) {
-      var hechas = e.tareas.filter(function (t) { return t.hecha; }).length;
-      h += '<div class="cal-tareas"><h3>Tareas (' + hechas + ' de ' + e.tareas.length + ' hechas)</h3><ul>';
-      e.tareas.forEach(function (t) {
-        h += '<li class="' + (t.hecha ? 'hecha' : '') + '"><span class="cal-check" aria-hidden="true">' + (t.hecha ? '✓' : '') + '</span><span class="sr-solo">' + (t.hecha ? 'Hecha: ' : 'Pendiente: ') + '</span><span class="cal-tarea-texto">' + escapar(t.texto) + '</span></li>';
-      });
-      h += '</ul></div>';
+    var vis = tareasVisibles(e);
+    if (e.editable) h += formularioEvento(e, vis);
+    else {
+      if (vis.length) {
+        h += '<div class="cal-tareas"><h3>' + leyendaTareas(vis) + '</h3><ul>';
+        vis.forEach(function (t) {
+          h += '<li class="' + (t.hecha ? 'hecha' : '') + '"><span class="cal-check" aria-hidden="true">' + (t.hecha ? '✓' : '') + '</span><span class="sr-solo">' + (t.hecha ? 'Hecha: ' : 'Pendiente: ') + '</span><span class="cal-tarea-texto">' + escapar(t.texto) + '</span></li>';
+        });
+        h += '</ul></div>';
+      }
+      if (e.estado === 'cancelada') h += '<p class="cal-nota-solo">Este evento fue cancelado por el administrador: no se puede cambiar.</p>';
+      else if (e.repetido) h += '<p class="cal-nota-solo">Este evento se repite: su estado y tareas solo los cambia el administrador.</p>';
     }
     $('cal-modal-cuerpo').innerHTML = h;
     $('cal-caja').className = 'cal-caja e-' + e.estado;
     var v = $('cal-volver');
     if (v) v.addEventListener('click', function () { abrirDia(modal.dia, null, true); });
-    abrirModal(origen);
+  }
+
+  /* Formulario de la persona invitada: casillas para las tareas, Pendiente/Hecha y «Guardar cambios». */
+  function formularioEvento(e, vis) {
+    var ocupado = !!guardando[e.uid], dis = ocupado ? ' disabled' : '';
+    var h = '<form class="cal-editor" id="cal-editor" novalidate>';
+    if (vis.length) {
+      h += '<fieldset class="cal-tareas"' + dis + '><legend id="cal-tareas-leyenda">' + leyendaTareas(vis) + '</legend><ul>';
+      vis.forEach(function (t) {
+        h += '<li class="' + (t.hecha ? 'hecha' : '') + '"><label><input type="checkbox" data-i="' + t.i + '"' + (t.hecha ? ' checked' : '') + '><span class="cal-tarea-texto">' + escapar(t.texto) + '</span></label></li>';
+      });
+      h += '</ul></fieldset>';
+    }
+    h += '<fieldset class="cal-estado-ctl"' + dis + '><legend>Estado del evento</legend><div class="cal-segmentos">';
+    ['pendiente', 'hecha'].forEach(function (v) {
+      h += '<label class="seg-' + v + '"><input type="radio" name="estado" value="' + v + '"' + (e.estado === v ? ' checked' : '') + '><span>' + primera(v) + '</span></label>';
+    });
+    h += '</div></fieldset>';
+    h += '<p class="cal-sugerencia" id="cal-sugerencia" hidden>Todas las tareas están marcadas. ¿Marcar el evento como hecho? <button type="button" class="boton" id="cal-sug-si">Sí, marcar como hecho</button></p>';
+    h += '<div class="cal-editor-acc"><button type="submit" class="boton principal" id="cal-guardar" aria-disabled="true">' + (ocupado ? 'Guardando…' : 'Guardar cambios') + '</button>' +
+      '<span class="cal-sin-guardar" id="cal-sin-guardar" hidden>Hay cambios sin guardar.</span></div></form>';
+    return h;
+  }
+
+  function leerBorrador(e) {
+    var f = $('cal-editor'), hechas = e.tareas.map(function (t) { return t.hecha; });
+    Array.prototype.forEach.call(f.querySelectorAll('input[type="checkbox"][data-i]'), function (c) { hechas[+c.dataset.i] = c.checked; });
+    var r = f.querySelector('input[name="estado"]:checked'), est = r ? r.value : e.estado;
+    var hechasCambio = hechas.some(function (x, i) { return x !== e.tareas[i].hecha; });
+    return { estado: est, hechas: hechas, hechasCambio: hechasCambio, cambio: hechasCambio || est !== e.estado };
+  }
+
+  /* Pone al día lo que depende del borrador: tachado y conteo de tareas, sugerencia «¿Marcar como hecho?» y el botón Guardar. */
+  function actualizarEditor(e) {
+    if (!$('cal-editor')) return;
+    var b = leerBorrador(e), ocupado = !!guardando[e.uid], vis = tareasVisibles(e).map(function (t) { return { hecha: b.hechas[t.i] }; });
+    Array.prototype.forEach.call($('cal-editor').querySelectorAll('input[type="checkbox"][data-i]'), function (c) { c.closest('li').className = c.checked ? 'hecha' : ''; });
+    var ley = $('cal-tareas-leyenda');
+    if (ley) ley.textContent = leyendaTareas(vis);
+    $('cal-sugerencia').hidden = ocupado || !(vis.length && vis.every(function (t) { return t.hecha; }) && b.estado === 'pendiente');
+    var g = $('cal-guardar');
+    g.setAttribute('aria-disabled', ocupado || !b.cambio ? 'true' : 'false');
+    g.textContent = ocupado ? 'Guardando…' : 'Guardar cambios';
+    $('cal-sin-guardar').hidden = ocupado || !b.cambio;
+  }
+
+  function avisoModal(tipo, texto) {
+    $('cal-modal-estado').textContent = tipo === 'ok' || tipo === 'curso' ? texto : '';
+    $('cal-modal-estado').className = 'cal-modal-msg' + (tipo === 'curso' ? ' curso' : ' ok');
+    $('cal-modal-error').textContent = tipo === 'error' ? texto : '';
+  }
+
+  /* Aviso en la página (fuera del detalle): el detalle pudo cerrarse mientras se guardaba, o el calendario se recargó. */
+  var temporizadorAviso = 0;
+  function avisoPagina(tipo, texto) {
+    var x = $('cal-guardado');
+    clearTimeout(temporizadorAviso);
+    if (!texto) { x.hidden = true; return; }
+    $('cal-guardado-texto').textContent = texto;
+    x.className = 'cal-guardado' + (tipo === 'error' ? ' error' : '');
+    x.setAttribute('role', tipo === 'error' ? 'alert' : 'status');
+    x.hidden = false;
+    if (tipo !== 'error') temporizadorAviso = setTimeout(function () { x.hidden = true; }, 6000);
+  }
+
+  function detalleAbiertoDe(uid) { return modal.abierto && modal.tipo === 'evento' && modal.uid === uid; }
+
+  /* Vuelve a dibujar el detalle sin perder el foco del botón Guardar. */
+  function redibujarDetalle(e) {
+    var a = document.activeElement, caja = $('cal-caja');
+    var conservar = a === document.body || (caja.contains(a) && (a.id === 'cal-guardar' || a.closest('#cal-editor')));
+    dibujarEvento(e);
+    if (e.editable) actualizarEditor(e);
+    if (conservar) { var g = $('cal-guardar') || caja; g.focus(); }
+  }
+
+  function guardarCambios() {
+    var e = estado.eventos[modal.uid];
+    if (!e || modal.tipo !== 'evento' || !e.editable || guardando[e.uid] || !$('cal-editor')) return;
+    var b = leerBorrador(e);
+    if (!b.cambio) return;
+    var token = estado.token, uid = e.uid, terminado = false;
+    var previo = { estado: e.estado, hechas: e.tareas.map(function (t) { return t.hecha; }) };
+    var cuerpo = { accion: 'agenda_actualizar', token: token, id: e.id, inicio: e.inicioRaw };
+    if (b.estado !== e.estado) cuerpo.estado = b.estado;
+    if (b.hechasCambio) cuerpo.hechas = b.hechas;
+    // Actualización optimista: el evento y la cuadrícula cambian ya; si el servidor dice que no, se revierte.
+    e.estado = b.estado; e.tareas.forEach(function (t, i) { t.hecha = b.hechas[i]; });
+    guardando[uid] = true;
+    avisoPagina('', '');
+    avisoModal('curso', 'Guardando…');
+    pintar();
+    redibujarDetalle(e);
+    var temporizador = new Promise(function (_, rechazar) { setTimeout(function () { rechazar(new Error('espera')); }, ESPERA_MS); });
+
+    function revertir() { e.estado = previo.estado; e.tareas.forEach(function (t, i) { t.hecha = previo.hechas[i]; }); }
+    function fallo(texto) {
+      revertir();
+      if (/iniciar sesi/i.test(texto)) { sesionVencida(); return; }
+      if (/cambiado por el administrador|recargue/i.test(texto)) {
+        cerrarModal(true);
+        avisoPagina('error', 'El evento «' + e.titulo + '» fue cambiado por el administrador. Se volvió a cargar su calendario; revise y repita el cambio si hace falta.');
+        actualizar();
+        return;
+      }
+      if (/repetid/i.test(texto)) { e.editable = false; e.repetido = true; }
+      pintar();
+      if (detalleAbiertoDe(uid)) { redibujarDetalle(e); avisoModal('error', texto + ' Se restauró lo anterior.'); }
+      else avisoPagina('error', 'No se guardó «' + e.titulo + '»: ' + texto + ' Se restauró lo anterior.');
+    }
+
+    Promise.race([window.EcoAgriSesionPortal.llamar(cuerpo), temporizador])
+      .then(function (r) {
+        if (terminado || estado.token !== token) return;
+        terminado = true; delete guardando[uid];
+        if (estado.eventos[uid] !== e) return;                       // el calendario se recargó mientras tanto: lo que llegue de allí manda
+        if (!r || r.ok !== true) { fallo((r && r.error) ? String(r.error) : 'El servidor no pudo guardar los cambios.'); return; }
+        var n = normalizar(r.evento), actual = e;
+        if (n) {                                                      // el servidor manda: su versión reemplaza a la optimista
+          delete estado.eventos[uid]; estado.eventos[n.uid] = n; estado.indice = null; actual = n;
+          if (modal.abierto && modal.uid === uid) modal.uid = n.uid;
+        }
+        pintar();
+        if (detalleAbiertoDe(actual.uid)) { redibujarDetalle(actual); avisoModal('ok', 'Guardado'); }
+        else avisoPagina('ok', 'Cambios guardados en «' + actual.titulo + '».');
+      })
+      .catch(function () {
+        if (terminado || estado.token !== token) return;
+        terminado = true; delete guardando[uid];
+        if (estado.eventos[uid] !== e) return;
+        fallo('No se pudo guardar: sin conexión o sin respuesta del servidor. Si duda de que se haya guardado, pulse «Actualizar».');
+      });
+  }
+
+  function alCambioEditor(ev) {
+    var e = estado.eventos[modal.uid];
+    if (!e || !e.editable || !$('cal-editor') || !ev.target.closest('#cal-editor')) return;
+    avisoModal('', '');
+    actualizarEditor(e);
+  }
+  function alEnviarEditor(ev) {
+    ev.preventDefault();
+    guardarCambios();
+  }
+  function alClicSugerencia(ev) {
+    if (!ev.target.closest || !ev.target.closest('#cal-sug-si')) return;
+    var e = estado.eventos[modal.uid];
+    if (!e || !$('cal-editor')) return;
+    $('cal-editor').querySelector('input[name="estado"][value="hecha"]').checked = true;
+    avisoModal('', '');
+    actualizarEditor(e);
+    $('cal-guardar').focus();
   }
 
   function textoFecha(f) {
@@ -608,7 +787,7 @@
     if (!modal.abierto) return;
     if (e.key === 'Escape') { e.preventDefault(); cerrarModal(); return; }
     if (e.key !== 'Tab') return;
-    var f = Array.prototype.filter.call($('cal-caja').querySelectorAll('button, [href], [tabindex]:not([tabindex="-1"])'), function (x) { return !x.disabled && x.offsetParent !== null; });
+    var f = Array.prototype.filter.call($('cal-caja').querySelectorAll('button, [href], input, [tabindex]:not([tabindex="-1"])'), function (x) { return !x.disabled && x.offsetParent !== null; });
     if (!f.length) { e.preventDefault(); return; }
     var primero = f[0], ultimo = f[f.length - 1];
     if (e.shiftKey && (document.activeElement === primero || document.activeElement === $('cal-caja'))) { e.preventDefault(); ultimo.focus(); }
@@ -642,6 +821,10 @@
     $('cal-cuerpo').addEventListener('keydown', alTeclado);
     $('cal-modal').addEventListener('click', alClicModal);
     $('cal-modal-cerrar').addEventListener('click', function () { cerrarModal(); });
+    $('cal-modal-cuerpo').addEventListener('change', alCambioEditor);
+    $('cal-modal-cuerpo').addEventListener('submit', alEnviarEditor);
+    $('cal-modal-cuerpo').addEventListener('click', alClicSugerencia);
+    $('cal-guardado-cerrar').addEventListener('click', function () { avisoPagina('', ''); });
     document.addEventListener('keydown', atraparTab, true);
     document.addEventListener('ecoagri:sesion', alCambiarSesion);
 

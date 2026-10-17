@@ -59,6 +59,7 @@
 .cal-ev { display: block; width: 100%; padding: 2px 6px; font: inherit; font-size: 12px; line-height: 1.35; text-align: left; color: var(--e-texto); background: var(--e-fondo); border: 0; border-left: 3px solid var(--e-borde); border-radius: 2px; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cal-ev:hover { filter: brightness(.96); }
 .cal-ev.e-cancelada { text-decoration: line-through; }
+.cal-ev.e-hecha::before, .cal-bloque.e-hecha b::before, .cal-fila.e-hecha .tit::before { content: '✓ '; }
 .cal-ev .h { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; margin-right: 4px; opacity: .85; }
 .cal-ev.sigue { border-left-style: dotted; }
 .cal-mas { display: block; padding: 1px 6px; font: inherit; font-size: 12px; color: var(--texto-verde); background: transparent; border: 0; cursor: pointer; text-align: left; }
@@ -134,6 +135,39 @@
 .cal-lista-modal .cal-fila .hora, .cal-lista-modal .cal-fila .tit, .cal-lista-modal .cal-fila .meta { grid-column: 1 / 2; }
 .cal-lista-modal .cal-fila .cal-pastilla { grid-row: 1; grid-column: 2; }
 
+/* ---------- Edición de tareas y estado (personas invitadas) ---------- */
+.cal-editor fieldset { min-width: 0; margin: 0 0 12px; padding: 0; border: 0; }
+.cal-editor legend { padding: 0; font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.cal-editor .cal-tareas li { padding: 0; }
+.cal-editor .cal-tareas label { display: flex; align-items: flex-start; gap: 10px; width: 100%; min-height: 44px; padding: 8px 4px; cursor: pointer; font-size: 14px; }
+.cal-editor input[type="checkbox"] { flex: none; width: 22px; height: 22px; margin: 0; accent-color: var(--verde); cursor: pointer; }
+.cal-editor fieldset:disabled label, .cal-editor fieldset:disabled input { cursor: progress; opacity: .7; }
+.cal-segmentos { display: inline-flex; border: 1px solid var(--linea-fuerte); border-radius: var(--r); overflow: hidden; }
+.cal-segmentos label { position: relative; display: block; }
+.cal-segmentos input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.cal-segmentos span { display: block; min-height: 44px; padding: 11px 20px; font-size: 14px; color: var(--tinta-2); background: var(--superficie); }
+.cal-segmentos label + label span { border-left: 1px solid var(--linea-fuerte); }
+.cal-segmentos input:checked + span { color: var(--sobre-acento); font-weight: 600; background: var(--frac); }
+.cal-segmentos .seg-hecha input:checked + span { background: var(--verde); }
+.cal-segmentos input:focus-visible + span { outline: 2px solid var(--verde); outline-offset: -3px; box-shadow: inset 0 0 0 4px var(--superficie); }
+.cal-editor input[type="checkbox"]:focus-visible { outline: 2px solid var(--verde); outline-offset: 2px; }
+.cal-sugerencia { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 12px; padding: 10px 12px; font-size: 14px; background: var(--verde-suave); border-left: 3px solid var(--verde); border-radius: 0 var(--r) var(--r) 0; color: var(--ok-texto); }
+.cal-sugerencia .boton { min-height: 40px; }
+.cal-editor-acc { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 4px 0 8px; }
+.cal-editor-acc .boton { min-height: 44px; }
+.cal-editor-acc .boton[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
+.cal-sin-guardar { font-size: 13px; color: var(--tinta-2); }
+.cal-nota-solo { margin: 0 0 8px; padding: 10px 12px; font-size: 14px; background: var(--papel); border-left: 3px solid var(--tinta-3); border-radius: 0 var(--r) var(--r) 0; color: var(--tinta-2); }
+.cal-caja-msgs { padding: 0 22px; }
+.cal-modal-msg, .cal-modal-error { margin: 0; font-size: 13.5px; }
+.cal-modal-msg { color: var(--ok-texto); font-weight: 600; }
+.cal-modal-msg.curso { color: var(--tinta-2); font-weight: 400; }
+.cal-modal-error { color: var(--error-texto); padding: 4px 0; }
+.cal-modal-msg:empty, .cal-modal-error:empty { display: none; }
+.cal-guardado { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 12px; margin: 0 0 12px; padding: 10px 14px; font-size: 14px; background: var(--verde-suave); border-left: 3px solid var(--verde); border-radius: 0 var(--r) var(--r) 0; color: var(--ok-texto); }
+.cal-guardado.error { background: var(--alerta-suave); border-left-color: var(--alerta); color: var(--error-texto); }
+.cal-guardado .boton { min-height: 36px; }
+
 /* ---------- Móvil ---------- */
 @media (max-width: 700px) {
   .cal-lienzo { padding: 24px 12px 72px; }
@@ -151,5 +185,6 @@
   .cal-datos { grid-template-columns: 1fr; gap: 0; }
   .cal-datos dd { margin-bottom: 8px; }
   .cal-caja-cuerpo { padding: 16px 16px 6px; }
+  .cal-caja-msgs { padding: 0 16px; }
 }
 @media (prefers-reduced-motion: reduce) { .cal-cargando i { animation: none; } }
