@@ -2,7 +2,7 @@
    Pide a la app de administración los eventos de la persona con sesión (acción agenda_mis_eventos, por POST, con el mismo token y la misma
    red que el inicio de sesión del portal: window.EcoAgriSesionPortal.llamar) y los muestra por mes, semana o lista. Si el evento trae
    editable:true, la persona puede marcar sus tareas y cambiar el estado (pendiente/hecha) y guardarlo con la acción agenda_actualizar
-   { accion, token, id, inicio, estado?, hechas? } -> { ok:true, evento } | { ok:false, error }. Los repetidos y cancelados son de solo lectura.
+   { accion, token, id, inicio, estado?, hechas? } -> { ok:true, evento } | { ok:false, error }. Los cancelados son de solo lectura; en los repetidos cada ocurrencia (id+inicio) se guarda por separado.
    Todas las horas se muestran en Colombia (UTC-5, sin horario de verano) sin importar la zona del navegador: se calculan a mano a partir del
    instante (Date.parse del texto con su desfase) restándole 5 horas, nunca con la zona local del dispositivo.
    Contrato del evento: { id, titulo, descripcion, tareas:[{texto,hecha}], inicio, fin, todoDia, lugar, finca, usuarios, personas:[{id,nombre}],
@@ -557,7 +557,6 @@
         h += '</ul></div>';
       }
       if (e.estado === 'cancelada') h += '<p class="cal-nota-solo">Este evento fue cancelado por el administrador: no se puede cambiar.</p>';
-      else if (e.repetido) h += '<p class="cal-nota-solo">Este evento se repite: su estado y tareas solo los cambia el administrador.</p>';
     }
     $('cal-modal-cuerpo').innerHTML = h;
     $('cal-caja').className = 'cal-caja e-' + e.estado;
@@ -569,6 +568,7 @@
   function formularioEvento(e, vis) {
     var ocupado = !!guardando[e.uid], dis = ocupado ? ' disabled' : '';
     var h = '<form class="cal-editor" id="cal-editor" novalidate>';
+    if (e.repetido) h += '<p class="cal-nota-solo">Evento repetido: sus cambios se guardan solo para este día.</p>';
     if (vis.length) {
       h += '<fieldset class="cal-tareas"' + dis + '><legend id="cal-tareas-leyenda">' + leyendaTareas(vis) + '</legend><ul>';
       vis.forEach(function (t) {
@@ -668,7 +668,6 @@
         actualizar();
         return;
       }
-      if (/repetid/i.test(texto)) { e.editable = false; e.repetido = true; }
       pintar();
       if (detalleAbiertoDe(uid)) { redibujarDetalle(e); avisoModal('error', texto + ' Se restauró lo anterior.'); }
       else avisoPagina('error', 'No se guardó «' + e.titulo + '»: ' + texto + ' Se restauró lo anterior.');
