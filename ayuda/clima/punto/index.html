@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elegir el punto — Clima — Ayuda</title>
+<meta name="description" content="Cómo indicar de qué lugar se quiere el clima: finca, coordenadas, mapa o ubicación del dispositivo.">
+<link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
+<script>
+  try {
+    var temaGuardado = localStorage.getItem('ecoagriapp_tema');
+    if (temaGuardado === 'dark' || temaGuardado === 'light') document.documentElement.setAttribute('data-theme', temaGuardado);
+  } catch (error) { /* sin almacenamiento: sigue el tema del sistema */ }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/hub.css">
+<!-- Generado por ecoagri-core/generador. No editar a mano. -->
+</head>
+<body>
+<header class="barra"><div class="barra-fila">
+  <a class="barra-marca" href="../../../">Eco<span>Agri</span> · Herramientas</a>
+  <nav aria-label="Principal">
+    <a href="../../../">Herramientas</a>
+    <a href="../../../ayuda/" aria-current="page">Ayuda</a>
+    <a href="../../../versiones/">Versiones</a>
+    <a href="../../../calendario/" data-solo-sesion hidden>Mi calendario</a>
+  </nav>
+  <span class="barra-sesion" id="barra-sesion-portal"></span>
+  <button type="button" class="barra-tema-boton" id="barra-tema-boton" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema"><span class="barra-tema-icono" aria-hidden="true"></span></button>
+</div></header>
+<div class="sp-modal" id="sp-modal" hidden>
+  <div class="sp-caja" role="dialog" aria-labelledby="sp-titulo">
+    <p class="sp-rotulo">Acceso</p>
+    <h2 id="sp-titulo">Iniciar sesión</h2>
+    <form id="sp-form" autocomplete="on">
+      <label>Usuario<input type="text" id="sp-usuario" name="username" autocomplete="username" autocapitalize="none" spellcheck="false"></label>
+      <label>Contraseña<input type="password" id="sp-clave" name="password" autocomplete="current-password"></label>
+      <label class="sp-chk"><input type="checkbox" id="sp-recordar"><span>Mantener sesión iniciada en este dispositivo (30 días)</span></label>
+      <label class="sp-chk" id="sp-guardar-fila" hidden><input type="checkbox" id="sp-guardar"><span>Guardar la contraseña en este navegador</span></label>
+      <p class="sp-nota">Sin marcar «Mantener sesión», la sesión dura mientras no cierre la página (máximo 6 horas) y se comparte con EcoAgriApp, Gestión Normativa y Rendimientos. La contraseña solo la puede guardar su navegador; esta página no la conserva.</p>
+      <p class="sp-error" id="sp-error" role="alert" hidden></p>
+      <div class="sp-acciones"><button type="button" class="boton" id="sp-cancelar">Cancelar</button><button type="submit" class="boton principal" id="sp-enviar">Iniciar sesión</button></div>
+    </form>
+  </div>
+</div>
+<div class="sp-modal" id="sp-cuenta" hidden>
+  <div class="sp-caja" role="dialog" aria-labelledby="spc-nombre">
+    <p class="sp-rotulo">Mi cuenta</p>
+    <h2 id="spc-nombre"></h2>
+    <p class="sp-dato"><span class="sp-pastilla" id="spc-rol"></span></p>
+    <p class="sp-dato" id="spc-sesion"></p>
+    <p class="sp-nota">La sesión se comparte con EcoAgriApp, Gestión Normativa y Rendimientos: al cerrarla aquí se cierra en todas.</p>
+    <div class="sp-acciones">
+      <button type="button" class="boton" id="spc-cerrar">Cerrar</button>
+      <a class="boton" id="spc-calendario" href="#">Mi calendario</a>
+      <a class="boton" id="spc-admin" href="#" hidden>Configuración de administrador</a>
+      <button type="button" class="boton principal" id="spc-salir">Cerrar sesión</button>
+    </div>
+  </div>
+</div>
+<main class="lienzo">
+<p class="migas"><a href="../../">Ayuda</a> › <a href="../">Clima</a> › Elegir el punto</p>
+<div class="encabezado"><p class="rotulo">Clima</p><h1>Elegir el punto</h1><p>Cómo indicar de qué lugar se quiere el clima: finca, coordenadas, mapa o ubicación del dispositivo.</p></div>
+<div class="acciones" style="margin-top:16px"><a class="boton principal" href="../../../clima/">Abrir la herramienta</a><a class="boton" href="../../#clima/punto">Ver en el árbol</a></div>
+<nav class="indice" aria-label="En esta página"><p class="rotulo">En esta página</p><ol><li><a href="#que-hace">Qué hace esta parte</a></li><li><a href="#elegir-una-finca">Elegir una finca</a></li><li><a href="#escribir-coordenadas">Escribir coordenadas</a></li><li><a href="#el-mapa">Usar el mapa</a></li><li><a href="#mi-ubicacion">Mi ubicación</a></li></ol></nav>
+<section class="seccion" id="que-hace"><h2><a href="#que-hace">Qué hace esta parte</a></h2><div class="cuerpo"><p>Todo en el Clima parte de un <b>punto</b>: una latitud y una longitud. Hay cuatro formas de fijarlo, y las cuatro se mantienen sincronizadas entre sí: elegir una finca, escribir las coordenadas, tocar o arrastrar en el mapa, o usar «Mi ubicación». Al fijar el punto, la página consulta el clima automáticamente.</p></div></section>
+<section class="seccion" id="elegir-una-finca"><h2><a href="#elegir-una-finca">Elegir una finca</a></h2><div class="cuerpo"><p>El selector <b>Finca</b> lista las fincas de Economía Agrícola. Al elegir una, el mapa se centra en ella y se consulta el clima en las coordenadas registradas de esa finca. Si una finca aparece con la nota «(sin coordenadas)», todavía no tiene ubicación cargada: escriba las coordenadas o haga clic en el mapa.</p>
+  <p>La finca elegida se recuerda en ese navegador y es la que se abre la próxima vez, salvo que la dirección traiga otra (ver <i>Parámetros de la dirección</i> en la ayuda general del Clima).</p>
+  <p><b>Ojo:</b> las coordenadas de las fincas son una copia de las de Gestión Normativa. Si alguna cambia allá, hay que actualizarla también en el Clima; avise al responsable si nota que el punto de una finca no cae donde debe.</p></div></section>
+<section class="seccion" id="escribir-coordenadas"><h2><a href="#escribir-coordenadas">Escribir coordenadas</a></h2><div class="cuerpo"><p>Escriba la <b>latitud</b> (norte positivo) y la <b>longitud</b> (para Colombia es negativa) en grados decimales, por ejemplo <code>4.7347</code> y <code>-74.4358</code>. Se acepta coma o punto decimal. Pulse <b>Consultar clima</b> o la tecla Enter dentro de cualquiera de los dos campos.</p>
+  <ul>
+    <li>Si los valores no son válidos (vacíos, texto, latitud mayor a 90 o longitud mayor a 180), los campos se marcan en rojo y aparece un aviso.</li>
+    <li>Fuera de Colombia el pronóstico funciona igual, pero la nota del punto avisa que <b>no habrá estaciones IDEAM</b>, porque ese catálogo es solo colombiano.</li>
+  </ul></div></section>
+<section class="seccion" id="el-mapa"><h2><a href="#el-mapa">Usar el mapa</a></h2><div class="cuerpo"><ul>
+    <li><b>Un clic</b> en cualquier lugar del mapa fija ese punto y consulta el clima. El marcador también se puede <b>arrastrar</b>; al soltarlo se consulta.</li>
+    <li>El botón de capas del mapa alterna entre <b>Calles</b> y <b>Satélite</b>, útil para ubicar un lote o una quebrada.</li>
+    <li>Tras cada consulta se dibujan las <b>estaciones del IDEAM cercanas</b>: la ámbar es una estación de la que se obtuvieron lecturas; las azules, estaciones cercanas sin datos publicados. Al pasar el cursor se ve el nombre y la distancia.</li>
+  </ul>
+  <p><b>Ojo:</b> cada clic o arrastre dispara una consulta nueva. Si va a ensayar varios puntos seguidos, hágalo con calma: el servicio gratuito de pronósticos limita cuántas consultas acepta en poco tiempo (ver <i>Fuentes y límites</i>).</p></div></section>
+<section class="seccion" id="mi-ubicacion"><h2><a href="#mi-ubicacion">Mi ubicación</a></h2><div class="cuerpo"><p>El botón <b>Mi ubicación</b> pide permiso al navegador para usar el GPS del dispositivo y consulta el clima donde usted está. Es lo más cómodo en campo desde el celular. Si el permiso se niega o no hay señal, la página lo dice y puede escribir las coordenadas o usar el mapa.</p></div></section>
+<div class="navegar"><span></span><a class="boton" href="../../clima/pronostico/">Ahora y pronóstico →</a></div>
+  <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>
+</main>
+<script src="../../../assets/tema.js"></script>
+<script src="../../../assets/sesion-portal.js"></script>
+</body>
+</html>

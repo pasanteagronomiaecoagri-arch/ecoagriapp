@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Versiones — Eco Agri</title>
-<meta name="description" content="Historial de cambios de EcoAgriApp, Gestión Normativa (ICA) y Rendimientos.">
+<meta name="description" content="Historial de cambios de EcoAgriApp, Gestión Normativa (ICA), Rendimientos y Clima.">
 <link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
 <script>
   try {
@@ -61,8 +61,8 @@
   </div>
 </div>
 <main class="lienzo">
-<div class="encabezado"><p class="rotulo">Eco Agri · Versiones</p><h1>Qué ha cambiado</h1><p>La versión de cada aplicación aparece en su barra superior. Aquí está el historial de cambios de las tres, de la más reciente a la más antigua.</p></div>
-<div class="filtros" role="group" aria-label="Filtrar por aplicación"><button type="button" class="chip" data-app="todas" aria-pressed="true">Todas</button><button type="button" class="chip" data-app="agriapp" aria-pressed="false">EcoAgriApp</button><button type="button" class="chip" data-app="normativa" aria-pressed="false">Gestión Normativa (ICA)</button><button type="button" class="chip" data-app="rendimientos" aria-pressed="false">Rendimientos</button></div>
+<div class="encabezado"><p class="rotulo">Eco Agri · Versiones</p><h1>Qué ha cambiado</h1><p>La versión de cada aplicación aparece en su barra superior. Aquí está el historial de cambios de las tres aplicaciones y de la herramienta de Clima, de la más reciente a la más antigua.</p></div>
+<div class="filtros" role="group" aria-label="Filtrar por aplicación"><button type="button" class="chip" data-app="todas" aria-pressed="true">Todas</button><button type="button" class="chip" data-app="agriapp" aria-pressed="false">EcoAgriApp</button><button type="button" class="chip" data-app="normativa" aria-pressed="false">Gestión Normativa (ICA)</button><button type="button" class="chip" data-app="rendimientos" aria-pressed="false">Rendimientos</button><button type="button" class="chip" data-app="clima" aria-pressed="false">Clima</button></div>
 <section class="bloque-app" id="agriapp" data-app="agriapp">
   <h2>EcoAgriApp <span class="insignia">Versión actual: alpha 8.13</span></h2>
   <ul class="cambios">
@@ -104,7 +104,7 @@
   </ul>
 </section>
 <section class="bloque-app" id="normativa" data-app="normativa">
-  <h2>Gestión Normativa (ICA) <span class="insignia">Versión actual: alpha 1.32</span></h2>
+  <h2>Gestión Normativa (ICA) <span class="insignia">Versión actual: alpha 1.33</span></h2>
   <ul class="cambios">
 <li><span class="v">alpha 1.24</span><span class="r">Permisos OAuth explicitos (userinfo.email), autorizar(), guarda de editor con aviso claro, funciones de calentamiento de cache.</span></li>
 <li><span class="v">alpha 1.23</span><span class="r">Arreglo: la capa de carga quedaba tapando la vista al reabrir (pintado desde cache).</span></li>
@@ -144,8 +144,9 @@
   </ul>
 </section>
 <section class="bloque-app" id="rendimientos" data-app="rendimientos">
-  <h2>Rendimientos <span class="insignia">Versión actual: alpha 0.70</span></h2>
+  <h2>Rendimientos <span class="insignia">Versión actual: alpha 0.71</span></h2>
   <ul class="cambios">
+<li><span class="v">alpha 0.71<small>2026-10-20</small></span><span class="r">El permiso de «Ver los rendimientos» se aplica de verdad en pantalla.</span></li>
 <li><span class="v">alpha 0.70<small>2026-10-15</small></span><span class="r">Acceso a Mi calendario desde Mi cuenta.</span></li>
 <li><span class="v">alpha 0.69<small>2026-10-15</small></span><span class="r">Rendimientos lee fincas, lotes, cultivos y trabajadores del catálogo maestro; se retira código de una sola vez.</span></li>
 <li><span class="v">alpha 0.68<small>2026-10-10</small></span><span class="r">Vista dividida lista/mapa y colores por cultivo en el Visualizador.</span></li>
@@ -208,6 +209,14 @@
 <li><span class="v">alpha 0.4<small>2026-09-02</small></span><span class="r">Reemplaza la jornada fija por bloques de horas con visualizador, separa Registros/Actividades en dos hojas.</span></li>
 <li><span class="v">alpha 0.3<small>2026-09-01</small></span><span class="r">Adopta paleta/tipografia de EcoAgriApp y reordena el formulario (operario, finca &gt; lote &gt; cama, actividad, jornada).</span></li>
 <li><span class="v">alpha 0.2<small>2026-09-01</small></span><span class="r">Formulario de registro de labores con catalogos desde VALIDACIONES.</span></li>
+  </ul>
+</section>
+<section class="bloque-app" id="clima" data-app="clima">
+  <h2>Clima <span class="insignia">Versión actual: alpha 0.3</span></h2>
+  <ul class="cambios">
+<li><span class="v">alpha 0.3<small>2026-10-20</small></span><span class="r">El Clima tiene ayuda propia en el portal (qué es, cómo elegir la finca o el punto, fuentes de datos, indicadores de sanidad, límites del modelo y parámetros de la URL), con enlaces para abrirlo por finca. La página muestra su versión en el pie y un enlace «Ayuda del clima»; el historial de versiones del Clima aparece en Versiones.</span></li>
+<li><span class="v">alpha 0.2<small>2026-10-15</small></span><span class="r">Los indicadores de sanidad vegetal (condiciones que favorecen hongos y franjas para aplicar) se abren con un clic y muestran sus criterios y un mapa hora por hora de las próximas 48 horas. Cada día del pronóstico abre su detalle por hora con gráfica y tabla, y «ayer» contrasta el pronóstico con el análisis del modelo y con la estación IDEAM. Nuevo explorador de 21 variables diarias (lluvia, ET0, balance hídrico, índice de Gaussen, temperaturas, humedad, viento, radiación, UV…) con periodo de 14, 30 o 60 días.</span></li>
+<li><span class="v">alpha 0.1<small>2026-10-15</small></span><span class="r">Primera versión de la herramienta Clima del portal: se elige una finca, unas coordenadas, un punto del mapa o «Mi ubicación» y se ve el clima ahora (Open-Meteo), el pronóstico de 7 días, los últimos 14 días, la comparación de lluvia entre los modelos ECMWF, GFS e ICON, los indicadores básicos de sanidad vegetal y las lecturas de las estaciones automáticas del IDEAM más cercanas (datos.gov.co), con NASA POWER como respaldo del histórico. Admite ?finca=ID y ?lat=&amp;lng= en la dirección.</span></li>
   </ul>
 </section>
   <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>

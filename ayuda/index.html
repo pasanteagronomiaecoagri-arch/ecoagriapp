@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ayuda — Eco Agri</title>
-<meta name="description" content="Ayuda de EcoAgriApp, Gestión Normativa (ICA) y Rendimientos.">
+<meta name="description" content="Ayuda de EcoAgriApp, Gestión Normativa (ICA), Rendimientos y Clima.">
 <link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
 <script>
   try {
@@ -64,14 +64,14 @@
 <div class="encabezado">
   <p class="rotulo">Eco Agri · Ayuda</p>
   <h1>Cómo funciona cada herramienta</h1>
-  <p>El mapa muestra cómo se organizan las tres aplicaciones. Toque una herramienta para desplegar sus funciones y llegue a la que le interesa: cada una enlaza a su descripción detallada.</p>
+  <p>El mapa muestra cómo se organizan las tres aplicaciones y la herramienta de Clima. Toque una herramienta para desplegar sus funciones y llegue a la que le interesa: cada una enlaza a su descripción detallada.</p>
 </div>
 <div class="controles">
   <div class="vistas" role="group" aria-label="Forma de ver la ayuda">
     <button type="button" id="ver-mapa" aria-pressed="true">Mapa</button>
     <button type="button" id="ver-lista" aria-pressed="false">Lista</button>
   </div>
-  <input class="buscar" id="buscar" type="search" placeholder="Buscar una función (p. ej. semáforo, renovación, camas)…" aria-label="Buscar en la ayuda" autocomplete="off">
+  <input class="buscar" id="buscar" type="search" placeholder="Buscar una función (p. ej. semáforo, renovación, camas, pronóstico)…" aria-label="Buscar en la ayuda" autocomplete="off">
   <button type="button" class="boton" id="expandir">Expandir todo</button>
   <button type="button" class="boton" id="contraer">Contraer todo</button>
 </div>
@@ -79,7 +79,7 @@
 <div id="vista-mapa">
 <div class="mapa" id="mapa">
   <div class="mapa-raiz"><a class="mapa-caja raiz" href="../">Eco Agri<small>Herramientas</small></a></div>
-  <div class="mapa-ramas">
+  <div class="mapa-ramas" style="--n:4">
 <div class="mapa-col" style="--c:#4F7D3A">
   <a class="mapa-caja app" href="agriapp/">EcoAgriApp</a>
   <div class="mapa-acc"><a href="../agriapp/">Abrir ↗</a><a href="agriapp/">Qué es</a></div>
@@ -246,6 +246,60 @@
     <p class="mapa-res">La hoja que define qué pregunta el formulario en cada actividad.</p>
     <div class="mapa-acc"><a href="rendimientos/validaciones/">Leer todo</a></div>
     <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/validaciones/#que-hace" title="La hoja que define qué pregunta el formulario en cada actividad.">Qué es el catálogo de reglas</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/validaciones/#ubicacion-de-la-actividad" title="La columna nivel_ubicacion de una actividad acepta: cama (finca, lote y camas puntuales), lote (finca y uno o varios lotes completos), finca (sólo la finca) o vacía…">Dónde ocurre la actividad (nivel de ubicación)</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/validaciones/#cantidad-de-la-actividad" title="La columna unidad_cantidad responde una sola pregunta: ¿se mide una cantidad?">Si se mide una cantidad y en qué unidad</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/validaciones/#producto-y-calidad" title="Cuando la actividad pide cantidad pero no ubicación (por ejemplo la poscosecha), la columna preguntar_producto con &quot;Sí&quot; hace que el formulario pregunte primero de qué…">Producto y desglose por calidad</a></li></ul>
+  </div>
+</li>
+  </ul>
+</div>
+<div class="mapa-col" style="--c:#2A8F8F">
+  <a class="mapa-caja app" href="clima/">Clima</a>
+  <div class="mapa-acc"><a href="../clima/">Abrir ↗</a><a href="clima/">Qué es</a></div>
+  <ul class="mapa-hijos">
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="clima/punto" aria-expanded="false" aria-controls="m-clima-punto"><span>Elegir el punto</span><span class="n">5</span></button>
+  <div class="mapa-detalle" id="m-clima-punto" hidden>
+    <p class="mapa-res">Cómo indicar de qué lugar se quiere el clima: finca, coordenadas, mapa o ubicación del dispositivo.</p>
+    <div class="mapa-acc"><a href="../clima/">Abrir ↗</a><a href="clima/punto/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="clima/punto/#que-hace" title="Cómo indicar de qué lugar se quiere el clima: finca, coordenadas, mapa o ubicación del dispositivo.">Qué hace esta parte</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/punto/#elegir-una-finca" title="El selector Finca lista las fincas de Economía Agrícola.">Elegir una finca</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/punto/#escribir-coordenadas" title="Escriba la latitud (norte positivo) y la longitud (para Colombia es negativa) en grados decimales, por ejemplo 4.7347 y -74.4358 .">Escribir coordenadas</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/punto/#el-mapa" title="Ojo: cada clic o arrastre dispara una consulta nueva.">Usar el mapa</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/punto/#mi-ubicacion" title="El botón Mi ubicación pide permiso al navegador para usar el GPS del dispositivo y consulta el clima donde usted está.">Mi ubicación</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="clima/pronostico" aria-expanded="false" aria-controls="m-clima-pronostico"><span>Ahora y pronóstico</span><span class="n">7</span></button>
+  <div class="mapa-detalle" id="m-clima-pronostico" hidden>
+    <p class="mapa-res">El clima de este momento, los próximos 7 días con detalle por hora, los últimos 14 días y la comparación de modelos.</p>
+    <div class="mapa-acc"><a href="../clima/">Abrir ↗</a><a href="clima/pronostico/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="clima/pronostico/#que-hace" title="El clima de este momento, los próximos 7 días con detalle por hora, los últimos 14 días y la comparación de modelos.">Qué hace esta parte</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/pronostico/#ahora" title="La tarjeta superior muestra la temperatura y la condición actual (despejado, nublado, lluvia, tormenta…), la sensación térmica y estos indicadores:">Ahora</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/pronostico/#pronostico-de-7-dias" title="Una tarjeta por día — ayer , hoy y los seis siguientes— con el icono del tiempo, la temperatura máxima y mínima, la lluvia prevista en mm y la probabilidad máxima de…">Pronóstico de 7 días</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/pronostico/#hora-por-hora" title="Al abrir un día se ven dos gráficas (temperatura y lluvia por hora) y una tabla de 24 filas con el tiempo, la temperatura, la humedad relativa, la lluvia, la…">Detalle hora por hora</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/pronostico/#ayer" title="La tarjeta «ayer» no muestra el futuro sino una prueba de confianza : compara lo que el modelo anunciaba un día antes ( Pronóstico ), lo que el modelo estima después,…">Ayer: ¿qué tan bueno fue el pronóstico?</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/pronostico/#ultimos-14-dias" title="Dos gráficas de un vistazo: la lluvia diaria (barras sólidas para lo ya ocurrido, más claras para el pronóstico) y la temperatura máxima y mínima .">Últimos 14 días y próximos 7</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/pronostico/#comparacion-de-modelos" title="Una tabla con la lluvia prevista día a día según tres modelos independientes: ECMWF (europeo), GFS (estadounidense) e ICON (alemán).">Comparación de modelos</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="clima/sanidad" aria-expanded="false" aria-controls="m-clima-sanidad"><span>Sanidad vegetal</span><span class="n">4</span></button>
+  <div class="mapa-detalle" id="m-clima-sanidad" hidden>
+    <p class="mapa-res">Indicadores del pronóstico por hora pensados para decidir cuándo revisar o aplicar.</p>
+    <div class="mapa-acc"><a href="../clima/">Abrir ↗</a><a href="clima/sanidad/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="clima/sanidad/#que-hace" title="Indicadores del pronóstico por hora pensados para decidir cuándo revisar o aplicar.">Qué hace esta parte</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/sanidad/#indicadores" title="Los dos últimos son botones: al tocarlos se despliegan los criterios exactos y un mapa hora por hora.">Qué significa cada indicador</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/sanidad/#hongos" title="Se cuentan las horas con humedad relativa de 90 % o más en las próximas 48 horas:">Condiciones que favorecen hongos</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/sanidad/#franjas-para-aplicar" title="Una hora cuenta como buena para aplicar solo si cumple todas estas condiciones a la vez:">Franjas para aplicar</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="clima/estaciones" aria-expanded="false" aria-controls="m-clima-estaciones"><span>Estaciones IDEAM</span><span class="n">4</span></button>
+  <div class="mapa-detalle" id="m-clima-estaciones" hidden>
+    <p class="mapa-res">Lo que midieron las estaciones automáticas del IDEAM más cercanas al punto.</p>
+    <div class="mapa-acc"><a href="../clima/">Abrir ↗</a><a href="clima/estaciones/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="clima/estaciones/#que-hace" title="Lo que midieron las estaciones automáticas del IDEAM más cercanas al punto.">Qué hace esta parte</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/estaciones/#cuales-estaciones" title="El Clima tiene un catálogo local de más de mil estaciones automáticas con telemetría (del Catálogo Nacional de Estaciones del IDEAM).">Qué estaciones se consultan</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/estaciones/#que-muestra-la-estacion" title="Para cada estación se indica el nombre, el municipio y departamento, la categoría, la distancia al punto y su altitud .">Qué muestra cada estación</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/estaciones/#retraso-y-calidad" title="El IDEAM publica estas lecturas con un retraso de hasta un día y advierte que son datos crudos, sin validar : pueden traer huecos o errores de sensor.">Retraso y calidad de los datos</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="clima/explorador" aria-expanded="false" aria-controls="m-clima-explorador"><span>Explorar variables</span><span class="n">6</span></button>
+  <div class="mapa-detalle" id="m-clima-explorador" hidden>
+    <p class="mapa-res">Gráficas de 21 variables diarias (agua, temperatura, aire, sol y nubes) con el pasado y el pronóstico.</p>
+    <div class="mapa-acc"><a href="../clima/">Abrir ↗</a><a href="clima/explorador/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="clima/explorador/#que-hace" title="Gráficas de 21 variables diarias (agua, temperatura, aire, sol y nubes) con el pasado y el pronóstico.">Qué hace esta parte</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/explorador/#elegir-variable-y-periodo" title="El periodo puede ser de 14, 30 o 60 días hacia atrás, siempre más los días de pronóstico.">Elegir variable y periodo</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/explorador/#variables-disponibles" title="Cada variable trae una breve descripción sobre la gráfica; las que más se prestan a confusión se explican abajo.">Qué variables hay</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/explorador/#et0-y-balance-hidrico" title="La ET0 es el agua que perdería un cultivo de referencia bien regado, calculada con el método FAO-56 Penman-Monteith.">ET0 y balance hídrico</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/explorador/#indice-de-gaussen" title="Según el criterio de Bagnouls–Gaussen, un periodo es seco cuando la lluvia (mm) es menor o igual al doble de la temperatura media (°C), es decir P ≤ 2T.">Índice de Gaussen</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/explorador/#limites-del-explorador" title="Todo lo «pasado» del explorador es el análisis del modelo en una cuadrícula de unos 11 km, no una medición en el lote.">Límites</a></li></ul>
+  </div>
+</li>
+<li class="mapa-item mapa-herr">
+  <button type="button" class="mapa-caja herr" data-ruta="clima/fuentes" aria-expanded="false" aria-controls="m-clima-fuentes"><span>Fuentes y límites</span><span class="n">5</span></button>
+  <div class="mapa-detalle" id="m-clima-fuentes" hidden>
+    <p class="mapa-res">De dónde salen los datos, qué tan confiables son y qué hacer si algo no carga.</p>
+    <div class="mapa-acc"><a href="../clima/">Abrir ↗</a><a href="clima/fuentes/">Leer todo</a></div>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="clima/fuentes/#que-hace" title="De dónde salen los datos, qué tan confiables son y qué hacer si algo no carga.">Qué hace esta parte</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/fuentes/#fuentes-de-datos" title="El mapa usa teselas de OpenStreetMap (calles) y Esri (satélite).">Las tres fuentes</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/fuentes/#modelo-vs-estacion" title="Conviene tener clara la diferencia:">Pronóstico de modelo y medición de estación</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/fuentes/#errores-y-reintentos" title="Open-Meteo es un servicio gratuito que limita cuántas consultas acepta desde una misma conexión en un tiempo corto.">Si algo no carga: errores 429 y reintentos</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="clima/fuentes/#que-no-hace" title="No es una alerta oficial: ante tormentas severas siga los avisos del IDEAM.">Lo que el Clima no es</a></li></ul>
   </div>
 </li>
   </ul>
@@ -621,6 +675,121 @@
 <li class="hoja"><a href="rendimientos/validaciones/#ubicacion-de-la-actividad"><b>Dónde ocurre la actividad (nivel de ubicación)</b><span class="res">La columna nivel_ubicacion de una actividad acepta: cama (finca, lote y camas puntuales), lote (finca y uno o varios lotes completos), finca (sólo la finca) o vacía…</span><span class="ir">Ver descripción detallada →</span></a></li>
 <li class="hoja"><a href="rendimientos/validaciones/#cantidad-de-la-actividad"><b>Si se mide una cantidad y en qué unidad</b><span class="res">La columna unidad_cantidad responde una sola pregunta: ¿se mide una cantidad?</span><span class="ir">Ver descripción detallada →</span></a></li>
 <li class="hoja"><a href="rendimientos/validaciones/#producto-y-calidad"><b>Producto y desglose por calidad</b><span class="res">Cuando la actividad pide cantidad pero no ubicación (por ejemplo la poscosecha), la columna preguntar_producto con &quot;Sí&quot; hace que el formulario pregunte primero de qué…</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li>
+    </ul>
+  </div>
+</li><li class="nodo app" style="--c:#2A8F8F">
+  <button type="button" class="nodo-btn" id="n-clima" data-ruta="clima" aria-expanded="false" aria-controls="c-clima">
+    <span class="punto" aria-hidden="true"></span>
+    <span class="textos"><span class="tit">Clima</span><span class="res">Herramienta de apoyo: clima de una finca o punto, pronóstico por hora y a 7 días, últimos 14 días, estaciones del IDEAM e indicadores de sanidad vegetal.</span></span>
+    <span class="num">6 herramientas · 31 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-clima" hidden>
+    <div class="acciones"><a class="boton principal" href="../clima/">Abrir Clima</a><a class="boton" href="clima/">Qué es y cómo se organiza</a></div>
+    <ul>
+<li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-clima-punto" data-ruta="clima/punto" aria-expanded="false" aria-controls="c-clima-punto">
+    <span class="textos"><span class="tit">Elegir el punto</span><span class="res">Cómo indicar de qué lugar se quiere el clima: finca, coordenadas, mapa o ubicación del dispositivo.</span></span>
+    <span class="num">5 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-clima-punto" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Elegir una de las fincas de la lista.</li><li>Escribir latitud y longitud en grados decimales.</li><li>Tocar o arrastrar el marcador en el mapa (calles o satélite).</li><li>Usar «Mi ubicación» desde el celular.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../clima/">Abrir la herramienta</a><a class="boton" href="clima/punto/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="clima/punto/#que-hace"><b>Qué hace esta parte</b><span class="res">Cómo indicar de qué lugar se quiere el clima: finca, coordenadas, mapa o ubicación del dispositivo.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/punto/#elegir-una-finca"><b>Elegir una finca</b><span class="res">El selector Finca lista las fincas de Economía Agrícola.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/punto/#escribir-coordenadas"><b>Escribir coordenadas</b><span class="res">Escriba la latitud (norte positivo) y la longitud (para Colombia es negativa) en grados decimales, por ejemplo 4.7347 y -74.4358 .</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/punto/#el-mapa"><b>Usar el mapa</b><span class="res">Ojo: cada clic o arrastre dispara una consulta nueva.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/punto/#mi-ubicacion"><b>Mi ubicación</b><span class="res">El botón Mi ubicación pide permiso al navegador para usar el GPS del dispositivo y consulta el clima donde usted está.</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-clima-pronostico" data-ruta="clima/pronostico" aria-expanded="false" aria-controls="c-clima-pronostico">
+    <span class="textos"><span class="tit">Ahora y pronóstico</span><span class="res">El clima de este momento, los próximos 7 días con detalle por hora, los últimos 14 días y la comparación de modelos.</span></span>
+    <span class="num">7 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-clima-pronostico" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Ver temperatura, humedad, lluvia, viento, nubosidad, déficit de vapor y humedad del suelo ahora.</li><li>Abrir cualquier día del pronóstico para ver gráfica y tabla hora por hora.</li><li>Comprobar qué tan acertado fue el pronóstico de ayer frente al análisis y a la estación.</li><li>Ver la lluvia diaria y la temperatura de los últimos 14 días y los próximos 7.</li><li>Comparar la lluvia prevista por tres modelos (ECMWF, GFS e ICON).</li></ul>
+    <div class="acciones"><a class="boton principal" href="../clima/">Abrir la herramienta</a><a class="boton" href="clima/pronostico/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="clima/pronostico/#que-hace"><b>Qué hace esta parte</b><span class="res">El clima de este momento, los próximos 7 días con detalle por hora, los últimos 14 días y la comparación de modelos.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/pronostico/#ahora"><b>Ahora</b><span class="res">La tarjeta superior muestra la temperatura y la condición actual (despejado, nublado, lluvia, tormenta…), la sensación térmica y estos indicadores:</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/pronostico/#pronostico-de-7-dias"><b>Pronóstico de 7 días</b><span class="res">Una tarjeta por día — ayer , hoy y los seis siguientes— con el icono del tiempo, la temperatura máxima y mínima, la lluvia prevista en mm y la probabilidad máxima de…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/pronostico/#hora-por-hora"><b>Detalle hora por hora</b><span class="res">Al abrir un día se ven dos gráficas (temperatura y lluvia por hora) y una tabla de 24 filas con el tiempo, la temperatura, la humedad relativa, la lluvia, la…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/pronostico/#ayer"><b>Ayer: ¿qué tan bueno fue el pronóstico?</b><span class="res">La tarjeta «ayer» no muestra el futuro sino una prueba de confianza : compara lo que el modelo anunciaba un día antes ( Pronóstico ), lo que el modelo estima después,…</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/pronostico/#ultimos-14-dias"><b>Últimos 14 días y próximos 7</b><span class="res">Dos gráficas de un vistazo: la lluvia diaria (barras sólidas para lo ya ocurrido, más claras para el pronóstico) y la temperatura máxima y mínima .</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/pronostico/#comparacion-de-modelos"><b>Comparación de modelos</b><span class="res">Una tabla con la lluvia prevista día a día según tres modelos independientes: ECMWF (europeo), GFS (estadounidense) e ICON (alemán).</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-clima-sanidad" data-ruta="clima/sanidad" aria-expanded="false" aria-controls="c-clima-sanidad">
+    <span class="textos"><span class="tit">Sanidad vegetal</span><span class="res">Indicadores del pronóstico por hora pensados para decidir cuándo revisar o aplicar.</span></span>
+    <span class="num">4 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-clima-sanidad" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Ver la lluvia de las últimas 24 y 72 horas y la prevista en las próximas 48.</li><li>Conocer el nivel (bajo, medio o alto) de condiciones que favorecen hongos.</li><li>Ver las franjas de horas aptas para aplicar y por qué las demás no lo son.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../clima/">Abrir la herramienta</a><a class="boton" href="clima/sanidad/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="clima/sanidad/#que-hace"><b>Qué hace esta parte</b><span class="res">Indicadores del pronóstico por hora pensados para decidir cuándo revisar o aplicar.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/sanidad/#indicadores"><b>Qué significa cada indicador</b><span class="res">Los dos últimos son botones: al tocarlos se despliegan los criterios exactos y un mapa hora por hora.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/sanidad/#hongos"><b>Condiciones que favorecen hongos</b><span class="res">Se cuentan las horas con humedad relativa de 90 % o más en las próximas 48 horas:</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/sanidad/#franjas-para-aplicar"><b>Franjas para aplicar</b><span class="res">Una hora cuenta como buena para aplicar solo si cumple todas estas condiciones a la vez:</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-clima-estaciones" data-ruta="clima/estaciones" aria-expanded="false" aria-controls="c-clima-estaciones">
+    <span class="textos"><span class="tit">Estaciones IDEAM</span><span class="res">Lo que midieron las estaciones automáticas del IDEAM más cercanas al punto.</span></span>
+    <span class="num">4 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-clima-estaciones" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Ver lluvia, temperatura y humedad medidas, con su hora y el resumen de 24 horas.</li><li>Saber qué tan lejos y a qué altitud está cada estación.</li><li>Ubicar las estaciones cercanas en el mapa.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../clima/">Abrir la herramienta</a><a class="boton" href="clima/estaciones/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="clima/estaciones/#que-hace"><b>Qué hace esta parte</b><span class="res">Lo que midieron las estaciones automáticas del IDEAM más cercanas al punto.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/estaciones/#cuales-estaciones"><b>Qué estaciones se consultan</b><span class="res">El Clima tiene un catálogo local de más de mil estaciones automáticas con telemetría (del Catálogo Nacional de Estaciones del IDEAM).</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/estaciones/#que-muestra-la-estacion"><b>Qué muestra cada estación</b><span class="res">Para cada estación se indica el nombre, el municipio y departamento, la categoría, la distancia al punto y su altitud .</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/estaciones/#retraso-y-calidad"><b>Retraso y calidad de los datos</b><span class="res">El IDEAM publica estas lecturas con un retraso de hasta un día y advierte que son datos crudos, sin validar : pueden traer huecos o errores de sensor.</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-clima-explorador" data-ruta="clima/explorador" aria-expanded="false" aria-controls="c-clima-explorador">
+    <span class="textos"><span class="tit">Explorar variables</span><span class="res">Gráficas de 21 variables diarias (agua, temperatura, aire, sol y nubes) con el pasado y el pronóstico.</span></span>
+    <span class="num">6 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-clima-explorador" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Elegir una variable y un periodo de 14, 30 o 60 días.</li><li>Ver balance hídrico (lluvia − ET0) y el índice de Gaussen.</li><li>Leer el resumen: hoy, promedio, mínimo, máximo y sumas.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../clima/">Abrir la herramienta</a><a class="boton" href="clima/explorador/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="clima/explorador/#que-hace"><b>Qué hace esta parte</b><span class="res">Gráficas de 21 variables diarias (agua, temperatura, aire, sol y nubes) con el pasado y el pronóstico.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/explorador/#elegir-variable-y-periodo"><b>Elegir variable y periodo</b><span class="res">El periodo puede ser de 14, 30 o 60 días hacia atrás, siempre más los días de pronóstico.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/explorador/#variables-disponibles"><b>Qué variables hay</b><span class="res">Cada variable trae una breve descripción sobre la gráfica; las que más se prestan a confusión se explican abajo.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/explorador/#et0-y-balance-hidrico"><b>ET0 y balance hídrico</b><span class="res">La ET0 es el agua que perdería un cultivo de referencia bien regado, calculada con el método FAO-56 Penman-Monteith.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/explorador/#indice-de-gaussen"><b>Índice de Gaussen</b><span class="res">Según el criterio de Bagnouls–Gaussen, un periodo es seco cuando la lluvia (mm) es menor o igual al doble de la temperatura media (°C), es decir P ≤ 2T.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/explorador/#limites-del-explorador"><b>Límites</b><span class="res">Todo lo «pasado» del explorador es el análisis del modelo en una cuadrícula de unos 11 km, no una medición en el lote.</span><span class="ir">Ver descripción detallada →</span></a></li>
+    </ul>
+  </div>
+</li><li class="nodo herr">
+  <button type="button" class="nodo-btn" id="n-clima-fuentes" data-ruta="clima/fuentes" aria-expanded="false" aria-controls="c-clima-fuentes">
+    <span class="textos"><span class="tit">Fuentes y límites</span><span class="res">De dónde salen los datos, qué tan confiables son y qué hacer si algo no carga.</span></span>
+    <span class="num">5 funciones</span><span class="chev" aria-hidden="true"></span>
+  </button>
+  <div class="nodo-cuerpo" id="c-clima-fuentes" hidden>
+    <p class="rotulo">En esta herramienta puede</p>
+    <ul class="puedes"><li>Distinguir un pronóstico de modelo de una medición de estación.</li><li>Saber qué hacer ante el error 429 de Open-Meteo.</li><li>Conocer el respaldo de NASA POWER.</li></ul>
+    <div class="acciones"><a class="boton principal" href="../clima/">Abrir la herramienta</a><a class="boton" href="clima/fuentes/">Leer todo</a></div>
+    <ul>
+<li class="hoja"><a href="clima/fuentes/#que-hace"><b>Qué hace esta parte</b><span class="res">De dónde salen los datos, qué tan confiables son y qué hacer si algo no carga.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/fuentes/#fuentes-de-datos"><b>Las tres fuentes</b><span class="res">El mapa usa teselas de OpenStreetMap (calles) y Esri (satélite).</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/fuentes/#modelo-vs-estacion"><b>Pronóstico de modelo y medición de estación</b><span class="res">Conviene tener clara la diferencia:</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/fuentes/#errores-y-reintentos"><b>Si algo no carga: errores 429 y reintentos</b><span class="res">Open-Meteo es un servicio gratuito que limita cuántas consultas acepta desde una misma conexión en un tiempo corto.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="clima/fuentes/#que-no-hace"><b>Lo que el Clima no es</b><span class="res">No es una alerta oficial: ante tormentas severas siga los avisos del IDEAM.</span><span class="ir">Ver descripción detallada →</span></a></li>
     </ul>
   </div>
 </li>

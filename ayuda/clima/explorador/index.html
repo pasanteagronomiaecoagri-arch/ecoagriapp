@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explorar variables — Clima — Ayuda</title>
+<meta name="description" content="Gráficas de 21 variables diarias (agua, temperatura, aire, sol y nubes) con el pasado y el pronóstico.">
+<link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
+<script>
+  try {
+    var temaGuardado = localStorage.getItem('ecoagriapp_tema');
+    if (temaGuardado === 'dark' || temaGuardado === 'light') document.documentElement.setAttribute('data-theme', temaGuardado);
+  } catch (error) { /* sin almacenamiento: sigue el tema del sistema */ }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/hub.css">
+<!-- Generado por ecoagri-core/generador. No editar a mano. -->
+</head>
+<body>
+<header class="barra"><div class="barra-fila">
+  <a class="barra-marca" href="../../../">Eco<span>Agri</span> · Herramientas</a>
+  <nav aria-label="Principal">
+    <a href="../../../">Herramientas</a>
+    <a href="../../../ayuda/" aria-current="page">Ayuda</a>
+    <a href="../../../versiones/">Versiones</a>
+    <a href="../../../calendario/" data-solo-sesion hidden>Mi calendario</a>
+  </nav>
+  <span class="barra-sesion" id="barra-sesion-portal"></span>
+  <button type="button" class="barra-tema-boton" id="barra-tema-boton" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema"><span class="barra-tema-icono" aria-hidden="true"></span></button>
+</div></header>
+<div class="sp-modal" id="sp-modal" hidden>
+  <div class="sp-caja" role="dialog" aria-labelledby="sp-titulo">
+    <p class="sp-rotulo">Acceso</p>
+    <h2 id="sp-titulo">Iniciar sesión</h2>
+    <form id="sp-form" autocomplete="on">
+      <label>Usuario<input type="text" id="sp-usuario" name="username" autocomplete="username" autocapitalize="none" spellcheck="false"></label>
+      <label>Contraseña<input type="password" id="sp-clave" name="password" autocomplete="current-password"></label>
+      <label class="sp-chk"><input type="checkbox" id="sp-recordar"><span>Mantener sesión iniciada en este dispositivo (30 días)</span></label>
+      <label class="sp-chk" id="sp-guardar-fila" hidden><input type="checkbox" id="sp-guardar"><span>Guardar la contraseña en este navegador</span></label>
+      <p class="sp-nota">Sin marcar «Mantener sesión», la sesión dura mientras no cierre la página (máximo 6 horas) y se comparte con EcoAgriApp, Gestión Normativa y Rendimientos. La contraseña solo la puede guardar su navegador; esta página no la conserva.</p>
+      <p class="sp-error" id="sp-error" role="alert" hidden></p>
+      <div class="sp-acciones"><button type="button" class="boton" id="sp-cancelar">Cancelar</button><button type="submit" class="boton principal" id="sp-enviar">Iniciar sesión</button></div>
+    </form>
+  </div>
+</div>
+<div class="sp-modal" id="sp-cuenta" hidden>
+  <div class="sp-caja" role="dialog" aria-labelledby="spc-nombre">
+    <p class="sp-rotulo">Mi cuenta</p>
+    <h2 id="spc-nombre"></h2>
+    <p class="sp-dato"><span class="sp-pastilla" id="spc-rol"></span></p>
+    <p class="sp-dato" id="spc-sesion"></p>
+    <p class="sp-nota">La sesión se comparte con EcoAgriApp, Gestión Normativa y Rendimientos: al cerrarla aquí se cierra en todas.</p>
+    <div class="sp-acciones">
+      <button type="button" class="boton" id="spc-cerrar">Cerrar</button>
+      <a class="boton" id="spc-calendario" href="#">Mi calendario</a>
+      <a class="boton" id="spc-admin" href="#" hidden>Configuración de administrador</a>
+      <button type="button" class="boton principal" id="spc-salir">Cerrar sesión</button>
+    </div>
+  </div>
+</div>
+<main class="lienzo">
+<p class="migas"><a href="../../">Ayuda</a> › <a href="../">Clima</a> › Explorar variables</p>
+<div class="encabezado"><p class="rotulo">Clima</p><h1>Explorar variables</h1><p>Gráficas de 21 variables diarias (agua, temperatura, aire, sol y nubes) con el pasado y el pronóstico.</p></div>
+<div class="acciones" style="margin-top:16px"><a class="boton principal" href="../../../clima/">Abrir la herramienta</a><a class="boton" href="../../#clima/explorador">Ver en el árbol</a></div>
+<nav class="indice" aria-label="En esta página"><p class="rotulo">En esta página</p><ol><li><a href="#que-hace">Qué hace esta parte</a></li><li><a href="#elegir-variable-y-periodo">Elegir variable y periodo</a></li><li><a href="#variables-disponibles">Qué variables hay</a></li><li><a href="#et0-y-balance-hidrico">ET0 y balance hídrico</a></li><li><a href="#indice-de-gaussen">Índice de Gaussen</a></li><li><a href="#limites-del-explorador">Límites</a></li></ol></nav>
+<section class="seccion" id="que-hace"><h2><a href="#que-hace">Qué hace esta parte</a></h2><div class="cuerpo"><p>El bloque <b>Explorar otras variables</b> permite ver cómo ha evolucionado y cómo se pronostica cualquiera de <b>21 variables diarias</b>, en una gráfica y con un resumen numérico. Se elige la variable en la lista (agrupadas por Agua, Temperatura, Aire y Sol y nubes) y el periodo.</p></div></section>
+<section class="seccion" id="elegir-variable-y-periodo"><h2><a href="#elegir-variable-y-periodo">Elegir variable y periodo</a></h2><div class="cuerpo"><p>El periodo puede ser de <b>14, 30 o 60 días</b> hacia atrás, siempre más los días de pronóstico. La línea de «hoy» separa el pasado (análisis del modelo, barras o línea sólidas) del pronóstico (más claro). Bajo la gráfica hay un resumen: valor de hoy, promedio, mínimo y máximo del pasado, y —en las variables que se suman, como lluvia, horas de lluvia, ET0 y balance hídrico— la suma del pasado y la suma pronosticada. La última variable elegida se recuerda en ese navegador.</p></div></section>
+<section class="seccion" id="variables-disponibles"><h2><a href="#variables-disponibles">Qué variables hay</a></h2><div class="cuerpo"><ul>
+    <li><b>Agua</b> — lluvia diaria, lluvia acumulada de 7 días, horas con lluvia, probabilidad de lluvia (solo pronóstico), evapotranspiración de referencia (ET0), balance hídrico e índice de Gaussen.</li>
+    <li><b>Temperatura</b> — máxima, mínima, media y punto de rocío.</li>
+    <li><b>Aire</b> — humedad relativa media, déficit de presión de vapor, viento máximo y ráfaga máxima.</li>
+    <li><b>Sol y nubes</b> — brillo solar, duración del día, fracción de sol, radiación solar, nubosidad e índice UV.</li>
+  </ul>
+  <p>Cada variable trae una breve descripción sobre la gráfica; las que más se prestan a confusión se explican abajo.</p></div></section>
+<section class="seccion" id="et0-y-balance-hidrico"><h2><a href="#et0-y-balance-hidrico">ET0 y balance hídrico</a></h2><div class="cuerpo"><p>La <b>ET0</b> es el agua que perdería un cultivo de referencia bien regado, calculada con el método FAO-56 Penman-Monteith. Multiplicada por el coeficiente del cultivo (Kc) da una idea del uso real de agua.</p>
+  <p>El <b>balance hídrico diario</b> es simplemente <b>lluvia − ET0</b>: positivo, la lluvia supera lo que el cultivo de referencia consume; negativo, hay déficit y puede hacer falta riego. Es un cálculo simple, sin suelo ni escorrentía.</p></div></section>
+<section class="seccion" id="indice-de-gaussen"><h2><a href="#indice-de-gaussen">Índice de Gaussen</a></h2><div class="cuerpo"><p>Según el criterio de Bagnouls–Gaussen, un periodo es <b>seco</b> cuando la lluvia (mm) es menor o igual al doble de la temperatura media (°C), es decir P ≤ 2T. Aquí se calcula con los 30 días anteriores a cada fecha: índice = P ÷ (2T). Menor a 1, periodo seco; mayor a 1, húmedo. La gráfica dibuja la línea de referencia en 1 y el resumen dice cuál es la situación de hoy.</p></div></section>
+<section class="seccion" id="limites-del-explorador"><h2><a href="#limites-del-explorador">Límites</a></h2><div class="cuerpo"><p>Todo lo «pasado» del explorador es el análisis del modelo en una cuadrícula de unos 11 km, no una medición en el lote. Es muy bueno para ver tendencias, comparar semanas y estimar demanda de agua, pero para la lluvia exacta de un día en una ladera manda la estación o el pluviómetro.</p></div></section>
+<div class="navegar"><a class="boton" href="../../clima/estaciones/">← Estaciones IDEAM</a><a class="boton" href="../../clima/fuentes/">Fuentes y límites →</a></div>
+  <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>
+</main>
+<script src="../../../assets/tema.js"></script>
+<script src="../../../assets/sesion-portal.js"></script>
+</body>
+</html>

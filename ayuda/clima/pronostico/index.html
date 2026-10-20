@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ahora y pronóstico — Clima — Ayuda</title>
+<meta name="description" content="El clima de este momento, los próximos 7 días con detalle por hora, los últimos 14 días y la comparación de modelos.">
+<link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
+<script>
+  try {
+    var temaGuardado = localStorage.getItem('ecoagriapp_tema');
+    if (temaGuardado === 'dark' || temaGuardado === 'light') document.documentElement.setAttribute('data-theme', temaGuardado);
+  } catch (error) { /* sin almacenamiento: sigue el tema del sistema */ }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/hub.css">
+<!-- Generado por ecoagri-core/generador. No editar a mano. -->
+</head>
+<body>
+<header class="barra"><div class="barra-fila">
+  <a class="barra-marca" href="../../../">Eco<span>Agri</span> · Herramientas</a>
+  <nav aria-label="Principal">
+    <a href="../../../">Herramientas</a>
+    <a href="../../../ayuda/" aria-current="page">Ayuda</a>
+    <a href="../../../versiones/">Versiones</a>
+    <a href="../../../calendario/" data-solo-sesion hidden>Mi calendario</a>
+  </nav>
+  <span class="barra-sesion" id="barra-sesion-portal"></span>
+  <button type="button" class="barra-tema-boton" id="barra-tema-boton" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema"><span class="barra-tema-icono" aria-hidden="true"></span></button>
+</div></header>
+<div class="sp-modal" id="sp-modal" hidden>
+  <div class="sp-caja" role="dialog" aria-labelledby="sp-titulo">
+    <p class="sp-rotulo">Acceso</p>
+    <h2 id="sp-titulo">Iniciar sesión</h2>
+    <form id="sp-form" autocomplete="on">
+      <label>Usuario<input type="text" id="sp-usuario" name="username" autocomplete="username" autocapitalize="none" spellcheck="false"></label>
+      <label>Contraseña<input type="password" id="sp-clave" name="password" autocomplete="current-password"></label>
+      <label class="sp-chk"><input type="checkbox" id="sp-recordar"><span>Mantener sesión iniciada en este dispositivo (30 días)</span></label>
+      <label class="sp-chk" id="sp-guardar-fila" hidden><input type="checkbox" id="sp-guardar"><span>Guardar la contraseña en este navegador</span></label>
+      <p class="sp-nota">Sin marcar «Mantener sesión», la sesión dura mientras no cierre la página (máximo 6 horas) y se comparte con EcoAgriApp, Gestión Normativa y Rendimientos. La contraseña solo la puede guardar su navegador; esta página no la conserva.</p>
+      <p class="sp-error" id="sp-error" role="alert" hidden></p>
+      <div class="sp-acciones"><button type="button" class="boton" id="sp-cancelar">Cancelar</button><button type="submit" class="boton principal" id="sp-enviar">Iniciar sesión</button></div>
+    </form>
+  </div>
+</div>
+<div class="sp-modal" id="sp-cuenta" hidden>
+  <div class="sp-caja" role="dialog" aria-labelledby="spc-nombre">
+    <p class="sp-rotulo">Mi cuenta</p>
+    <h2 id="spc-nombre"></h2>
+    <p class="sp-dato"><span class="sp-pastilla" id="spc-rol"></span></p>
+    <p class="sp-dato" id="spc-sesion"></p>
+    <p class="sp-nota">La sesión se comparte con EcoAgriApp, Gestión Normativa y Rendimientos: al cerrarla aquí se cierra en todas.</p>
+    <div class="sp-acciones">
+      <button type="button" class="boton" id="spc-cerrar">Cerrar</button>
+      <a class="boton" id="spc-calendario" href="#">Mi calendario</a>
+      <a class="boton" id="spc-admin" href="#" hidden>Configuración de administrador</a>
+      <button type="button" class="boton principal" id="spc-salir">Cerrar sesión</button>
+    </div>
+  </div>
+</div>
+<main class="lienzo">
+<p class="migas"><a href="../../">Ayuda</a> › <a href="../">Clima</a> › Ahora y pronóstico</p>
+<div class="encabezado"><p class="rotulo">Clima</p><h1>Ahora y pronóstico</h1><p>El clima de este momento, los próximos 7 días con detalle por hora, los últimos 14 días y la comparación de modelos.</p></div>
+<div class="acciones" style="margin-top:16px"><a class="boton principal" href="../../../clima/">Abrir la herramienta</a><a class="boton" href="../../#clima/pronostico">Ver en el árbol</a></div>
+<nav class="indice" aria-label="En esta página"><p class="rotulo">En esta página</p><ol><li><a href="#que-hace">Qué hace esta parte</a></li><li><a href="#ahora">Ahora</a></li><li><a href="#pronostico-de-7-dias">Pronóstico de 7 días</a></li><li><a href="#hora-por-hora">Detalle hora por hora</a></li><li><a href="#ayer">Ayer: ¿qué tan bueno fue el pronóstico?</a></li><li><a href="#ultimos-14-dias">Últimos 14 días y próximos 7</a></li><li><a href="#comparacion-de-modelos">Comparación de modelos</a></li></ol></nav>
+<section class="seccion" id="que-hace"><h2><a href="#que-hace">Qué hace esta parte</a></h2><div class="cuerpo"><p>Tres bloques responden a «¿qué tiempo hace y cómo viene?»: <b>Ahora</b>, el <b>Pronóstico de 7 días</b> (con detalle por hora al abrir cada día) y <b>Últimos 14 días y próximos 7</b>. Debajo, la <b>comparación de modelos</b> muestra cuánta confianza darle a la lluvia prevista. Todo viene de Open-Meteo, que es un <b>modelo</b> meteorológico, no una estación.</p></div></section>
+<section class="seccion" id="ahora"><h2><a href="#ahora">Ahora</a></h2><div class="cuerpo"><p>La tarjeta superior muestra la temperatura y la condición actual (despejado, nublado, lluvia, tormenta…), la sensación térmica y estos indicadores:</p>
+  <ul>
+    <li><b>Humedad relativa</b> y <b>nubosidad</b>, en %.</li>
+    <li><b>Lluvia (última hora)</b>, en mm.</li>
+    <li><b>Viento</b> y <b>ráfagas</b>, en km/h.</li>
+    <li><b>Déficit de vapor</b> (DPV), en kPa: qué tan «sediento» está el aire. Muy bajo favorece enfermedades; alto, estrés hídrico.</li>
+    <li><b>Humedad del suelo (0–1 cm)</b>, en %: solo la capa superficial, que se moja y se seca rápido; no es la humedad en la zona de raíces.</li>
+  </ul>
+  <p>Bajo el título aparecen la altitud del modelo en ese punto y la hora de la última actualización. Si la altitud del modelo difiere mucho de la real, la temperatura puede estar desplazada (aproximadamente 0,65 °C por cada 100 m).</p></div></section>
+<section class="seccion" id="pronostico-de-7-dias"><h2><a href="#pronostico-de-7-dias">Pronóstico de 7 días</a></h2><div class="cuerpo"><p>Una tarjeta por día —<b>ayer</b>, <b>hoy</b> y los seis siguientes— con el icono del tiempo, la temperatura máxima y mínima, la lluvia prevista en mm y la probabilidad máxima de lluvia del día, y la <b>ET0</b> (evapotranspiración de referencia, en mm: el agua que perdería un cultivo de referencia bien regado).</p>
+  <p>Las tarjetas se tocan: abren el detalle de ese día; un segundo toque, o el botón <b>Cerrar</b>, lo cierra.</p></div></section>
+<section class="seccion" id="hora-por-hora"><h2><a href="#hora-por-hora">Detalle hora por hora</a></h2><div class="cuerpo"><p>Al abrir un día se ven dos gráficas (temperatura y lluvia por hora) y una tabla de 24 filas con el tiempo, la temperatura, la humedad relativa, la lluvia, la probabilidad de lluvia, el viento y la nubosidad. Las horas que ya pasaron salen en gris y son el <b>análisis</b> del modelo; las siguientes son pronóstico. La fila de la hora actual queda marcada.</p>
+  <p>Es la vista para decidir <b>cuándo</b>: a qué hora empieza a lloviznar, cuándo baja el viento, cuándo se seca el follaje.</p></div></section>
+<section class="seccion" id="ayer"><h2><a href="#ayer">Ayer: ¿qué tan bueno fue el pronóstico?</a></h2><div class="cuerpo"><p>La tarjeta «ayer» no muestra el futuro sino una <b>prueba de confianza</b>: compara lo que el modelo anunciaba un día antes (<b>Pronóstico</b>), lo que el modelo estima después, ya con datos (<b>Analizado</b>) y, si hay lecturas disponibles, lo que midió la estación IDEAM más cercana (<b>Observado</b>). La tabla da el error de temperatura máxima, mínima y media, humedad media, lluvia total y horas con lluvia, más el error medio horario de la temperatura.</p>
+  <p>Si no hay lecturas de IDEAM de ayer, la comparación se hace solo contra el análisis del modelo, y la página lo aclara («no es una medición»). Úsela para calibrar cuánto creerle al pronóstico en esa finca.</p>
+  <p><b>Ojo:</b> si el servicio de pronósticos anteriores no responde, esta tarjeta avisa «No se pudo consultar el pronóstico de ayer» y el resto de la página sigue funcionando.</p></div></section>
+<section class="seccion" id="ultimos-14-dias"><h2><a href="#ultimos-14-dias">Últimos 14 días y próximos 7</a></h2><div class="cuerpo"><p>Dos gráficas de un vistazo: la <b>lluvia diaria</b> (barras sólidas para lo ya ocurrido, más claras para el pronóstico) y la <b>temperatura máxima y mínima</b>. Debajo, dos totales: la lluvia acumulada de los últimos 14 días hasta hoy y la prevista para los próximos 7.</p>
+  <p>Para los días pasados, el dato es el <b>análisis del modelo</b>, no un pluviómetro. Para ver más variables o periodos de hasta 60 días, use <i>Explorar variables</i>.</p></div></section>
+<section class="seccion" id="comparacion-de-modelos"><h2><a href="#comparacion-de-modelos">Comparación de modelos</a></h2><div class="cuerpo"><p>Una tabla con la lluvia prevista día a día según tres modelos independientes: <b>ECMWF</b> (europeo), <b>GFS</b> (estadounidense) e <b>ICON</b> (alemán). Si los tres dicen más o menos lo mismo, la previsión es firme; si discrepan, la incertidumbre es alta y conviene leer la lluvia como un <b>rango</b>, no como un valor exacto.</p></div></section>
+<div class="navegar"><a class="boton" href="../../clima/punto/">← Elegir el punto</a><a class="boton" href="../../clima/sanidad/">Sanidad vegetal →</a></div>
+  <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>
+</main>
+<script src="../../../assets/tema.js"></script>
+<script src="../../../assets/sesion-portal.js"></script>
+</body>
+</html>

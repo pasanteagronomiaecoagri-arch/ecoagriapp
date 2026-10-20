@@ -104,6 +104,8 @@
 .cargando-bloque::before { content: ''; width: 14px; height: 14px; border: 2px solid var(--linea-fuerte); border-top-color: var(--verde); border-radius: 50%; animation: giro .8s linear infinite; }
 @keyframes giro { to { transform: rotate(360deg); } }
 .pie-clima { font-size: 12px; color: var(--tinta-3); max-width: 90ch; margin: 18px 0 0; }
+.pie-clima .version-clima { font-family: 'IBM Plex Mono', monospace; font-weight: 500; color: var(--texto-verde); }
+.enlaces-clima { margin: 12px 0 0; }
 
 @media (max-width: 860px) {
   .selector { grid-template-columns: 1fr; }
