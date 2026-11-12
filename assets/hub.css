@@ -44,6 +44,7 @@ code { font-family: 'IBM Plex Mono', monospace; font-size: .92em; background: va
 .buscar { flex: 1 1 260px; min-height: 40px; padding: 8px 12px; font: inherit; font-size: 14px; color: var(--tinta); background: var(--superficie); border: 1px solid var(--linea-fuerte); border-radius: var(--r); }
 .buscar:focus-visible, .nodo-btn:focus-visible, .boton:focus-visible, a:focus-visible { outline: 2px solid var(--verde); outline-offset: 2px; }
 .boton { min-height: 40px; padding: 8px 14px; font: inherit; font-size: 13px; color: var(--tinta); background: var(--superficie); border: 1px solid var(--linea-fuerte); border-radius: var(--r); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; }
+a.boton { display: inline-flex; align-items: center; text-decoration: none; }
 .boton:hover { border-color: var(--verde); color: var(--texto-verde); }
 .boton.principal { background: var(--verde); border-color: var(--verde); color: var(--sobre-acento); }
 .boton.principal:hover { background: var(--verde-2); border-color: var(--verde-2); color: var(--sobre-acento); }

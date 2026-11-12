@@ -74,6 +74,7 @@
   <input class="buscar" id="buscar" type="search" placeholder="Buscar una función (p. ej. semáforo, renovación, camas, pronóstico)…" aria-label="Buscar en la ayuda" autocomplete="off">
   <button type="button" class="boton" id="expandir">Expandir todo</button>
   <button type="button" class="boton" id="contraer">Contraer todo</button>
+  <a class="boton" href="../clima/">Abrir Clima</a>
 </div>
 <p class="conteo" id="conteo" role="status" aria-live="polite"></p>
 <div id="vista-mapa">
@@ -233,11 +234,11 @@
   </div>
 </li>
 <li class="mapa-item mapa-herr">
-  <button type="button" class="mapa-caja herr" data-ruta="rendimientos/visualizador" aria-expanded="false" aria-controls="m-rendimientos-visualizador"><span>Visualizador de rendimientos</span><span class="n">7</span></button>
+  <button type="button" class="mapa-caja herr" data-ruta="rendimientos/visualizador" aria-expanded="false" aria-controls="m-rendimientos-visualizador"><span>Visualizador de rendimientos</span><span class="n">11</span></button>
   <div class="mapa-detalle" id="m-rendimientos-visualizador" hidden>
     <p class="mapa-res">Gráficas y rankings de horas, tallos y operarios.</p>
     <div class="mapa-acc"><a href="../rendimientos/">Abrir ↗</a><a href="rendimientos/visualizador/">Leer todo</a></div>
-    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#que-hace" title="Gráficas y rankings de horas, tallos y operarios.">Qué hace el visualizador</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#actualizar-datos" title="Bajo el título, una línea indica de cuándo son los datos que se están viendo (por ejemplo «Datos de las 2:36 p.">Actualizar datos</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#resumen-general" title="Al abrir el visualizador se ven cuatro indicadores — días registrados , operarios activos , fincas con labores y horas de trabajo registradas — y dos gráficas fijas:…">Resumen general</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#explorador-interactivo" title="Se elige el período con &quot;Desde&quot; y &quot;Hasta&quot;, o con los atajos de últimos 30, 60 o 90 días y todo el período, y se puede limpiar con &quot;Limpiar fechas&quot;.">Explorador interactivo</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#cosecha-en-tallos" title="Una sección aparte para la cosecha, con sus propios filtros: finca, cultivo, lote, operario y calidad (con &quot;Limpiar filtros de cosecha&quot;).">Cosecha en tallos</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#ranking-de-operarios" title="Ordena a los operarios por tallos cosechados, con el desglose por calidad.">Ranking de operarios</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#mapa-de-lotes" title="La selección de lotes se ve dividida : a la izquierda la lista con casillas y a la derecha el mapa de la finca.">Elegir lotes en el mapa</a></li></ul>
+    <ul class="mapa-hojas"><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#secciones" title="Bajo el título hay tres pestañas. Análisis es todo lo de siempre (resumen, explorador, cosecha y ranking).">Tres secciones: Análisis, Mapa y Calendario</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#que-hace" title="Gráficas y rankings de horas, tallos y operarios.">Qué hace el visualizador</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#actualizar-datos" title="Bajo el título, una línea indica de cuándo son los datos que se están viendo (por ejemplo «Datos de las 2:36 p.">Actualizar datos</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#como-se-cuentan-las-horas" title="Cuando un bloque de trabajo se registra por varias calidades, lotes o tramos de camas, el registro lo guarda en varias filas.">Cómo se cuentan las horas</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#resumen-general" title="Al abrir el visualizador se ven cuatro indicadores — días registrados , operarios activos , fincas con labores y horas de trabajo registradas — y dos gráficas fijas:…">Resumen general</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#explorador-interactivo" title="Se elige el período con &quot;Desde&quot; y &quot;Hasta&quot;, o con los atajos de últimos 30, 60 o 90 días y todo el período, y se puede limpiar con &quot;Limpiar fechas&quot;.">Explorador interactivo</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#cosecha-en-tallos" title="Una sección aparte para la cosecha, con sus propios filtros: finca, cultivo, lote, operario y calidad (con &quot;Limpiar filtros de cosecha&quot;).">Cosecha en tallos</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#ranking-de-operarios" title="Ordena a los operarios por tallos cosechados, con el desglose por calidad.">Ranking de operarios</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#mapa-de-rendimientos" title="La pestaña Mapa pinta cada lote del mapa de la finca con una escala de cinco tonos de verde según lo que se elija en «Colorear por»: horas , tallos o tallos por hora .">Mapa de rendimientos</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#calendario" title="La pestaña Calendario muestra un mes a la vez (empieza en lunes).">Calendario</a></li><li class="mapa-item"><a class="mapa-caja hoja" href="rendimientos/visualizador/#mapa-de-lotes" title="La selección de lotes se ve dividida : a la izquierda la lista con casillas y a la derecha el mapa de la finca.">Elegir lotes en el mapa</a></li></ul>
   </div>
 </li>
 <li class="mapa-item mapa-herr">
@@ -616,7 +617,7 @@
   <button type="button" class="nodo-btn" id="n-rendimientos" data-ruta="rendimientos" aria-expanded="false" aria-controls="c-rendimientos">
     <span class="punto" aria-hidden="true"></span>
     <span class="textos"><span class="tit">Rendimientos</span><span class="res">Labores de campo: registro diario por operario y análisis de horas y cosecha.</span></span>
-    <span class="num">3 herramientas · 20 funciones</span><span class="chev" aria-hidden="true"></span>
+    <span class="num">3 herramientas · 24 funciones</span><span class="chev" aria-hidden="true"></span>
   </button>
   <div class="nodo-cuerpo" id="c-rendimientos" hidden>
     <div class="acciones"><a class="boton principal" href="../rendimientos/">Abrir Rendimientos</a><a class="boton" href="rendimientos/">Qué es y cómo se organiza</a></div>
@@ -628,7 +629,7 @@
   </button>
   <div class="nodo-cuerpo" id="c-rendimientos-formulario" hidden>
     <p class="rotulo">En esta herramienta puede</p>
-    <ul class="puedes"><li>Agregar bloques de trabajo con horario, actividad, ubicación y cantidad.</li><li>Guardar el día completo iniciando sesión; queda anotado quién lo guardó.</li></ul>
+    <ul class="puedes"><li>Agregar bloques de trabajo con horario, actividad, ubicación y cantidad.</li><li>Elegir la finca o los lotes tocando el mapa (opcional, apagado por omisión).</li><li>Guardar el día completo iniciando sesión; queda anotado quién lo guardó.</li></ul>
     <div class="acciones"><a class="boton principal" href="../rendimientos/">Abrir la herramienta</a><a class="boton" href="rendimientos/formulario/">Leer todo</a></div>
     <ul>
 <li class="hoja"><a href="rendimientos/formulario/#que-hace"><b>Qué hace el formulario</b><span class="res">El formulario para registrar lo que hizo un operario en un día.</span><span class="ir">Ver descripción detallada →</span></a></li>
@@ -645,19 +646,23 @@
 </li><li class="nodo herr">
   <button type="button" class="nodo-btn" id="n-rendimientos-visualizador" data-ruta="rendimientos/visualizador" aria-expanded="false" aria-controls="c-rendimientos-visualizador">
     <span class="textos"><span class="tit">Visualizador de rendimientos</span><span class="res">Gráficas y rankings de horas, tallos y operarios.</span></span>
-    <span class="num">7 funciones</span><span class="chev" aria-hidden="true"></span>
+    <span class="num">11 funciones</span><span class="chev" aria-hidden="true"></span>
   </button>
   <div class="nodo-cuerpo" id="c-rendimientos-visualizador" hidden>
     <p class="rotulo">En esta herramienta puede</p>
-    <ul class="puedes"><li>Ver los indicadores generales y las gráficas fijas.</li><li>Filtrar por fechas, finca, lote, operario, cultivo o calidad.</li><li>Ver el ranking de operarios.</li><li>Elegir lotes desde el checklist o desde el mapa de la finca (vista dividida, colores por cultivo).</li></ul>
+    <ul class="puedes"><li>Ver los indicadores generales y las gráficas fijas.</li><li>Filtrar por fechas, finca, lote, operario, cultivo o calidad.</li><li>Ver el ranking de operarios.</li><li>Elegir lotes desde el checklist o desde el mapa de la finca (vista dividida, colores por cultivo).</li><li>Ver el mapa de rendimientos: cada lote coloreado por horas, tallos o tallos por hora, con su detalle.</li><li>Ver en un calendario qué días tienen registros y abrir el detalle de cada día y de cada actividad.</li></ul>
     <div class="acciones"><a class="boton principal" href="../rendimientos/">Abrir la herramienta</a><a class="boton" href="rendimientos/visualizador/">Leer todo</a></div>
     <ul>
+<li class="hoja"><a href="rendimientos/visualizador/#secciones"><b>Tres secciones: Análisis, Mapa y Calendario</b><span class="res">Bajo el título hay tres pestañas. Análisis es todo lo de siempre (resumen, explorador, cosecha y ranking).</span><span class="ir">Ver descripción detallada →</span></a></li>
 <li class="hoja"><a href="rendimientos/visualizador/#que-hace"><b>Qué hace el visualizador</b><span class="res">Gráficas y rankings de horas, tallos y operarios.</span><span class="ir">Ver descripción detallada →</span></a></li>
 <li class="hoja"><a href="rendimientos/visualizador/#actualizar-datos"><b>Actualizar datos</b><span class="res">Bajo el título, una línea indica de cuándo son los datos que se están viendo (por ejemplo «Datos de las 2:36 p.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/visualizador/#como-se-cuentan-las-horas"><b>Cómo se cuentan las horas</b><span class="res">Cuando un bloque de trabajo se registra por varias calidades, lotes o tramos de camas, el registro lo guarda en varias filas.</span><span class="ir">Ver descripción detallada →</span></a></li>
 <li class="hoja"><a href="rendimientos/visualizador/#resumen-general"><b>Resumen general</b><span class="res">Al abrir el visualizador se ven cuatro indicadores — días registrados , operarios activos , fincas con labores y horas de trabajo registradas — y dos gráficas fijas:…</span><span class="ir">Ver descripción detallada →</span></a></li>
 <li class="hoja"><a href="rendimientos/visualizador/#explorador-interactivo"><b>Explorador interactivo</b><span class="res">Se elige el período con &quot;Desde&quot; y &quot;Hasta&quot;, o con los atajos de últimos 30, 60 o 90 días y todo el período, y se puede limpiar con &quot;Limpiar fechas&quot;.</span><span class="ir">Ver descripción detallada →</span></a></li>
 <li class="hoja"><a href="rendimientos/visualizador/#cosecha-en-tallos"><b>Cosecha en tallos</b><span class="res">Una sección aparte para la cosecha, con sus propios filtros: finca, cultivo, lote, operario y calidad (con &quot;Limpiar filtros de cosecha&quot;).</span><span class="ir">Ver descripción detallada →</span></a></li>
 <li class="hoja"><a href="rendimientos/visualizador/#ranking-de-operarios"><b>Ranking de operarios</b><span class="res">Ordena a los operarios por tallos cosechados, con el desglose por calidad.</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/visualizador/#mapa-de-rendimientos"><b>Mapa de rendimientos</b><span class="res">La pestaña Mapa pinta cada lote del mapa de la finca con una escala de cinco tonos de verde según lo que se elija en «Colorear por»: horas , tallos o tallos por hora .</span><span class="ir">Ver descripción detallada →</span></a></li>
+<li class="hoja"><a href="rendimientos/visualizador/#calendario"><b>Calendario</b><span class="res">La pestaña Calendario muestra un mes a la vez (empieza en lunes).</span><span class="ir">Ver descripción detallada →</span></a></li>
 <li class="hoja"><a href="rendimientos/visualizador/#mapa-de-lotes"><b>Elegir lotes en el mapa</b><span class="res">La selección de lotes se ve dividida : a la izquierda la lista con casillas y a la derecha el mapa de la finca.</span><span class="ir">Ver descripción detallada →</span></a></li>
     </ul>
   </div>
