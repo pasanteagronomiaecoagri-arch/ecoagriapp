@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monitoreo — EcoAgriApp — Ayuda</title>
+<meta name="description" content="Crear en Drive el libro de monitoreo del mes (4 hojas, una por semana), con las camas de cada semana y la muestra M3.">
+<link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
+<script>
+  try {
+    var temaGuardado = localStorage.getItem('ecoagriapp_tema');
+    if (temaGuardado === 'dark' || temaGuardado === 'light') document.documentElement.setAttribute('data-theme', temaGuardado);
+  } catch (error) { /* sin almacenamiento: sigue el tema del sistema */ }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../assets/hub.css">
+<!-- Generado por ecoagri-core/generador. No editar a mano. -->
+</head>
+<body>
+<header class="barra"><div class="barra-fila">
+  <a class="barra-marca" href="../../../">Eco<span>Agri</span> · Herramientas</a>
+  <nav aria-label="Principal">
+    <a href="../../../">Herramientas</a>
+    <a href="../../../ayuda/" aria-current="page">Ayuda</a>
+    <a href="../../../versiones/">Versiones</a>
+    <a href="../../../calendario/" data-solo-sesion hidden>Mi calendario</a>
+  </nav>
+  <span class="barra-sesion" id="barra-sesion-portal"></span>
+  <button type="button" class="barra-tema-boton" id="barra-tema-boton" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema"><span class="barra-tema-icono" aria-hidden="true"></span></button>
+</div></header>
+<div class="sp-modal" id="sp-modal" hidden>
+  <div class="sp-caja" role="dialog" aria-labelledby="sp-titulo">
+    <p class="sp-rotulo">Acceso</p>
+    <h2 id="sp-titulo">Iniciar sesión</h2>
+    <form id="sp-form" autocomplete="on">
+      <label>Usuario<input type="text" id="sp-usuario" name="username" autocomplete="username" autocapitalize="none" spellcheck="false"></label>
+      <label>Contraseña<input type="password" id="sp-clave" name="password" autocomplete="current-password"></label>
+      <label class="sp-chk"><input type="checkbox" id="sp-recordar"><span>Mantener sesión iniciada en este dispositivo (30 días)</span></label>
+      <label class="sp-chk" id="sp-guardar-fila" hidden><input type="checkbox" id="sp-guardar"><span>Guardar la contraseña en este navegador</span></label>
+      <p class="sp-nota">Sin marcar «Mantener sesión», la sesión dura mientras no cierre la página (máximo 6 horas) y se comparte con EcoAgriApp, Gestión Normativa y Rendimientos. La contraseña solo la puede guardar su navegador; esta página no la conserva.</p>
+      <p class="sp-error" id="sp-error" role="alert" hidden></p>
+      <div class="sp-acciones"><button type="button" class="boton" id="sp-cancelar">Cancelar</button><button type="submit" class="boton principal" id="sp-enviar">Iniciar sesión</button></div>
+    </form>
+  </div>
+</div>
+<div class="sp-modal" id="sp-cuenta" hidden>
+  <div class="sp-caja" role="dialog" aria-labelledby="spc-nombre">
+    <p class="sp-rotulo">Mi cuenta</p>
+    <h2 id="spc-nombre"></h2>
+    <p class="sp-dato"><span class="sp-pastilla" id="spc-rol"></span></p>
+    <p class="sp-dato" id="spc-sesion"></p>
+    <p class="sp-nota">La sesión se comparte con EcoAgriApp, Gestión Normativa y Rendimientos: al cerrarla aquí se cierra en todas.</p>
+    <div class="sp-acciones">
+      <button type="button" class="boton" id="spc-cerrar">Cerrar</button>
+      <a class="boton" id="spc-calendario" href="#">Mi calendario</a>
+      <a class="boton" id="spc-admin" href="#" hidden>Configuración de administrador</a>
+      <button type="button" class="boton principal" id="spc-salir">Cerrar sesión</button>
+    </div>
+  </div>
+</div>
+<main class="lienzo">
+<p class="migas"><a href="../../">Ayuda</a> › <a href="../">EcoAgriApp</a> › Monitoreo</p>
+<div class="encabezado"><p class="rotulo">EcoAgriApp</p><h1>Monitoreo</h1><p>Crear en Drive el libro de monitoreo del mes (4 hojas, una por semana), con las camas de cada semana y la muestra M3.</p></div>
+<div class="acciones" style="margin-top:16px"><a class="boton principal" href="../../../agriapp/monitoreo/">Abrir la herramienta</a><a class="boton" href="../../#agriapp/monitoreo">Ver en el árbol</a></div>
+<nav class="indice" aria-label="En esta página"><p class="rotulo">En esta página</p><ol><li><a href="#que-hace">Qué hace y cómo funciona</a></li><li><a href="#como-se-usa">Cómo se usa, paso a paso</a></li><li><a href="#donde-se-guarda">Dónde queda el documento</a></li><li><a href="#como-se-calculan-las-camas">Cómo se calculan las camas de cada semana</a></li><li><a href="#m1-m2-m3">Qué son M1, M2 y M3</a></li><li><a href="#formula-de-n">La fórmula de n (puntos de M3)</a></li><li><a href="#que-contiene-el-documento">Qué contiene el documento generado</a></li><li><a href="#limites">Límites por ahora</a></li></ol></nav>
+<section class="seccion" id="que-hace"><h2><a href="#que-hace">Qué hace y cómo funciona</a></h2><div class="cuerpo"><p>Crea en Google Drive el <b>libro de monitoreo del mes</b> de una finca y un cultivo: un documento de Google Sheets con <b>4 hojas, una por semana</b>, listo para digitar los datos de campo. Usted solo contesta cinco cosas (finca, cultivo, año, mes y cuántos puntos tendrá la muestra M3); los lotes, las camas de cada semana y los nombres de las plagas salen solos del catálogo de fincas y lotes. No hay que escribir fecha, responsable, plagas ni lotes.</p>
+  <p><b>Por ahora solo está habilitado Ruscus.</b> Los demás cultivos aparecen deshabilitados con la leyenda «Próximamente: falta configurar las columnas de plagas de este cultivo»: se habilitan cuando se defina qué plagas se cuentan en cada uno.</p></div></section>
+<section class="seccion" id="como-se-usa"><h2><a href="#como-se-usa">Cómo se usa, paso a paso</a></h2><div class="cuerpo"><ol>
+    <li><b>Finca.</b> Abra la lista y escriba para buscar; solo aparecen las fincas reales del catálogo. Hay que elegir una de la lista (escribir el nombre sin elegirla no basta).</li>
+    <li><b>Cultivo.</b> Se ofrece Ruscus; si la finca tiene un solo cultivo posible, queda elegido solo. Si la finca no tiene ese cultivo en el catálogo, se avisa.</li>
+    <li><b>Año y mes.</b> Vienen con el año y el mes actuales; cámbielos si el monitoreo es de otra fecha.</li>
+    <li><b>Puntos de M3.</b> «Automático (calculado)» (lo recomendado) o «Manual» con un deslizador entre 1 y el máximo de puntos. Más abajo se explica qué es M3 y cómo sale n.</li>
+    <li><b>Revise la vista previa.</b> Se actualiza sola cada vez que cambia algo: muestra los lotes encontrados con su rango de camas, una tarjeta por semana (S1 a S4) con las camas que se monitorearán, los puntos N y los puntos de M3, el nombre exacto del archivo, el nombre de las 4 hojas y la carpeta donde se guardará. Los avisos y errores salen en línea, con el campo resaltado; mientras haya un error, el botón «Generar documento» queda deshabilitado.</li>
+    <li><b>Generar documento.</b> Pide confirmación («Se creará el libro … con 4 hojas en Drive»), muestra «Generando… (puede tardar hasta un minuto)» y, al terminar, una tarjeta con el botón «Abrir en Google Sheets», «Copiar enlace» y «Generar otro».</li>
+  </ol>
+  <p>Si ya existe un libro con ese mismo nombre, no se crea otro: la herramienta avisa «Ya existe…» y ofrece «Abrir el existente».</p>
+  <p>Para generar el documento hay que <b>iniciar sesión</b> (nivel «usuario», el mismo inicio de sesión de las demás herramientas); la app lo pide sola cuando hace falta.</p></div></section>
+<section class="seccion" id="donde-se-guarda"><h2><a href="#donde-se-guarda">Dónde queda el documento</a></h2><div class="cuerpo"><p>En Drive, dentro de la carpeta <b>N_MONITOREOS</b>, en la subcarpeta de la finca (por ejemplo «N_MONITOREOS / (CA) Campo Alegre»). La vista previa lo dice antes de generar («Se guardará en: …») y la tarjeta de éxito lo repite («Guardado en …»). Si la subcarpeta de la finca todavía no existe, se crea al generar el primer libro.</p>
+  <p>El archivo se llama, por ejemplo, <span class="codigo">(CA) (RU) Monitoreo 2026-NOV</span>: finca, cultivo, año y mes. Sus hojas se llaman <span class="codigo">NOV S1</span>, <span class="codigo">NOV S2</span>, <span class="codigo">NOV S3</span> y <span class="codigo">NOV S4</span>.</p></div></section>
+<section class="seccion" id="como-se-calculan-las-camas"><h2><a href="#como-se-calculan-las-camas">Cómo se calculan las camas de cada semana</a></h2><div class="cuerpo"><p>El monitoreo es sistemático: en cada semana se visita una de cada cuatro camas, y cada semana empieza una cama más adelante. La <b>semana w</b> monitorea las camas <b>w + 4·x</b> que existan en cada lote (x = 0, 1, 2…). Con un lote de camas 1 a 27:</p>
+  <ul>
+    <li>Semana 1: 1, 5, 9… 25 (7 camas)</li>
+    <li>Semana 2: 2, 6, 10… 26 (7 camas)</li>
+    <li>Semana 3: 3, 7, 11… 27 (7 camas)</li>
+    <li>Semana 4: 4, 8, 12… 24 (6 camas)</li>
+  </ul>
+  <p>Cuando un lote no empieza en la cama 1 (por ejemplo, empieza en la 37), se cuenta desde su primera cama: la primera cama monitoreada es la primera del lote que sigue la regla de la semana. Las camas de cada lote y su numeración vienen del catálogo; la vista previa las muestra antes de generar.</p></div></section>
+<section class="seccion" id="m1-m2-m3"><h2><a href="#m1-m2-m3">Qué son M1, M2 y M3</a></h2><div class="cuerpo"><p>Cada cama monitoreada tiene <b>3 puntos</b> (A, B y C), así que N, los puntos de la semana, es 3 × el número de camas.</p>
+  <ul>
+    <li><b>M1 — muestreo sistemático.</b> Es el que se digita en campo: todos los puntos de las camas de la semana.</li>
+    <li><b>M2 — zigzag.</b> Toma <b>un solo punto por cama</b>, alternando la ubicación A, B, C, B, A, B, C, B… y reiniciando en cada lote. Se arma solo a partir de M1.</li>
+    <li><b>M3 — muestra aleatoria fija.</b> Elige <b>n</b> de los N puntos de M1 al azar, para comprobar si un muestreo más corto daría el mismo resultado. Se arma solo a partir de M1 y no cambia al editar el documento.</li>
+  </ul>
+  <p>Con M2 y M3 se compara la frecuencia de cada plaga contra la de M1 (resumen del mes en el libro).</p></div></section>
+<section class="seccion" id="formula-de-n"><h2><a href="#formula-de-n">La fórmula de n (puntos de M3)</a></h2><div class="cuerpo"><p>En modo automático, n sale de la fórmula de población finita:</p>
+  <p class="codigo">n = N·z²·p·q / (e²·(N−1) + z²·p·q)</p>
+  <ul>
+    <li><b>N</b>: puntos monitoreados en la semana (3 por cama).</li>
+    <li><b>z = 1,96</b>: confianza del 95 %.</li>
+    <li><b>e = 0,10</b>: error máximo aceptado, 10 %.</li>
+    <li><b>p = 0,5</b>: proporción esperada de puntos con plaga; 0,5 es el caso que más puntos pide y se usa cuando no se sabe cuánta plaga habrá.</li>
+    <li><b>q = 1 − p</b> = 0,5.</li>
+  </ul>
+  <p>El resultado se redondea hacia arriba. La herramienta muestra la fórmula con los números reales de su monitoreo. Ejemplo con N = 75: n = 75 × 3,8416 × 0,25 / (0,01 × 74 + 3,8416 × 0,25) = 72,03 / 1,7004 = 42,36, o sea <b>n = 43</b>. En palabras: de 75 puntos monitoreados se eligen 43 al azar para comprobar si un muestreo más corto da el mismo resultado.</p>
+  <p>En <b>modo manual</b> usted elige n con el deslizador (de 1 al máximo de puntos). Debajo se lee «n = X (Y % de los puntos)» y, si n es igual o mayor que N, se avisa que M3 tendría todos los puntos de M1 y ya no serviría para comparar con un muestreo más corto.</p></div></section>
+<section class="seccion" id="que-contiene-el-documento"><h2><a href="#que-contiene-el-documento">Qué contiene el documento generado</a></h2><div class="cuerpo"><p>Solo las <b>4 hojas de las semanas</b> (por ejemplo, NOV S1 a NOV S4); no lleva hoja de instrucciones. En cada una:</p>
+  <ul>
+    <li>M1 para digitar (lote, cama, ubicación, plantas y una columna por plaga), con las camas de esa semana ya escritas.</li>
+    <li>M2 y M3 armados automáticamente a partir de M1.</li>
+    <li>Resúmenes por método: puntos con la plaga, frecuencia % e incidencia %.</li>
+  </ul>
+  <p><b>Escala de colores.</b> Para las <b>plantas</b>, más es mejor: mucho = verde y poco = rojo. Para las <b>plagas</b> es al contrario: poca plaga = verde y mucha plaga = rojo.</p></div></section>
+<section class="seccion" id="limites"><h2><a href="#limites">Límites por ahora</a></h2><div class="cuerpo"><ul>
+    <li>Solo Ruscus está habilitado; los otros cultivos aparecen como «Próximamente».</li>
+    <li>No se sobrescribe un libro existente: si se necesita regenerar uno, hay que renombrarlo o moverlo antes.</li>
+  </ul></div></section>
+<div class="navegar"><a class="boton" href="../../agriapp/reportes/">← Reportes de asistencia técnica</a><span></span></div>
+  <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>
+</main>
+<script src="../../../assets/tema.js"></script>
+<script src="../../../assets/sesion-portal.js"></script>
+</body>
+</html>
