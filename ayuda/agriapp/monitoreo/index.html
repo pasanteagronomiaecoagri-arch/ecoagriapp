@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Monitoreo — EcoAgriApp — Ayuda</title>
-<meta name="description" content="Crear en Drive el libro de monitoreo del mes (4 hojas, una por semana), con las camas de cada semana y la muestra M3.">
+<meta name="description" content="Armar y descargar en Excel (.xlsx) el libro de monitoreo del mes (4 hojas, una por semana), con las camas de cada semana y la muestra M3.">
 <link rel="icon" type="image/png" href="https://economiaagricola.com/wp-content/uploads/2016/07/favicon16x16.png">
 <script>
   try {
@@ -62,23 +62,24 @@
 </div>
 <main class="lienzo">
 <p class="migas"><a href="../../">Ayuda</a> › <a href="../">EcoAgriApp</a> › Monitoreo</p>
-<div class="encabezado"><p class="rotulo">EcoAgriApp</p><h1>Monitoreo</h1><p>Crear en Drive el libro de monitoreo del mes (4 hojas, una por semana), con las camas de cada semana y la muestra M3.</p></div>
+<div class="encabezado"><p class="rotulo">EcoAgriApp</p><h1>Monitoreo</h1><p>Armar y descargar en Excel (.xlsx) el libro de monitoreo del mes (4 hojas, una por semana), con las camas de cada semana y la muestra M3.</p></div>
 <div class="acciones" style="margin-top:16px"><a class="boton principal" href="../../../agriapp/monitoreo/">Abrir la herramienta</a><a class="boton" href="../../#agriapp/monitoreo">Ver en el árbol</a></div>
-<nav class="indice" aria-label="En esta página"><p class="rotulo">En esta página</p><ol><li><a href="#que-hace">Qué hace y cómo funciona</a></li><li><a href="#como-se-usa">Cómo se usa, paso a paso</a></li><li><a href="#donde-se-guarda">Dónde queda el documento</a></li><li><a href="#como-se-calculan-las-camas">Cómo se calculan las camas de cada semana</a></li><li><a href="#m1-m2-m3">Qué son M1, M2 y M3</a></li><li><a href="#formula-de-n">La fórmula de n (puntos de M3)</a></li><li><a href="#que-contiene-el-documento">Qué contiene el documento generado</a></li><li><a href="#limites">Límites por ahora</a></li></ol></nav>
-<section class="seccion" id="que-hace"><h2><a href="#que-hace">Qué hace y cómo funciona</a></h2><div class="cuerpo"><p>Crea en Google Drive el <b>libro de monitoreo del mes</b> de una finca y un cultivo: un documento de Google Sheets con <b>4 hojas, una por semana</b>, listo para digitar los datos de campo. Usted solo contesta cinco cosas (finca, cultivo, año, mes y cuántos puntos tendrá la muestra M3); los lotes, las camas de cada semana y los nombres de las plagas salen solos del catálogo de fincas y lotes. No hay que escribir fecha, responsable, plagas ni lotes.</p>
-  <p><b>Por ahora solo está habilitado Ruscus.</b> Los demás cultivos aparecen deshabilitados con la leyenda «Próximamente: falta configurar las columnas de plagas de este cultivo»: se habilitan cuando se defina qué plagas se cuentan en cada uno.</p></div></section>
+<nav class="indice" aria-label="En esta página"><p class="rotulo">En esta página</p><ol><li><a href="#que-hace">Qué hace y cómo funciona</a></li><li><a href="#como-se-usa">Cómo se usa, paso a paso</a></li><li><a href="#donde-se-guarda">Dónde queda el archivo</a></li><li><a href="#como-se-calculan-las-camas">Cómo se calculan las camas de cada semana</a></li><li><a href="#m1-m2-m3">Qué son M1, M2 y M3</a></li><li><a href="#formula-de-n">La fórmula de n (puntos de M3)</a></li><li><a href="#que-contiene-el-documento">Qué contiene el archivo generado</a></li><li><a href="#limites">Límites por ahora</a></li></ol></nav>
+<section class="seccion" id="que-hace"><h2><a href="#que-hace">Qué hace y cómo funciona</a></h2><div class="cuerpo"><p>Arma el <b>libro de monitoreo del mes</b> de una finca y un cultivo y lo <b>descarga como archivo Excel (.xlsx)</b> en su equipo: un libro con <b>4 hojas, una por semana</b>, listo para digitar los datos de campo. Usted solo contesta cinco cosas (finca, cultivo, año, mes y cuántos puntos tendrá la muestra M3); los lotes, las camas de cada semana y los nombres de las plagas salen solos del catálogo de fincas y lotes. No hay que escribir fecha, responsable, plagas ni lotes.</p>
+  <p><b>Por ahora solo está habilitado Ruscus.</b> Los demás cultivos aparecen deshabilitados con la leyenda «Falta configurar las columnas de plagas de este cultivo»: se habilitan cuando se defina qué plagas se cuentan en cada uno.</p></div></section>
 <section class="seccion" id="como-se-usa"><h2><a href="#como-se-usa">Cómo se usa, paso a paso</a></h2><div class="cuerpo"><ol>
     <li><b>Finca.</b> Abra la lista y escriba para buscar; solo aparecen las fincas reales del catálogo. Hay que elegir una de la lista (escribir el nombre sin elegirla no basta).</li>
     <li><b>Cultivo.</b> Se ofrece Ruscus; si la finca tiene un solo cultivo posible, queda elegido solo. Si la finca no tiene ese cultivo en el catálogo, se avisa.</li>
     <li><b>Año y mes.</b> Vienen con el año y el mes actuales; cámbielos si el monitoreo es de otra fecha.</li>
     <li><b>Puntos de M3.</b> «Automático (calculado)» (lo recomendado) o «Manual» con un deslizador entre 1 y el máximo de puntos. Más abajo se explica qué es M3 y cómo sale n.</li>
-    <li><b>Revise la vista previa.</b> Se actualiza sola cada vez que cambia algo: muestra los lotes encontrados con su rango de camas, una tarjeta por semana (S1 a S4) con las camas que se monitorearán, los puntos N y los puntos de M3, el nombre exacto del archivo, el nombre de las 4 hojas y la carpeta donde se guardará. Los avisos y errores salen en línea, con el campo resaltado; mientras haya un error, el botón «Generar documento» queda deshabilitado.</li>
-    <li><b>Generar documento.</b> Pide confirmación («Se creará el libro … con 4 hojas en Drive»), muestra «Generando… (puede tardar hasta un minuto)» y, al terminar, una tarjeta con el botón «Abrir en Google Sheets», «Copiar enlace» y «Generar otro».</li>
+    <li><b>Revise la vista previa.</b> Se actualiza sola cada vez que cambia algo: muestra los lotes encontrados con su rango de camas, una tarjeta por semana (S1 a S4) con las camas que se monitorearán, los puntos N y los puntos de M3, el nombre exacto del archivo y el nombre de las 4 hojas. Los avisos y errores salen en línea, con el campo resaltado; mientras haya un error, el botón «Generar y descargar» queda deshabilitado.</li>
+    <li><b>Generar y descargar.</b> Pide confirmación («Se descargará el archivo … .xlsx en su equipo (4 hojas)»), muestra los pasos «Preparando… », «Armando el archivo…» y «Descargando…» y, al terminar, la descarga empieza sola y aparece una tarjeta con «Descargar de nuevo» y «Generar otro».</li>
   </ol>
-  <p>Si ya existe un libro con ese mismo nombre, no se crea otro: la herramienta avisa «Ya existe…» y ofrece «Abrir el existente».</p>
-  <p>Para generar el documento hay que <b>iniciar sesión</b> (nivel «usuario», el mismo inicio de sesión de las demás herramientas); la app lo pide sola cuando hace falta.</p></div></section>
-<section class="seccion" id="donde-se-guarda"><h2><a href="#donde-se-guarda">Dónde queda el documento</a></h2><div class="cuerpo"><p>En Drive, dentro de la carpeta <b>N_MONITOREOS</b>, en la subcarpeta de la finca (por ejemplo «N_MONITOREOS / (CA) Campo Alegre»). La vista previa lo dice antes de generar («Se guardará en: …») y la tarjeta de éxito lo repite («Guardado en …»). Si la subcarpeta de la finca todavía no existe, se crea al generar el primer libro.</p>
-  <p>El archivo se llama, por ejemplo, <span class="codigo">(CA) (RU) Monitoreo 2026-NOV</span>: finca, cultivo, año y mes. Sus hojas se llaman <span class="codigo">NOV S1</span>, <span class="codigo">NOV S2</span>, <span class="codigo">NOV S3</span> y <span class="codigo">NOV S4</span>.</p></div></section>
+    <p>Para generar el documento hay que <b>iniciar sesión</b> (nivel «usuario», el mismo inicio de sesión de las demás herramientas); la app lo pide sola cuando hace falta.</p></div></section>
+<section class="seccion" id="donde-se-guarda"><h2><a href="#donde-se-guarda">Dónde queda el archivo</a></h2><div class="cuerpo"><p>El archivo se <b>descarga en su equipo</b> (en la carpeta de descargas del navegador); la herramienta <b>no guarda nada en Drive</b>. Si la descarga no empieza sola, o si la necesita otra vez, use «Descargar de nuevo» en la tarjeta final (mientras no cierre la página).</p>
+  <p>Se llama, por ejemplo, <span class="codigo">(CA) (RU) Monitoreo 2026-NOV.xlsx</span>: finca, cultivo, año y mes. Sus hojas se llaman <span class="codigo">NOV S1</span>, <span class="codigo">NOV S2</span>, <span class="codigo">NOV S3</span> y <span class="codigo">NOV S4</span>. Como se genera cada vez desde cero, volver a generar el mismo mes da un archivo nuevo (con otra muestra aleatoria M3): si ya tiene datos digitados en uno, no lo reemplace.</p>
+  <p><b>Para usarlo en Google Sheets:</b> súbalo a Drive (por ejemplo a la carpeta N_MONITOREOS, en la subcarpeta de la finca) y ábralo con Google Sheets; las fórmulas y los colores se conservan. También se puede usar directamente en Excel.</p>
+  <p class="pista">La primera vez que se genera, la página baja una biblioteca (ExcelJS) para armar el archivo, así que hace falta conexión a Internet.</p></div></section>
 <section class="seccion" id="como-se-calculan-las-camas"><h2><a href="#como-se-calculan-las-camas">Cómo se calculan las camas de cada semana</a></h2><div class="cuerpo"><p>El monitoreo es sistemático: en cada semana se visita una de cada cuatro camas, y cada semana empieza una cama más adelante. La <b>semana w</b> monitorea las camas <b>w + 4·x</b> que existan en cada lote (x = 0, 1, 2…). Con un lote de camas 1 a 27:</p>
   <ul>
     <li>Semana 1: 1, 5, 9… 25 (7 camas)</li>
@@ -105,7 +106,7 @@
   </ul>
   <p>El resultado se redondea hacia arriba. La herramienta muestra la fórmula con los números reales de su monitoreo. Ejemplo con N = 75: n = 75 × 3,8416 × 0,25 / (0,01 × 74 + 3,8416 × 0,25) = 72,03 / 1,7004 = 42,36, o sea <b>n = 43</b>. En palabras: de 75 puntos monitoreados se eligen 43 al azar para comprobar si un muestreo más corto da el mismo resultado.</p>
   <p>En <b>modo manual</b> usted elige n con el deslizador (de 1 al máximo de puntos). Debajo se lee «n = X (Y % de los puntos)» y, si n es igual o mayor que N, se avisa que M3 tendría todos los puntos de M1 y ya no serviría para comparar con un muestreo más corto.</p></div></section>
-<section class="seccion" id="que-contiene-el-documento"><h2><a href="#que-contiene-el-documento">Qué contiene el documento generado</a></h2><div class="cuerpo"><p>Solo las <b>4 hojas de las semanas</b> (por ejemplo, NOV S1 a NOV S4); no lleva hoja de instrucciones. En cada una:</p>
+<section class="seccion" id="que-contiene-el-documento"><h2><a href="#que-contiene-el-documento">Qué contiene el archivo generado</a></h2><div class="cuerpo"><p>Solo las <b>4 hojas de las semanas</b> (por ejemplo, NOV S1 a NOV S4); no lleva hoja de instrucciones. En cada una:</p>
   <ul>
     <li>M1 para digitar (lote, cama, ubicación, plantas y una columna por plaga), con las camas de esa semana ya escritas.</li>
     <li>M2 y M3 armados automáticamente a partir de M1.</li>
@@ -113,8 +114,8 @@
   </ul>
   <p><b>Escala de colores.</b> Para las <b>plantas</b>, más es mejor: mucho = verde y poco = rojo. Para las <b>plagas</b> es al contrario: poca plaga = verde y mucha plaga = rojo.</p></div></section>
 <section class="seccion" id="limites"><h2><a href="#limites">Límites por ahora</a></h2><div class="cuerpo"><ul>
-    <li>Solo Ruscus está habilitado; los otros cultivos aparecen como «Próximamente».</li>
-    <li>No se sobrescribe un libro existente: si se necesita regenerar uno, hay que renombrarlo o moverlo antes.</li>
+    <li>Solo Ruscus está habilitado; los otros cultivos aparecen deshabilitados.</li>
+    <li>El archivo no se guarda en Drive ni queda registro del que se generó antes: cada vez se arma uno nuevo.</li>
   </ul></div></section>
 <div class="navegar"><a class="boton" href="../../agriapp/reportes/">← Reportes de asistencia técnica</a><span></span></div>
   <p class="pie">¿Algo no cuadra o falta explicar? Escriba a <a href="mailto:pasanteagronomia.ecoagri@gmail.com?subject=Eco%20Agri%20%E2%80%94%20consulta%20de%20ayuda">Andrés Hincapié · pasanteagronomia.ecoagri@gmail.com</a></p>
